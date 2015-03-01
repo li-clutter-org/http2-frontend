@@ -1,0 +1,107 @@
+%card{
+    // @include box-shadow(0px 1px 0px 0px rgba(191, 191, 191, 0.25));
+    background:#fff;
+    border:solid 1px $light_grey_border;
+    overflow:hidden;
+}
+
+.hide, input.hide{
+    display: none;
+}
+
+.ng-fakecloak{
+    display:none !important;
+}
+.show {
+    display: block !important;
+}
+
+a:active{
+    text-decoration: none;
+}
+
+//Disables text selection for the element
+
+.no-select{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+//Quick position relative
+
+.rel{
+    position:relative;
+}
+
+.aqua{
+    color:$primary !important;
+}
+
+.no-margin{
+    margin:0 !important;
+}
+
+// Quick normal cursor
+
+.no-click{
+    cursor: default !important;
+    pointer-events: none;
+}
+
+.no-border{
+    border:none !important;
+}
+
+// Quick capitalize
+
+.capitalize{
+    text-transform:uppercase;
+}
+
+[ui-sref], [data-ui-sref], .clickable{
+    cursor:pointer;
+}
+
+.transLeft{
+    transition: all 300ms ease;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+#upload_fallback, [data-upload-fallback], .hidden-input, #temp{
+    position:fixed !important;
+    left:-9999em !important;//nope display none not allowed
+}
+
+// used to hide text until translations are loaded
+.translate-hide{
+    display:none;
+}
+
+.translate-hidden, .translate-cloak{
+    visibility: hidden;
+}
+
+html.translated{
+    .translate-hide{
+        display: block;
+    }
+
+    .translate-hidden, .translate-cloak{
+        visibility: visible;
+    }
+}

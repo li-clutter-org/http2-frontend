@@ -1,0 +1,53 @@
+{% load static basic_tags %}
+{% load url from future %}
+
+<!DOCTYPE html>
+<html data-ng-app="http2">
+<head>
+    <meta charset="utf-8">
+    <title data-ng-bind="$root.title ? $root.title + ' - Load Impact' : 'Load Impact'">Load Impact</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#c32220">
+    <link rel="shortcut icon" href='{% static "img/favicon.ico?v=1" %}' />
+    <base href="/">
+    {% if debug_set %}
+        <link href='{% static "css/style.css" %}' rel="stylesheet" type="text/css">
+    {% else %}
+        <link href='{% static "build/css/style.css" %}' rel="stylesheet" type="text/css">
+    {% endif %}
+</head>
+
+<body data-ng-class="[bodyClass]">
+    <div class="navigation">
+        <div class="navbar input-block-level no-select row-fluid">
+            <div class="container clearfix middle">
+                <div class="pull-left">
+                    <a data-ui-sref="index" class="nav-btn">
+                        <img  class="logo" src="{% static 'img/logo_white.svg' %}" data-svg-fallback="{% static 'img/logo_white.png' %}"/>
+                        <span class="http2">http2</span>
+                        <span class="beta">Beta</span>
+                    </a>
+                </div>
+                <div class="pull-right">
+                    <a href="http://loadimpact.com/" target="_blank" class="nav-btn ng-cloak">loadimpact.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-ui-view="mainView" class="main-view"></div>
+
+    <div class="footer">Copyright 2014 Load Impact AB. All rights reserved. Terms.</div>
+
+    <div data-growl></div>
+
+    {% if debug_set %}
+        {% render_js_files 'js/general.json' %}
+    {% else %}
+        <script src='{% static "build/js/general.js" %}'></script>
+    {% endif %}
+
+</body>
+
+</html>

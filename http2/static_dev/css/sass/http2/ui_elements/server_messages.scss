@@ -1,0 +1,54 @@
+.growl{
+    @include posTopRight(fixed, 10px, 10px);
+    box-sizing: border-box;
+    z-index:9999; // ui-bootstrap has some crazy z-indexes, gotta overwrite them
+    width:250px;
+    overflow:hidden;
+
+    .growl-item{
+        position:relative;
+        margin-bottom:10px;
+        line-height:1.1;
+    }
+
+    .close{
+        @extend [class^="icon-"] !optional;
+        @include posTopRight(absolute, 0, 10px);
+        background:none;
+        border:none;
+        color:lighten($gray, 20%);
+        padding:0;
+        font-size:25px;
+        font-family: inherit;
+        line-height: normal;
+        vertical-align: top;
+    }
+
+    @include breakpoint(phone_portrait){
+        @include posTopLeft(fixed, 10px, 0);
+    }
+
+    @include breakpoint(phone_portrait){
+        width:100%;
+
+        .growl-item{
+            margin: 10px;
+        }
+    }
+}
+
+html.csstransforms{
+    .growl-item.ng-enter,.growl-item.ng-leave {
+        transition: .3s cubic-bezier(0.7, 0, 0.3, 1) transform;
+    }
+
+    .growl-item.ng-enter,
+    .growl-item.ng-leave.ng-leave-active {
+        transform: translateX(100%);
+    }
+
+    .growl-item.ng-leave,
+    .growl-item.ng-enter.ng-enter-active {
+        transform: translateX(0);
+    }
+}

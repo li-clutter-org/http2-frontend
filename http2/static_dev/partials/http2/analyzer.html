@@ -1,0 +1,26 @@
+<div class="container main-container text-center" data-ng-controller="analyzerController">
+    <i class="icon-house hero"></i>
+    <h2 class="text-center">Index page</h2>
+    <p data-translate>You can paste your site url here below.</p>
+
+    <div class="row-fluid">
+
+        <div class="span4 text-center">
+            <h1 class="text-center" data-translate>Analyze your site</h1>
+            <form novalidate name="analize" data-ng-submit="send();">
+                <input
+                    data-ng-maxlength="200"
+                    class="input-block-level text-center large invis-valid"
+                    data-ng-autofocus
+                    type="text"
+                    data-ng-model="analyzer.url"
+                    data-ng-required="true"
+                    name="url"
+                />
+                <button type="submit" class="custom-btn primary no-margin" data-ng-disabled="analize.$invalid || analize.$pristine">Go</button>
+            </form>
+
+        </div>
+
+    </div>
+</div>

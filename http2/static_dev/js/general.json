@@ -1,0 +1,38 @@
+{
+    "root": "static_dev/",
+    "credits": [
+        "AngularJS: https://github.com/angular/angular.js",
+        "UnderscoreJS: http://underscorejs.org/",
+        "Angular Growl: https://github.com/marcorinck/angular-growl",
+        "Angular UI Router: https://github.com/angular-ui/ui-router",
+        "Modernizr: http://modernizr.com/"
+    ],
+    "files": [
+        "js/lib/modernizr.js",
+        "js/lib/underscore-min.js",
+        "js/lib/angular.js",
+        "js/lib/angular-ui-router.js",
+        "js/lib/angular-animate.js",
+        "js/lib/angular-cookies.js",
+        "js/lib/angular-sanitize.js",
+        "js/lib/angular-growl.js",
+        "js/lib/angular-route.js",
+        "js/lib/angular-touch.js",
+        "js/lib/angular-messages.js",
+
+        "js/angular/core/app.js",
+        "js/angular/core/config.js",
+        "js/angular/core/routes.js",
+
+        "js/angular/core/filters/capitalize.js",
+
+        "js/angular/core/services/modernizr.js",
+        "js/angular/core/services/analyzerService.js",
+
+        "js/angular/core/controllers/404controller.js",
+        "js/angular/core/controllers/analyzerController.js",
+
+        "js/angular/core/directives/monkey-patches/growlAddons.js",
+        "js/angular/core/directives/fallbacks/svgFallback.js"
+    ]
+}
