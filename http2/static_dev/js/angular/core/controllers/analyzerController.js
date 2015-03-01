@@ -23,9 +23,9 @@
 
             var analyzer = $scope.analyzer;
 
-            analyzerService.requestAnalysis(analyzer.url).then(function(response) {
-                    $scope.analyzer.data = response.data;
-                });
+            analyzerService.requestAnalysis(analyzer).then(function(response) {
+                $scope.analyzer = analyzer;
+            });
         };
 
     }]);

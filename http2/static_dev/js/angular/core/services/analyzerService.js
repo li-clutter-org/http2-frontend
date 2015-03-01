@@ -20,7 +20,7 @@ angular.module('http2')
             }
         };
 
-        service.requestAnalysis = function(url){
+        service.requestAnalysis = function(analyzer) {
             /**
                  * @ngdoc method
                  * @name http2.service:analyzerService#requestAnalysis
@@ -37,10 +37,9 @@ angular.module('http2')
 
             growl.addInfoMessage('Sending analysis', {ttl: 15000});
 
-            return $http.post(me.analyzer.url, {
-                'url_to_analyze': url
-                }).then(function(response){
-                    me.analysisData = response.data;
+            return $http.post(me.analyzer.url, analyzer)
+                .then(function(response){
+                    analyzer.data = response.data;
 
                     growl.removeMessage('Sending analysis');
                     growl.addSuccessMessage('Analysis sent', {ttl: 1000});
