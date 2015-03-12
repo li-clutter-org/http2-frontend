@@ -1,5 +1,11 @@
+import os
+
+from django.conf import settings
+
 from rest_framework.views import APIView, status
 from rest_framework.response import Response
+
+from .analyzer import process_url
 
 
 class AnalyzerViewSet(APIView):
@@ -13,4 +19,6 @@ class AnalyzerViewSet(APIView):
         # TODO: call the task that will take of the analysis.
         data = request.DATA
 
-        return Response(data, status=status.HTTP_200_OK)
+        json_data = process_url(data['url'])
+
+        return Response(json_data, status=status.HTTP_200_OK)

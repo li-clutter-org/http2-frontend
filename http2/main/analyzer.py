@@ -1,0 +1,52 @@
+import os
+import json
+
+from django.conf import settings
+
+
+def process_url(url):
+    """
+    Will:
+        - send the url to be analyzed,
+        - get the .har file,
+        - process the .har file to get just the data we need from the file,
+
+    :param url: the url to be analyzed.
+    :return: json data of the .har file with the data we need.
+    """
+    # TODO: it is just a mocking for now, to process a .har file, and return the data in json format.
+            # Just mocking the response of the analyzer.
+    http2_har_filename = 'test_http2.har'
+    http2_har_file_path = os.path.join(settings.MEDIA_ROOT, http2_har_filename)
+    http2_json_data = process_har_file(http2_har_file_path)
+
+    http1_har_filename = 'harvested.har'
+    http1_har_file_path = os.path.join(settings.MEDIA_ROOT, http1_har_filename)
+    http1_json_data = process_har_file(http1_har_file_path)
+
+    return {'http2_analysis_data': http2_json_data,
+            'http1_analysis_data': http1_json_data}
+
+
+def process_har_file(harfile_path):
+    """
+    Will process the .har file, and remove the unneeded info.
+    The specs for .har files are here http://www.softwareishard.com/blog/har-12-spec/
+
+    :param harfile_path: absolute path to the .har file
+    :return: .har file info in json after the processing.
+    """
+    # TODO: just returning all the data for now
+    json_data = json.loads(open(harfile_path, 'r').read())
+
+    entries = json_data['har']['entries']
+    print(" len of entries %s" % len(entries))
+    clean_entries = []
+    for entry in entries:
+        del entry['response']['content']['text']
+        del entry['response']['headers']
+        del entry['request']['headers']
+        clean_entries.append(entry)
+    json_data['har']['entries'] = clean_entries
+
+    return json_data

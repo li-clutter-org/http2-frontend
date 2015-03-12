@@ -27,7 +27,6 @@ build
 /http2/static_dev/css/style.css
 /http2/static_dev/css/style.map.css
 /http2/static_dev/js/general.js
-/http2/media/
 /wingdbstub.py
 /http2/static_dev/css/sass/.sass-cache/
 .sass-cache/
