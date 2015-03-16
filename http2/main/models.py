@@ -2,6 +2,8 @@ import hashlib
 
 from django.db import models
 
+from .analyzer import generate_hash_id
+
 
 class AnalysisInfo(models.Model):
     STATE_SENT = 'sent'
@@ -33,14 +35,8 @@ class AnalysisInfo(models.Model):
         return self.url_analyzed
 
     def save(self, *args, **kwargs):
-        # populating analysis ID
-        # It will be a md5 (URL, moment the analysis starts) for now,
-        # until we agree the final salt for
-        # TODO: check Alcides code to generate that, because it should be the same idea
-        # to generate the same code from both apps, the python one, and the haskel one...
-        self.analysis_id = hashlib.md5(
-            (
-                self.url_analyzed  #+ self.created.strftime("%Y%m%d%M%S%f")
-            )
-            .encode('utf-8')).hexdigest()
+        # Populating analysis ID
+        if not self.analysis_id:
+            self.analysis_id = generate_hash_id(self.url_analyzed)
+
         super(AnalysisInfo, self).save(*args, **kwargs)

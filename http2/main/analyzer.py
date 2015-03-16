@@ -1,5 +1,7 @@
 import os
 import json
+from urllib.parse import *
+import hashlib
 
 from django.conf import settings
 
@@ -50,3 +52,24 @@ def process_har_file(harfile_path):
     json_data['har']['entries'] = clean_entries
 
     return json_data
+
+
+def generate_hash_id(url):
+    """
+    url_example_1 = "https://recursive.overflow.data/developer/phase?" \
+    "includes=developer&deviation=for%20network%20data&ethernet=recognition#potentiometer-developer"
+    u1 = urlparse(url_example_1)
+    # u1 -> ParseResult(scheme='https', netloc='recursive.overflow.data', path='/developer/phase', params='', query='includes=developer&deviation=for%20network%20data&ethernet=recognition', fragment='potentiometer-developer')
+    transcoded_example = urlunparse(["snu"]+list(u1[1:]))
+    # transcoded_example -> 'snu://recursive.overflow.data/developer/phase?includes=developer&deviation=for%20network%20data&ethernet=recognition#potentiometer-developer'
+    salt = "Adfafwwf"
+    code = (hashlib.md5((salt+transcoded_example).encode('ascii')).hexdigest())[:10]
+    # code -> '93497cb179'
+
+    :param url: the url from where the hash_id will be generated
+    :return: the md5 hash generated from the salt + url
+    """
+    u1 = urlparse(url)
+    transcoded_url = urlunparse(["snu"]+list(u1[1:]))
+
+    return (hashlib.md5((settings.HASH_ID_SECRET_SALT+transcoded_url).encode('ascii')).hexdigest())[:10]
