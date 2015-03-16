@@ -4,17 +4,21 @@ from django.db import models
 
 
 class AnalysisInfo(models.Model):
-    STATE_SEND = 1
-    STATE_FAILED = 2
-    STATE_DONE = 3
+    STATE_SENT = 'sent'
+    STATE_FAILED = 'failed'
+    STATE_DONE = 'done'
     STATE_CHOICES = (
-        (STATE_SEND, 'Send'),
+        (STATE_SENT, 'Sent'),
         (STATE_FAILED, 'Failed'),
         (STATE_DONE, 'Done')
     )
     analysis_id = models.CharField(max_length=60, editable=False)
     # state of the analysis
-    state = models.IntegerField(choices=STATE_CHOICES, default=STATE_SEND)
+    state = models.CharField(
+        choices=STATE_CHOICES,
+        max_length=10,
+        default=STATE_SENT
+    )
     # URL analyzed
     url_analyzed = models.URLField()
     # data for http 1 request
@@ -23,7 +27,6 @@ class AnalysisInfo(models.Model):
     http2_json_data = models.TextField()
     # Analysis created
     created_at = models.DateTimeField(auto_now_add=True)
-    # TODO: this is the moment the analysis is done (status==STATE_DONE)?
     when_done = models.DateTimeField()
 
     def __unicode__(self):
@@ -33,6 +36,8 @@ class AnalysisInfo(models.Model):
         # populating analysis ID
         # It will be a md5 (URL, moment the analysis starts) for now,
         # until we agree the final salt for
+        # TODO: check Alcides code to generate that, because it should be the same idea
+        # to generate the same code from both apps, the python one, and the haskel one...
         self.analysis_id = hashlib.md5(
             (
                 self.url_analyzed  #+ self.created.strftime("%Y%m%d%M%S%f")
