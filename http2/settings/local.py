@@ -9,3 +9,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# The same dir as MEDIA_ROOT
+# for local environments.
+ANALYSIS_RESULT_PATH = MEDIA_ROOT

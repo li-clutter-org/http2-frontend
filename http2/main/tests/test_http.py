@@ -2,11 +2,11 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 
-class TestAnalyzerViewSet(TestCase):
+class TestSendAnalysisViewSet(TestCase):
 
     def test_view(self):
         data = {'url': 'www.zunzun.se'}
-        response = self.client.post(reverse('analyzer'), data)
+        response = self.client.post(reverse('send_analysis'), data)
 
         print(response.data)
 
