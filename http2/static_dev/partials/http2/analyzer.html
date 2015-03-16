@@ -23,7 +23,55 @@
         </div>
 
         <div class="span4 text-center">
-         {[{ analyzer.data }]}
+            <div class="load-navbar pull-left " ng-controller="NavController">
+                <a class="menu-item pull-left" ng-click="doSomething()">Web, Desktop<br><span>Same continent</span></a>
+                <a class="menu-item pull-left" ng-click="doSomething()">Web, Desktop<br><span>Trasatlantic link</span></a>
+                <a class="menu-item pull-left" ng-click="doSomething()">Web, Mobile<br><span></span></a>
+
+            </div>
+            <div class="analyzer clear-both">
+                <div class="analyzer-http http2-push">
+                    <div class="statistics text-center clear-both">
+                        <div class="statistics-resume http2-push-resume text-center clear-both">
+                            <div class="statistics-version pull-left"><span pull-left>HTTP/2.0 + Push</span></div>
+                            <div class="statistics-bar pull-left"></div>
+                            <div class="statistics-time pull-left"><span>1.2 s</span></div>
+                        </div>
+                         <div class="statistics-resume http2-resume text-center clear-both">
+                            <div class="statistics-version pull-left"><span pull-left>HTTP/2.0</span></div>
+                            <div class="statistics-bar pull-left"></div>
+                            <div class="statistics-time pull-left"><span>3.6 s</span></div>
+                        </div>
+                         <div class="statistics-resume http1-resume text-center clear-both">
+                            <div class="statistics-version pull-left"><span pull-left>HTTP/1.1</span></div>
+                             <div class="statistics-bar pull-left"></div>
+                            <div class="statistics-time pull-left"><span>6.0 s</span></div>
+                        </div>
+                    </div>
+                </div>
+                <span class="analyzer-http-version pull-left clear-both" >HTTP/2.0 + Push</span><br><br>
+                <div class="line-analyzer pull-left"></div>
+                <div class="analyzer-http http2">
+                    <div class="load-description pull-left"> << load description>> </div>
+                </div>
+                <span class="analyzer-http-version pull-left clear-both">HTTP/2.0</span><br><br>
+                <div class="line-analyzer pull-left"></div>
+                <div class="analyzer-http http1">
+                    <div class="load-description pull-left"> << load description>> </div>
+                </div>
+                <span class="analyzer-http-version pull-left clear-both">HTTP/1.1</span><br><br>
+                <div class="line-analyzer pull-left"></div>
+                <div class="analyzer-http share">
+                    <div class="load-description pull-left"> << load description>> </div><br><br>
+                    <div class="pull-left">
+                        <a href="http://http2.loadimpact.com/afb42" target="_blank" class="nav-btn ng-cloak">*Disclaimers:...</a>
+                    </div>
+                    <div class="pull-right">
+                        <a href="http://http2.loadimpact.com/afb42" target="_blank" class="nav-btn ng-cloak">Share these results: http://http2.loadimpact.com/afb42</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
 
     </div>
