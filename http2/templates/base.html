@@ -11,11 +11,8 @@
     <meta name="theme-color" content="#c32220">
     <link rel="shortcut icon" href='{% static "img/favicon.ico?v=1" %}' />
     <base href="/">
-    {% if debug_set %}
-        <link href='{% static "css/style.css" %}' rel="stylesheet" type="text/css">
-    {% else %}
-        <link href='{% static "build/css/style.css" %}' rel="stylesheet" type="text/css">
-    {% endif %}
+    <link href='{% static "build/css/style.css" %}' rel="stylesheet" type="text/css">
+
 </head>
 
 <body data-ng-class="[bodyClass]">
