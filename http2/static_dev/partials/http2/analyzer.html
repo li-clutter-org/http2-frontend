@@ -1,51 +1,64 @@
 <div class="container main-container text-center" data-ng-controller="analyzerController">
     <i class="icon-house hero"></i>
-    <h2 class="text-center">Index page</h2>
-    <p data-translate>You can paste your site url here below.</p>
-
     <div class="row-fluid">
-
         <div class="span4 text-center">
-            <h1 class="text-center" data-translate>Analyze your site</h1>
-            <form novalidate name="analize" data-ng-submit="send();">
-                <input
-                    data-ng-maxlength="200"
-                    class="input-block-level text-center large invis-valid"
-                    data-ng-autofocus
-                    type="text"
-                    data-ng-model="analyzer.url"
-                    data-ng-required="true"
-                    name="url"
-                />
-                <button type="submit" class="custom-btn primary no-margin" data-ng-disabled="analize.$invalid || analize.$pristine">Go</button>
-            </form>
+          <div class="col-lg-12 analyze">
+            <div class="input-group">
+              <input
+                  type="text"
+                  class="form-control analyze-input input-block-level text-center large invis-valid"
+                  placeholder="Type your url here"
+                  data-ng-maxlength="200"
+                  data-ng-autofocus
+                  data-ng-model="analyzer.url"
+                  data-ng-required="true"
+                  name="url"
+              />
+              <span class="input-group-btn">
 
+                <button type="submit" class="btn btn-default analyze-button btn btn-primary" data-ng-disabled="analize.$invalid || analize.$pristine">Go</button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="span4 text-center">
+
+
+        <div class="load-navbar pull-left " ng-controller="NavController">
+            <a class="menu-item pull-left" ng-click="doSomething()">Web, Mobile<br></a>
         </div>
 
-        <div class="span4 text-center">
-            <div class="load-navbar pull-left " ng-controller="NavController">
-                <a class="menu-item pull-left" ng-click="doSomething()">Web, Desktop<br><span>Same continent</span></a>
-                <a class="menu-item pull-left" ng-click="doSomething()">Web, Desktop<br><span>Trasatlantic link</span></a>
-                <a class="menu-item pull-left" ng-click="doSomething()">Web, Mobile<br><span></span></a>
 
-            </div>
+
             <div class="analyzer clear-both">
                 <div class="analyzer-http http2-push">
                     <div class="statistics text-center clear-both">
                         <div class="statistics-resume http2-push-resume text-center clear-both">
-                            <div class="statistics-version pull-left"><span pull-left>HTTP/2.0 + Push</span></div>
-                            <div class="statistics-bar pull-left"></div>
-                            <div class="statistics-time pull-left"><span>1.2 s</span></div>
+                            <div class="statistics-version col-md-3"><span pull-left>HTTP/2.0 + Push</span></div>
+                            <div class="progress statistics-bar col-md-5">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="60"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                </div>
+                            </div>
+                            <div class="statistics-time col-md-offset-1 col-md-3"><span>1.2 s</span></div>
                         </div>
-                         <div class="statistics-resume http2-resume text-center clear-both">
-                            <div class="statistics-version pull-left"><span pull-left>HTTP/2.0</span></div>
-                            <div class="statistics-bar pull-left"></div>
-                            <div class="statistics-time pull-left"><span>3.6 s</span></div>
+                        <div class="statistics-resume http2-resume text-center clear-both">
+                            <div class="statistics-version col-md-3"><span pull-left>HTTP/2.0</span></div>
+                            <div class="progress statistics-bar col-md-5">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="60"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
+                                </div>
+                            </div>
+                            <div class="statistics-time col-md-offset-1 col-md-3"><span>3.6 s</span></div>
                         </div>
-                         <div class="statistics-resume http1-resume text-center clear-both">
-                            <div class="statistics-version pull-left"><span pull-left>HTTP/1.1</span></div>
-                             <div class="statistics-bar pull-left"></div>
-                            <div class="statistics-time pull-left"><span>6.0 s</span></div>
+                        <div class="statistics-resume http1-resume text-center clear-both">
+                            <div class="statistics-version col-md-3"><span pull-left>HTTP/1.1</span></div>
+                            <div class="progress statistics-bar col-md-5">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="60"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+                                </div>
+                            </div>
+                            <div class="statistics-time col-md-offset-1 col-md-3"><span>6.0 s</span></div>
                         </div>
                     </div>
                 </div>
@@ -76,3 +89,8 @@
 
     </div>
 </div>
+
+
+          <ul class="nav nav-pills pull-left" ng-controller="NavController">
+              <li class="active"><a class="menu-item pull-left" ng-click="doSomething()">Web, Mobile<br></a></li>
+            </ul>

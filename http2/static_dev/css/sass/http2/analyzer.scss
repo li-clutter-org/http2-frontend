@@ -1,3 +1,18 @@
+
+.analyze {
+  .input-group {
+    margin: 8% 0;
+    .analyze-button {
+      background-color: $analyzer_border;
+      height: 50px;
+    }
+    .analyze-input {
+      height: 50px;
+    }
+  }
+}
+
+
 .load-navbar {
   width: 100%;
   border-radius: 0;
@@ -33,16 +48,16 @@
         height: 30px;
         width: 100%;
         .statistics-version {
-          width: 25%;
         }
         .statistics-bar {
-          width: 45%;
-          height: 15px;
+          height: 20px;
           border: 1px solid $analyzer_border;
+          padding: 0;
+          .progress-bar {
+            background-color: $analyzer_border;
+          }
         }
         .statistics-time {
-          width: 15%;
-          margin-left: 10%;
         }
       }
       span{
