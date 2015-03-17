@@ -2,6 +2,7 @@
 .analyze {
   .input-group {
     margin: 8% 0;
+    display: block;
     .analyze-button {
       background-color: $analyzer_border;
       height: 50px;
@@ -17,14 +18,15 @@
   width: 100%;
   border-radius: 0;
   font-size: 20px;
-  margin-bottom: 3px;
-  display: table;
   .menu-item {
     padding: 10px;
     border: 3px solid $analyzer_border;
+    border-bottom: 0;
     list-style: none;
-    margin-right: 1%;
-    display: table-cell;
+    a:hover {
+      padding-bottom: 10px;
+      border-bottom: 3px solid #fff;
+    }
     span{
       font-size: 12px;
     }

@@ -4,28 +4,28 @@
         <div class="span4 text-center">
           <div class="col-lg-12 analyze">
             <div class="input-group">
-              <input
-                  type="text"
-                  class="form-control analyze-input input-block-level text-center large invis-valid"
-                  placeholder="Type your url here"
-                  data-ng-maxlength="200"
-                  data-ng-autofocus
-                  data-ng-model="analyzer.url"
-                  data-ng-required="true"
-                  name="url"
-              />
-              <span class="input-group-btn">
+                <form novalidate name="analize" data-ng-submit="send();">
+                    <input
+                      type="url"
+                      class="form-control analyze-input input-block-level text-center large invis-valid"
+                      placeholder="Type your url here"
+                      data-ng-maxlength="200"
+                      data-ng-autofocus
+                      data-ng-model="analyzer.url"
+                      data-ng-required="true"
+                      name="url"
+                  />
+                  <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default analyze-button btn btn-primary" data-ng-disabled="analize.$invalid || analize.$pristine"><bold>Go</bold></button>
+                  </span>
+                </form>
 
-                <button type="submit" class="btn btn-default analyze-button btn btn-primary" data-ng-disabled="analize.$invalid || analize.$pristine">Go</button>
-              </span>
             </div>
           </div>
         </div>
         <div class="span4 text-center">
-
-
         <div class="load-navbar pull-left " ng-controller="NavController">
-            <a class="menu-item pull-left" ng-click="doSomething()">Web, Mobile<br></a>
+            <a class="menu-item pull-left">Web, Mobile<br></a>
         </div>
 
 
@@ -89,8 +89,3 @@
 
     </div>
 </div>
-
-
-          <ul class="nav nav-pills pull-left" ng-controller="NavController">
-              <li class="active"><a class="menu-item pull-left" ng-click="doSomething()">Web, Mobile<br></a></li>
-            </ul>
