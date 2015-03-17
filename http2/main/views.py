@@ -1,5 +1,6 @@
 import os
 import shutil
+import requests
 
 from django.conf import settings
 
@@ -23,9 +24,12 @@ class SendAnalysisViewSet(APIView):
         url_to_analyze = data['url']
         hash_id = generate_hash_id(url_to_analyze)
 
-        # TODO: do the POST request to the analyzer
+        # TODO: do the POST request to the analyzer according with this:
+        # curl -k --data-binary "http://www.reddit.com/r/haskell/" --http2 https://instr.httpdos.com:1070/setnexturl/
+        # varify=False is the equivalent to curl -k
+        requests.post(settings.ANALYZER_URL, data={'url': url_to_analyze}, verify=False)
 
-        analysis_info = AnalysisInfo.objects.create(
+        analysis_info, created = AnalysisInfo.objects.get_or_create(
             url_analyzed=url_to_analyze,
             analysis_id=hash_id
         )
