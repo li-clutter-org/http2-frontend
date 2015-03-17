@@ -38,9 +38,8 @@ def process_har_file(harfile_path):
     :param harfile_path: absolute path to the .har file
     :return: .har file info in json after the processing.
     """
-    # TODO: just returning all the data for now
     json_data = json.loads(open(harfile_path, 'r').read())
-
+    # Cleaning the .har data a bit.
     entries = json_data['har']['entries']
     print(" len of entries %s" % len(entries))
     clean_entries = []

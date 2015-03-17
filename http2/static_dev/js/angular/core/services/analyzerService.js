@@ -15,7 +15,7 @@ angular.module('http2')
 
         var service = {
             analyzer:{
-                url: "/api/analyzer",
+                url: "/api/send/analysis",
                 redirectUrl: "/results"
             }
         };

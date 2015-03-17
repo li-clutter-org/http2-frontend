@@ -14,3 +14,4 @@ class TestSendAnalysisViewSet(TestCase):
 
         # Checking that some data is correct in the response
         self.assertEquals(response.data['url'], data['url'])
+        self.assertEquals(response.data['state'], 'sent')

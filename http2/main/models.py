@@ -24,12 +24,12 @@ class AnalysisInfo(models.Model):
     # URL analyzed
     url_analyzed = models.URLField()
     # data for http 1 request
-    http1_json_data = models.TextField()
+    http1_json_data = models.TextField(null=True)
     # data for http 2 request
-    http2_json_data = models.TextField()
+    http2_json_data = models.TextField(null=True)
     # Analysis created
     created_at = models.DateTimeField(auto_now_add=True)
-    when_done = models.DateTimeField()
+    when_done = models.DateTimeField(null=True)
 
     def __unicode__(self):
         return self.url_analyzed

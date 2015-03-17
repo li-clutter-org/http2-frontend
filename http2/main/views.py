@@ -7,22 +7,30 @@ from rest_framework.views import APIView, status
 from rest_framework.response import Response
 
 from .analyzer import process_url, generate_hash_id
+from .models import AnalysisInfo
+from .serializers import AnalysisInfoSerializer
 
 
 class SendAnalysisViewSet(APIView):
     """
-    This view will set a task in a queue (perhaps using Celery + RabbitMQ),
-    and the task will request the analysis to the URL, and set the data in
-    a place that could be read later to show the results to the user.
+    This view will send a POST to the analyzer, and create an instance of
+    AnalysisInfo model.
     """
 
     def post(self, request):
         # TODO: call the task that will take of the analysis.
         data = request.DATA
+        url_to_analyze = data['url']
+        hash_id = generate_hash_id(url_to_analyze)
 
-        json_data = process_url(data['url'])
+        # TODO: do the POST request to the analyzer
 
-        return Response(json_data, status=status.HTTP_200_OK)
+        analysis_info = AnalysisInfo.objects.create(
+            url_analyzed=url_to_analyze,
+            analysis_id=hash_id
+        )
+
+        return Response(AnalysisInfoSerializer(analysis_info).data, status=status.HTTP_200_OK)
 
 
 class AnalyzerMockingViewSet(APIView):
