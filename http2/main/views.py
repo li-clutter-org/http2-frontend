@@ -1,6 +1,7 @@
 import os
 import shutil
 import requests
+import os.path as path
 
 from django.conf import settings
 
@@ -52,7 +53,7 @@ class AnalyzerMockingViewSet(APIView):
         analysis_result_path = os.path.join(settings.ANALYSIS_RESULT_PATH, hash_id)
 
         # Creating the dir for the results
-        if not os.path.exists(analysis_result_path):
+        if not path.exists(analysis_result_path):
             os.makedirs(analysis_result_path)
 
         # Hard coding this for now, it is just a mocking
@@ -72,3 +73,59 @@ class AnalyzerMockingViewSet(APIView):
         status_done_file.close()
 
         return Response(status=status.HTTP_200_OK)
+
+
+class GetAnalysisState(APIView):
+    """
+    This view returns the status for the given analysis
+    """
+
+    def get(self, request, analysis_id):
+        try:
+            analysis = AnalysisInfo.objects.get(analysis_id=analysis_id)
+        except AnalysisInfo.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        if analysis.state == AnalysisInfo.STATE_DONE:
+            return Response({
+                'state': AnalysisInfo.STATE_DONE,
+                'data': {
+                    'http1_json_data': analysis.http1_json_data,
+                    'http2_json_data': analysis.http2_json_data
+                }
+            })
+        if analysis.state == AnalysisInfo.STATE_SENT:
+            result_dir = path.join(
+                settings.ANALYSIS_RESULT_PATH, analysis.analysis_id
+            )
+            # if the done file exists
+            if path.exists(
+                    path.join(
+                            result_dir,
+                            settings.ANALYSIS_RESULTS_DONE_FILE_NAME)):
+
+                #TODO: process file and save info accordingly
+                analysis.state = AnalysisInfo.STATE_DONE
+                analysis.save()
+                return Response({
+                    'state': AnalysisInfo.STATE_DONE,
+                    'data': ''  # for now
+                })
+            elif path.exists(
+                    path.join(
+                            result_dir,
+                            settings.ANALYSIS_RESULTS_FAILED_FILE_NAME)):
+                return Response({
+                    'state': AnalysisInfo.STATE_FAILED,
+                    'data': ''  # for now
+                })
+            elif path.exists(
+                    path.join(
+                            result_dir,
+                            settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME)):
+                 return Response({
+                    'state': AnalysisInfo.STATE_PROCESSING,
+                    'data': ''  # for now
+                })
+            else:
+                # TODO what to do in this case?
+                pass
