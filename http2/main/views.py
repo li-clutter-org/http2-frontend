@@ -117,7 +117,7 @@ class GetAnalysisState(APIView):
             else:
                 # TODO what to do in this case?
                 # Returning the analysis_info data for now, but we should check this case
-                return Response()
+                pass
             # save new status
             analysis.save()
             result = AnalysisInfoSerializer(analysis).data
