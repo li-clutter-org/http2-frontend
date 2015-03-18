@@ -22,7 +22,7 @@ class SendAnalysisViewSet(APIView):
 
     def post(self, request):
         data = request.DATA
-        url_to_analyze = data['url']
+        url_to_analyze = data['url_analyzed']
         hash_id = generate_hash_id(url_to_analyze)
 
         # TODO: do the POST request to the analyzer according with this:

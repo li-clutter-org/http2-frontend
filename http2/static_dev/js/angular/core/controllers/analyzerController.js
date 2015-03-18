@@ -21,10 +21,10 @@
                  * Requests analysis
             **/
 
-            var analyzer = $scope.analyzer;
+            var analyzer = $scope.analyzer.data;
 
             analyzerService.requestAnalysis(analyzer).then(function(response) {
-                $scope.analyzer = analyzer;
+                $scope.analyzer.data = analyzer.data;
             });
         };
 
