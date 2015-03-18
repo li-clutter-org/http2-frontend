@@ -35,5 +35,7 @@ class TestGetAnalysisState(TestCase):
         self.assertEquals(response.status_code, 200)
 
         # Checking that some data is correct in the response
-        self.assertEquals(response.data['url_analyzed'], self.analysis_info.url_analyzed)
+        self.assertEquals(
+            response.data['url_analyzed'],
+            self.analysis_info.url_analyzed)
         self.assertEquals(response.data['state'], 'sent')

@@ -45,9 +45,9 @@ def generate_hash_id(url):
     :return: the md5 hash generated from the salt + url
     """
     u1 = urlparse(url)
-    transcoded_url = urlunparse(["snu"]+list(u1[1:]))
+    transcoded_url = urlunparse(["snu"] + list(u1[1:]))
 
-    return (hashlib.md5((settings.HASH_ID_SECRET_SALT+transcoded_url).encode('ascii')).hexdigest())[:10]
+    return (hashlib.md5((settings.HASH_ID_SECRET_SALT + transcoded_url).encode('ascii')).hexdigest())[:10]
 
 
 def get_har_data_as_json(result_dir):

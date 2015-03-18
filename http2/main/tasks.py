@@ -3,6 +3,8 @@
 # from celery import shared_task
 
 #@shared_task
+
+
 def state_monitor():
     # looks for shared files and changes AnalysisInfo.status accordingly:
     # all modifications of the DB and file system we are thinking to do in the
