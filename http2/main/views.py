@@ -78,14 +78,10 @@ class GetAnalysisState(APIView):
             analysis = AnalysisInfo.objects.get(analysis_id=analysis_id)
         except AnalysisInfo.DoesNotExist:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        # if it is done, we don't need to do anything else, just send the data
         if analysis.state == AnalysisInfo.STATE_DONE:
-            return Response({
-                'state': AnalysisInfo.STATE_DONE,
-                'data': {
-                    'http1_json_data': analysis.http1_json_data,
-                    'http2_json_data': analysis.http2_json_data
-                }
-            })
+            return Response(AnalysisInfoSerializer(analysis).data)
+        # otherwise check status via the files
         if analysis.state == AnalysisInfo.STATE_SENT:
             result_dir = path.join(
                 settings.ANALYSIS_RESULT_PATH, analysis.analysis_id
