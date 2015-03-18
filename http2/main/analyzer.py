@@ -72,3 +72,21 @@ def generate_hash_id(url):
     transcoded_url = urlunparse(["snu"]+list(u1[1:]))
 
     return (hashlib.md5((settings.HASH_ID_SECRET_SALT+transcoded_url).encode('ascii')).hexdigest())[:10]
+
+
+def get_har_data_as_json(result_dir):
+    """
+    Will:
+        - seek for http1 and http2 har files inside result_dir,
+        - process the .har file to get just the data we need from the files,
+
+    :param result_dir: the dir where the .har files are stored.
+    :return: json data of the .har files with the data we need.
+    """
+    http1_har_file_path = os.path.join(result_dir, settings.HTTP1_HAR_FILENAME)
+    http1_json_data = process_har_file(http1_har_file_path)
+
+    http2_har_file_path = os.path.join(result_dir, settings.HTTP2_HAR_FILENAME)
+    http2_json_data = process_har_file(http2_har_file_path)
+
+    return http1_json_data, http2_json_data

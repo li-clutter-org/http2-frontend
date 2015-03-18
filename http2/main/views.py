@@ -8,7 +8,7 @@ from django.conf import settings
 from rest_framework.views import APIView, status
 from rest_framework.response import Response
 
-from .analyzer import process_url, generate_hash_id
+from .analyzer import get_har_data_as_json, generate_hash_id
 from .models import AnalysisInfo
 from .serializers import AnalysisInfoSerializer
 
@@ -20,7 +20,6 @@ class SendAnalysisViewSet(APIView):
     """
 
     def post(self, request):
-        # TODO: call the task that will take of the analysis.
         data = request.DATA
         url_to_analyze = data['url']
         hash_id = generate_hash_id(url_to_analyze)
@@ -40,13 +39,10 @@ class SendAnalysisViewSet(APIView):
 
 class AnalyzerMockingViewSet(APIView):
     """
-    This view will set a task in a queue (perhaps using Celery + RabbitMQ),
-    and the task will request the analysis to the URL, and set the data in
-    a place that could be read later to show the results to the user.
+    This view is a mocking of the analyzer.
     """
 
     def post(self, request):
-        # TODO: call the task that will take of the analysis.
         data = request.DATA
 
         hash_id = generate_hash_id(data['url'])
@@ -57,11 +53,8 @@ class AnalyzerMockingViewSet(APIView):
             os.makedirs(analysis_result_path)
 
         # Hard coding this for now, it is just a mocking
-        http2_har_filename = 'test_http2.har'
-        http2_har_file_path = os.path.join(settings.MEDIA_ROOT, http2_har_filename)
-
-        http1_har_filename = 'harvested.har'
-        http1_har_file_path = os.path.join(settings.MEDIA_ROOT, http1_har_filename)
+        http2_har_file_path = os.path.join(settings.MEDIA_ROOT, settings.HTTP2_HAR_FILENAME)
+        http1_har_file_path = os.path.join(settings.MEDIA_ROOT, settings.HTTP1_HAR_FILENAME)
 
         shutil.copy(http2_har_file_path, analysis_result_path)
         shutil.copy(http1_har_file_path, analysis_result_path)
@@ -100,31 +93,38 @@ class GetAnalysisState(APIView):
             # if the done file exists
             if path.exists(
                     path.join(
-                            result_dir,
-                            settings.ANALYSIS_RESULTS_DONE_FILE_NAME)):
+                        result_dir,
+                        settings.ANALYSIS_RESULTS_DONE_FILE_NAME
+                    )
+            ):
+                http1_json_data, http2_json_data = get_har_data_as_json(result_dir)
 
-                #TODO: process file and save info accordingly
                 analysis.state = AnalysisInfo.STATE_DONE
+                analysis.http1_json_data = http1_json_data
+                analysis.http2_json_data = http2_json_data
                 analysis.save()
-                return Response({
-                    'state': AnalysisInfo.STATE_DONE,
-                    'data': ''  # for now
-                })
+                return Response(AnalysisInfoSerializer(analysis).data)
             elif path.exists(
                     path.join(
-                            result_dir,
-                            settings.ANALYSIS_RESULTS_FAILED_FILE_NAME)):
-                return Response({
-                    'state': AnalysisInfo.STATE_FAILED,
-                    'data': ''  # for now
-                })
+                        result_dir,
+                        settings.ANALYSIS_RESULTS_FAILED_FILE_NAME
+                    )
+            ):
+                analysis.state = AnalysisInfo.STATE_FAILED
+                analysis.save()
+                return Response(AnalysisInfoSerializer(analysis).data)
             elif path.exists(
                     path.join(
-                            result_dir,
-                            settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME)):
-                 return Response({
+                        result_dir,
+                        settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME
+                    )
+            ):
+                # TODO: We should read the percent of processing inside settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME
+                # to send this data to the front-end and the progress var gets updated in the front-end accordingly.
+                # We should agree the format of the progressing info with Alcides.
+                return Response({
                     'state': AnalysisInfo.STATE_PROCESSING,
-                    'data': ''  # for now
+                    'data': ''  # send the settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME content as JSON?
                 })
             else:
                 # TODO what to do in this case?
