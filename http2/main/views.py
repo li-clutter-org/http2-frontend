@@ -83,6 +83,7 @@ class GetAnalysisState(APIView):
             return Response(AnalysisInfoSerializer(analysis).data)
         # otherwise check status via the files
         if analysis.state == AnalysisInfo.STATE_SENT:
+            progress = {}
             result_dir = path.join(
                 settings.ANALYSIS_RESULT_PATH, analysis.analysis_id
             )
@@ -98,8 +99,6 @@ class GetAnalysisState(APIView):
                 analysis.state = AnalysisInfo.STATE_DONE
                 analysis.http1_json_data = http1_json_data
                 analysis.http2_json_data = http2_json_data
-                analysis.save()
-                return Response(AnalysisInfoSerializer(analysis).data)
             elif path.exists(
                     path.join(
                         result_dir,
@@ -107,22 +106,22 @@ class GetAnalysisState(APIView):
                     )
             ):
                 analysis.state = AnalysisInfo.STATE_FAILED
-                analysis.save()
-                return Response(AnalysisInfoSerializer(analysis).data)
             elif path.exists(
                     path.join(
                         result_dir,
                         settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME
                     )
             ):
-                # TODO: We should read the percent of processing inside settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME
-                # to send this data to the front-end and the progress var gets updated in the front-end accordingly.
-                # We should agree the format of the progressing info with Alcides.
-                return Response({
-                    'state': AnalysisInfo.STATE_PROCESSING,
-                    'data': ''  # send the settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME content as JSON?
-                })
+                progress = {'progress': 0}  # for now
+                analysis.state = AnalysisInfo.STATE_PROCESSING
             else:
                 # TODO what to do in this case?
                 # Returning the analysis_info data for now, but we should check this case
-                return Response(AnalysisInfoSerializer(analysis).data)
+                return Response()
+            # save new status
+            analysis.save()
+            result = AnalysisInfoSerializer(analysis).data
+            if progress:
+                result.update(progress)
+            # and return data
+            return Response(result)
