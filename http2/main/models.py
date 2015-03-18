@@ -9,10 +9,12 @@ class AnalysisInfo(models.Model):
     STATE_SENT = 'sent'
     STATE_FAILED = 'failed'
     STATE_DONE = 'done'
+    STATE_PROCESSING = 'processing'
     STATE_CHOICES = (
         (STATE_SENT, 'Sent'),
         (STATE_FAILED, 'Failed'),
-        (STATE_DONE, 'Done')
+        (STATE_DONE, 'Done'),
+        (STATE_PROCESSING, 'Processing')
     )
     analysis_id = models.CharField(max_length=60, editable=False)
     # state of the analysis

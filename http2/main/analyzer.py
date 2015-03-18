@@ -6,30 +6,6 @@ import hashlib
 from django.conf import settings
 
 
-def process_url(url):
-    """
-    Will:
-        - send the url to be analyzed,
-        - get the .har file,
-        - process the .har file to get just the data we need from the file,
-
-    :param url: the url to be analyzed.
-    :return: json data of the .har file with the data we need.
-    """
-    # TODO: it is just a mocking for now, to process a .har file, and return the data in json format.
-            # Just mocking the response of the analyzer.
-    http2_har_filename = 'test_http2.har'
-    http2_har_file_path = os.path.join(settings.MEDIA_ROOT, http2_har_filename)
-    http2_json_data = process_har_file(http2_har_file_path)
-
-    http1_har_filename = 'harvested.har'
-    http1_har_file_path = os.path.join(settings.MEDIA_ROOT, http1_har_filename)
-    http1_json_data = process_har_file(http1_har_file_path)
-
-    return {'http2_analysis_data': http2_json_data,
-            'http1_analysis_data': http1_json_data}
-
-
 def process_har_file(harfile_path):
     """
     Will process the .har file, and remove the unneeded info.
@@ -69,6 +45,24 @@ def generate_hash_id(url):
     :return: the md5 hash generated from the salt + url
     """
     u1 = urlparse(url)
-    transcoded_url = urlunparse(["snu"]+list(u1[1:]))
+    transcoded_url = urlunparse(["snu"] + list(u1[1:]))
 
-    return (hashlib.md5((settings.HASH_ID_SECRET_SALT+transcoded_url).encode('ascii')).hexdigest())[:10]
+    return (hashlib.md5((settings.HASH_ID_SECRET_SALT + transcoded_url).encode('ascii')).hexdigest())[:10]
+
+
+def get_har_data_as_json(result_dir):
+    """
+    Will:
+        - seek for http1 and http2 har files inside result_dir,
+        - process the .har file to get just the data we need from the files,
+
+    :param result_dir: the dir where the .har files are stored.
+    :return: json data of the .har files with the data we need.
+    """
+    http1_har_file_path = os.path.join(result_dir, settings.HTTP1_HAR_FILENAME)
+    http1_json_data = process_har_file(http1_har_file_path)
+
+    http2_har_file_path = os.path.join(result_dir, settings.HTTP2_HAR_FILENAME)
+    http2_json_data = process_har_file(http2_har_file_path)
+
+    return http1_json_data, http2_json_data
