@@ -1,19 +1,24 @@
 
 .analyze {
-  .input-group {
-    margin: 8% 0;
-    margin-left: 3%;
-    display: block;
+  .analyze-input-group {
     .analyze-button {
       background-color: $analyzer_border;
       height: 50px;
+      display: table-cell;
+      border-radius: 0 10px 10px 0;
+      -webkit-border-radius: 0 10px 10px 0;
+      -moz-border-radius: 0 10px 10px 0;
     }
     .analyze-input {
       height: 50px;
+      display: table-cell;
+      border-radius: 10px 0 0 10px;
+      margin-bottom: 70px;
+      -webkit-border-radius: 10px 0 0 10px;
+      -moz-border-radius: 10px 0 0 10px;
     }
   }
 }
-
 
 .load-navbar {
   width: 100%;

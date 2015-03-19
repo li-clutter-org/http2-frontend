@@ -2,12 +2,12 @@
     <i class="icon-house hero"></i>
     <div class="row-fluid">
         <div class="span4 text-center">
-          <div class="col-lg-11 analyze">
-            <div class="input-group">
+          <div class="analyze">
+            <div class="table analyze-input-group">
                 <form novalidate name="analize" data-ng-submit="send();">
                     <input
                       type="url"
-                      class="form-control analyze-input input-block-level text-center large invis-valid"
+                      class="col-md-11 analyze-input input-block-level text-center invis-valid"
                       placeholder="Type your url here"
                       data-ng-maxlength="200"
                       data-ng-autofocus
@@ -15,9 +15,11 @@
                       data-ng-required="true"
                       name="url"
                   />
-                  <span class="input-group-btn">
-                    <button type="submit" class="btn btn-default analyze-button btn btn-primary" data-ng-disabled="analize.$invalid || analize.$pristine"><bold>Go</bold></button>
+                  <span class="pull-left">
+                    <button type="submit" class="btn analyze-button btn btn-primary" data-ng-disabled="analize.$invalid || analize.$pristine"><bold>Go</bold></button>
                   </span>
+
+
                 </form>
 
             </div>
