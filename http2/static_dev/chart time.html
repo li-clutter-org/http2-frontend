@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.http2_sending {
+  fill: #666ac2;
+}
+.http2_waiting{
+	fill: #bec1fc;
+}
+.http2_receiving{
+	fill: #666ac2;
+}
+
+.http1_sending {
+  fill: #69b628;
+}
+.http1_waiting{
+	fill: #9dde67;
+}
+.http1_receiving{
+	fill: #69b628;
+}
+
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+</style>
+<svg class="chart"></svg>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+/*
+The JSON should have the structure:
+   [
+	{
+		http1: [moment the request starts, sending, waiting, receiving, Total elapsed time of the request],
+		http2: [moment the request starts, sending, waiting, receiving, Total elapsed time of the request]
+	},
+	...
+   ]
+*/	
+var data = [
+	{
+	http1: [0,1,6,7,14], 
+	http2: [0,1,3,5,9], 
+	}, 
+	{
+	http1: [3,4,8,10,21], 
+	http2: [5,4,8,9,21], 
+	}, 
+	{
+	http1: [2,3,6,7,16], 
+	http2: [1,3,5,9,17], 
+	}, 
+	{
+	http1: [6,1,1,2,4], 
+	http2: [7,2,1,1,4], 
+	}, 
+];
+
+
+var width = 820,
+    barHeight = 60,
+    serie_height = 12,
+    http1_y = 0,
+    http2_y = 20;
+    
+
+var x = d3.scale.linear()
+    .domain([0, d3.max(data, function(d) { 
+		return Math.max(
+			d.http1[4]+d.http1[0],
+			d.http2[4]+d.http1[0]); 
+		}
+		)])
+    .range([0, width]);
+
+var chart = d3.select(".chart")
+    .attr("width", width)
+    .attr("height", barHeight * data.length);
+
+
+var serie = chart.selectAll("g")
+    .data(data)
+  .enter().append("g")
+    .attr("transform", function(d, i) { 
+		return "translate(0," + i * barHeight + ")";
+		}
+	);
+<!-- HTTP 1 Serie -->	
+serie.append("rect")
+	.attr("class","http1_sending")
+	.attr("x",function(d) { return x(d.http1[0]); })
+	.attr("y",http1_y)
+    .attr("width", function(d) { return x(d.http1[1]); })
+    .attr("height", serie_height);
+    
+serie.append("rect")
+	.attr("class","http1_waiting")
+	.attr("x",function(d) { return x(d.http1[0]) + x(d.http1[1]); })
+	.attr("y",http1_y)
+    .attr("width", function(d) { return x(d.http1[2]); })
+    .attr("height", serie_height);
+
+serie.append("rect")
+	.attr("class","http1_receiving")
+	.attr("x",function(d) { return x(d.http1[0]) + x(d.http1[1]) + x(d.http1[2]) })
+	.attr("y",http1_y)
+    .attr("width", function(d) { return x(d.http1[3]); })
+    .attr("height", serie_height);
+    
+ <!-- HTTP 2 Serie -->	
+serie.append("rect")
+	.attr("class","http2_sending")
+	.attr("x",function(d) { return x(d.http2[0]); })
+	.attr("y",http2_y)
+    .attr("width", function(d) { return x(d.http2[1]); })
+    .attr("height", serie_height);
+    
+serie.append("rect")
+	.attr("class","http2_waiting")
+	.attr("x",function(d) { return x(d.http2[0]) + x(d.http2[1]); })
+	.attr("y",http2_y)
+    .attr("width", function(d) { return x(d.http2[2]); })
+    .attr("height", serie_height);
+
+serie.append("rect")
+	.attr("class","http2_receiving")
+	.attr("x",function(d) { return x(d.http2[0]) + x(d.http2[1]) + x(d.http2[2]) })
+	.attr("y",http2_y)
+    .attr("width", function(d) { return x(d.http2[3]); })
+    .attr("height", serie_height);
+
+</script>
