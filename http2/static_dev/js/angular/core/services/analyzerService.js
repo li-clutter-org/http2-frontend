@@ -14,13 +14,13 @@ angular.module('http2')
     .service('analyzerService', ['$http', '$q', '$location', '$state', 'growl', function ($http, $q, $location, $state, growl) {
 
         var service = {
-            analyzer:{
+            send_analysis:{
                 url: "/api/send/analysis",
                 redirectUrl: "/results"
             }
         };
 
-        service.requestAnalysis = function(analyzer) {
+        service.requestAnalysis = function(analysis) {
             /**
                  * @ngdoc method
                  * @name http2.service:analyzerService#requestAnalysis
@@ -37,9 +37,9 @@ angular.module('http2')
 
             growl.addInfoMessage('Sending analysis', {ttl: 15000});
 
-            return $http.post(me.analyzer.url, analyzer)
+            return $http.post(me.send_analysis.url, analysis)
                 .then(function(response){
-                    analyzer.data = response.data;
+                    analysis.data = response.data;
 
                     growl.removeMessage('Sending analysis');
                     growl.addSuccessMessage('Analysis sent', {ttl: 1000});
