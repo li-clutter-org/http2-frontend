@@ -16,14 +16,27 @@ def process_har_file(harfile_path):
     """
     json_data = json.loads(open(harfile_path, 'r').read())
     # Cleaning the .har data a bit.
+    del json_data['har']['creator']
+    del json_data['har']['version']
+
     entries = json_data['har']['entries']
-    print(" len of entries %s" % len(entries))
     clean_entries = []
     for entry in entries:
-        del entry['response']['content']['text']
-        del entry['response']['headers']
+        del entry['response']
+        del entry['cache']
+        del entry['connection']
+        del entry['pageref']
+
+        del entry['request']['method']
+        del entry['request']['httpVersion']
+        del entry['request']['cookies']
         del entry['request']['headers']
+        del entry['request']['queryString']
+        del entry['request']['headersSize']
+        del entry['request']['bodySize']
+
         clean_entries.append(entry)
+
     json_data['har']['entries'] = clean_entries
 
     return json_data
