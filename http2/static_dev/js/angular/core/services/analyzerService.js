@@ -46,6 +46,14 @@ angular.module('http2')
                 });
         };
 
+        service.getAnalysisState = function(analysis) {
+            var url = '/api/get/analysis/state/' + analysis.analysis_id;
+            return $http.get(url)
+                .then(function(response){
+                    analysis.data = response.data;
+                });
+        };
+
 
         return service;
 
