@@ -24,7 +24,10 @@ def process_har_file(harfile_path):
     for entry in entries:
         del entry['response']
         del entry['cache']
-        del entry['connection']
+        try:
+            del entry['connection']
+        except KeyError:
+            pass
         del entry['pageref']
 
         del entry['request']['method']
