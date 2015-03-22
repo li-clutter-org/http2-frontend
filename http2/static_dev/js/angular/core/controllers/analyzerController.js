@@ -45,7 +45,7 @@
 
         analyzerService.requestAnalysis(analysis_data).then(function(response) {
             $scope.analysis.data = analysis_data.data;
-            if (analysis_data.data.state === 'sent') {
+            if (analysis_data.data.state === 'sent' || analysis_data.data.state === 'processing') {
                 startInterval();
             }
         });

@@ -24,9 +24,6 @@
           </div>
         </div>
         <div class="span4 text-center">
-         {[{ analysis.data }]}
-        </div>
-        <div class="span4 text-center">
         <div class="load-navbar pull-left ">
             <a class="menu-item pull-left">Web, Mobile<br></a>
         </div>
@@ -89,14 +86,34 @@
                         </div>
                     </div>
 
-                     <!-- When the state is sent or processing -->
+                     <!-- When the state is sent -->
                     <div data-ng-switch-when="sent">
-                        <span>Analysis sent...</span>
+                        <div class="analyzer-http http2-push">
+                            <div class="statistics-resume http2-push-resume text-center clear-both">
+                                <div class="statistics-version col-md-3"><span pull-left>Analysis sent</span></div>
+                                <div class="progress">
+                                  <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar"
+                                  aria-valuenow="1" aria-valuemin="1" aria-valuemax="100" style="width:1%">
+                                    1%
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
-                                         <!-- When the state is sent or processing -->
+                     <!-- When the state is processing -->
                     <div data-ng-switch-when="processing">
-                        <span>Analyzing your url... show progress bar here.</span>
+                        <div class="analyzer-http http2-push">
+                            <div class="statistics-resume http2-push-resume text-center clear-both">
+                                <div class="statistics-version col-md-3"><span pull-left>Analysis in progress</span></div>
+                                <div class="progress">
+                                  <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar"
+                                  aria-valuenow="{[{ analysis.data.progress }]}" aria-valuemin="0" aria-valuemax="100" style="width:{[{ analysis.data.progress }]}%">
+                                    {[{ analysis.data.progress }]}%
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -107,7 +124,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         </div>
 
     </div>

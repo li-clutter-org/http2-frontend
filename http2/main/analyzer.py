@@ -82,3 +82,28 @@ def get_har_data_as_json(result_dir):
     http2_json_data = process_har_file(http2_har_file_path)
 
     return http1_json_data, http2_json_data
+
+
+def update_progress_mock(analysis):
+    """
+    A mock to update the percent of the progressing to see how the progress bar changes
+    and how the states change.
+
+    :param analysis: main.models.AnalysisInfo instance
+    :return:
+    """
+    analysis_result_path = os.path.join(
+        settings.ANALYSIS_RESULT_PATH,
+        analysis.analysis_id
+    )
+    status_progress_file_path = os.path.join(
+        analysis_result_path,
+        settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME)
+    status_progress_file = open(status_progress_file_path, 'r')
+    # print(status_progress_file.read())
+    value = int(status_progress_file.read()) + 10
+    status_progress_file.close()
+
+    status_progress_file = open(status_progress_file_path, 'w')
+    status_progress_file.write(str(value))
+    status_progress_file.close()
