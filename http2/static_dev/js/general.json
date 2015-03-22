@@ -34,6 +34,7 @@
         "js/angular/core/controllers/analyzerController.js",
 
         "js/angular/core/directives/monkey-patches/growlAddons.js",
-        "js/angular/core/directives/fallbacks/svgFallback.js"
+        "js/angular/core/directives/fallbacks/svgFallback.js",
+        "js/timechart.js"
     ]
 }
