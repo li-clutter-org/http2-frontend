@@ -39,6 +39,14 @@
   }
 }
 
+.statistics-bar {
+  height: 20px;
+  border: 1px solid $analyzer_border;
+  padding: 0;
+  .progress-bar {
+    background-color: $analyzer_border;
+  }
+}
 .analyzer {
   border: 3px solid $analyzer_border;
   clear: both;
@@ -55,29 +63,11 @@
       .statistics-resume {
         height: 30px;
         width: 100%;
-        .statistics-version {
-        }
-        .statistics-bar {
-          height: 20px;
-          border: 1px solid $analyzer_border;
-          padding: 0;
-          .progress-bar {
-            background-color: $analyzer_border;
-          }
-        }
-        .statistics-time {
-        }
       }
       span{
         float: left;
       }
     }
-  }
-  .http2{
-
-  }
-  .http1{
-
   }
   .line-analyzer {
     width: 60%;
