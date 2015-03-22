@@ -8,7 +8,7 @@ from django.conf import settings
 from rest_framework.views import APIView, status
 from rest_framework.response import Response
 
-from .analyzer import get_har_data_as_json, generate_hash_id
+from .analyzer import get_har_data_as_json, generate_hash_id, update_progress_mock
 from .models import AnalysisInfo
 from .serializers import AnalysisInfoSerializer
 
@@ -74,8 +74,9 @@ class AnalyzerMockingViewSet(APIView):
         # settings vars to simulate the other states
         status_done_file_path = os.path.join(
             analysis_result_path,
-            settings.ANALYSIS_RESULTS_DONE_FILE_NAME)
+            settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME)
         status_done_file = open(status_done_file_path, 'w')
+        status_done_file.write('0')
         status_done_file.close()
 
         return Response(status=status.HTTP_200_OK)
@@ -94,8 +95,8 @@ class GetAnalysisState(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         result = AnalysisInfoSerializer(analysis).data
         # otherwise check status via the files
-        if analysis.state == AnalysisInfo.STATE_SENT or \
-                        analysis.state == AnalysisInfo.STATE_PROCESSING:
+        if (analysis.state == AnalysisInfo.STATE_SENT or
+                analysis.state == AnalysisInfo.STATE_PROCESSING):
             progress = {}
             result_dir = path.join(
                 settings.ANALYSIS_RESULT_PATH, analysis.analysis_id
@@ -126,8 +127,20 @@ class GetAnalysisState(APIView):
                         settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME
                     )
             ):
-                progress = {'progress': 0}  # for now
+                # TODO: Mocking the progress info
+                update_progress_mock(analysis)
+
+                progress_file_path = path.join(
+                    result_dir,
+                    settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME
+                )
+                progress_info = open(progress_file_path).read()
+                progress = {'progress': progress_info}  # for now
                 analysis.state = AnalysisInfo.STATE_PROCESSING
+
+                # TODO: 100 % done... just for now, to see the progress and the state change.
+                if int(progress_info) is 100:
+                    analysis.state = AnalysisInfo.STATE_DONE
             else:
                 # TODO what to do in this case?
                 # Returning the analysis_info data for now, but we should check
