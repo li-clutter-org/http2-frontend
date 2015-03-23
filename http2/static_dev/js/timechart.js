@@ -4,8 +4,7 @@
 *  Usage:
 *
 *   d3.select("#chart")
-*     .data(data)
-*     .call(chart);
+*     .call(d3.timechart(data)));
 *
 *  where data should look like:
 *
@@ -14,7 +13,7 @@
 *     times:[
 *         {
 *             path:'/main.css',
-*             http1: [0,1,6,7,14],
+*             http1: [0,1,6,7,14],  // [moment the request starts, sending, waiting, receiving, Total elapsed time of the request]
 *             http2: [0,1,3,5,9]
 *         },
 *         {
@@ -47,149 +46,150 @@ d3.timechart = function (data) {
         left_align = 20, /* Position (in percent) of vertical separator */
         vertical_separator = left_align * width / 100, /* Position of vertical separator */
         total_width = width + vertical_separator, /* Total width of the chart */
-        footer_height = 30;
-    /* Height of the footer line */
-    function draw(selection) {
-        selection.each(function (d, i) {
-            var x = d3.scale.linear()
-                .domain([0, d3.max(data.times, function (d) {
-                        return Math.max(
-                            d.http1[4] + d.http1[0],
-                            d.http2[4] + d.http1[0]);
-                    }
-                )])
-                .range([0, width]);
-            /* Define the canva sizes */
-            var chart = d3.select(".chart")
-                .attr("width", vertical_separator + width)
-                .attr("height", bar_height * data.times.length + footer_height);
-            /* Create the series lines */
-            var serie = chart.selectAll("g")
-                .data(data.times)
-                .enter().append("g")
-                .attr("transform", function (d, i) {
-                    return "translate(" + vertical_separator + "," + i * bar_height + ")";
-                }
-            );
-            <!-- Draw HTTP 1 series -->
-            serie.append("rect")
-                .attr("class", "http1_sending")
-                .attr("x", function (d) {
-                    return x(d.http1[0]);
-                })
-                .attr("y", http1_y)
-                .attr("width", function (d) {
-                    return x(d.http1[1]);
-                })
-                .attr("height", series_height);
+        footer_height = 30 /* Height of the footer line */
+    ;
+    function draw() {
+         var x = d3.scale.linear()
+        .domain([0, d3.max(data.times, function (d) {
+                return Math.max(
+                    d.http1[4] + d.http1[0],
+                    d.http2[4] + d.http1[0]);
+            }
+        )])
+        .range([0, width]);
+        /* Add the SVG object */
+        this.append("svg").attr("class","chart");
+        /* Define the canva sizes */
+        var chart = d3.select(".chart")
+            .attr("width", vertical_separator + width)
+            .attr("height", bar_height * data.times.length + footer_height);
+        console.log(chart);
+        /* Create the series lines */
+        var serie = chart.selectAll("g")
+            .data(data.times)
+            .enter().append("g")
+            .attr("transform", function (d, i) {
+                return "translate(" + vertical_separator + "," + i * bar_height + ")";
+            }
+        );
+        <!-- Draw HTTP 1 series -->
+        serie.append("rect")
+            .attr("class", "http1_sending")
+            .attr("x", function (d) {
+                return x(d.http1[0]);
+            })
+            .attr("y", http1_y)
+            .attr("width", function (d) {
+                return x(d.http1[1]);
+            })
+            .attr("height", series_height);
 
-            serie.append("rect")
-                .attr("class", "http1_waiting")
-                .attr("x", function (d) {
-                    return x(d.http1[0]) + x(d.http1[1]);
-                })
-                .attr("y", http1_y)
-                .attr("width", function (d) {
-                    return x(d.http1[2]);
-                })
-                .attr("height", series_height);
+        serie.append("rect")
+            .attr("class", "http1_waiting")
+            .attr("x", function (d) {
+                return x(d.http1[0]) + x(d.http1[1]);
+            })
+            .attr("y", http1_y)
+            .attr("width", function (d) {
+                return x(d.http1[2]);
+            })
+            .attr("height", series_height);
 
-            serie.append("rect")
-                .attr("class", "http1_receiving")
-                .attr("x", function (d) {
-                    return x(d.http1[0]) + x(d.http1[1]) + x(d.http1[2])
-                })
-                .attr("y", http1_y)
-                .attr("width", function (d) {
-                    return x(d.http1[3]);
-                })
-                .attr("height", series_height);
+        serie.append("rect")
+            .attr("class", "http1_receiving")
+            .attr("x", function (d) {
+                return x(d.http1[0]) + x(d.http1[1]) + x(d.http1[2])
+            })
+            .attr("y", http1_y)
+            .attr("width", function (d) {
+                return x(d.http1[3]);
+            })
+            .attr("height", series_height);
 
-            <!-- Draw HTTP 2 series -->
-            serie.append("rect")
-                .attr("class", "http2_sending")
-                .attr("x", function (d) {
-                    return x(d.http2[0]);
-                })
-                .attr("y", http2_y)
-                .attr("width", function (d) {
-                    return x(d.http2[1]);
-                })
-                .attr("height", series_height);
+        <!-- Draw HTTP 2 series -->
+        serie.append("rect")
+            .attr("class", "http2_sending")
+            .attr("x", function (d) {
+                return x(d.http2[0]);
+            })
+            .attr("y", http2_y)
+            .attr("width", function (d) {
+                return x(d.http2[1]);
+            })
+            .attr("height", series_height);
 
-            serie.append("rect")
-                .attr("class", "http2_waiting")
-                .attr("x", function (d) {
-                    return x(d.http2[0]) + x(d.http2[1]);
-                })
-                .attr("y", http2_y)
-                .attr("width", function (d) {
-                    return x(d.http2[2]);
-                })
-                .attr("height", series_height);
+        serie.append("rect")
+            .attr("class", "http2_waiting")
+            .attr("x", function (d) {
+                return x(d.http2[0]) + x(d.http2[1]);
+            })
+            .attr("y", http2_y)
+            .attr("width", function (d) {
+                return x(d.http2[2]);
+            })
+            .attr("height", series_height);
 
-            serie.append("rect")
-                .attr("class", "http2_receiving")
-                .attr("x", function (d) {
-                    return x(d.http2[0]) + x(d.http2[1]) + x(d.http2[2]);
-                })
-                .attr("y", http2_y)
-                .attr("width", function (d) {
-                    return x(d.http2[3]);
-                })
-                .attr("height", series_height);
+        serie.append("rect")
+            .attr("class", "http2_receiving")
+            .attr("x", function (d) {
+                return x(d.http2[0]) + x(d.http2[1]) + x(d.http2[2]);
+            })
+            .attr("y", http2_y)
+            .attr("width", function (d) {
+                return x(d.http2[3]);
+            })
+            .attr("height", series_height);
 
-            <!--  URLs - paths -->
-            var url = chart.selectAll("div")
-                .data(data.times)
-                .enter().append("g")
-                .attr("transform", function (d, i) {
-                    return "translate(0," + i * bar_height + ")";
-                }
-            );
-            url.append("rect")
-                .attr("class", "url")
-                .attr("x", 0)
-                .attr("y", 0)
-                .attr("width", vertical_separator)
-                .attr("height", bar_height);
+        <!--  URLs - paths -->
+        var url = chart.selectAll("div")
+            .data(data.times)
+            .enter().append("g")
+            .attr("transform", function (d, i) {
+                return "translate(0," + i * bar_height + ")";
+            }
+        );
+        url.append("rect")
+            .attr("class", "url")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", vertical_separator)
+            .attr("height", bar_height);
 
-            url.append("text")
-                .attr("x", vertical_separator - 20)
-                .attr("y", http2_y - 1)
-                .text(function (d) {
-                    return d.path;
-                });
+        url.append("text")
+            .attr("x", vertical_separator - 20)
+            .attr("y", http2_y - 1)
+            .text(function (d) {
+                return d.path;
+            });
 
-            <!--  Lines -->
-            chart.selectAll("p")
-                .data(data.times).enter()
-                .append("line")
-                .style("stroke", "black")
-                .style("stroke-width", 0.2)
-                .attr("x1", 0)
-                .attr("y1", function (d, i) {
-                    return (i + 1) * bar_height;
-                })
-                .attr("x2", total_width)
-                .attr("y2", function (d, i) {
-                    return (i + 1) * bar_height;
-                });
-            chart.append("line")
-                .style("stroke", "black")
-                .style("stroke-width", 1)
-                .attr("x1", vertical_separator - 1)
-                .attr("y1", 0)
-                .attr("x2", vertical_separator - 1)
-                .attr("y2", bar_height * data.times.length);
+        <!--  Lines -->
+        chart.selectAll("p")
+            .data(data.times).enter()
+            .append("line")
+            .style("stroke", "black")
+            .style("stroke-width", 0.2)
+            .attr("x1", 0)
+            .attr("y1", function (d, i) {
+                return (i + 1) * bar_height;
+            })
+            .attr("x2", total_width)
+            .attr("y2", function (d, i) {
+                return (i + 1) * bar_height;
+            });
+        chart.append("line")
+            .style("stroke", "black")
+            .style("stroke-width", 1)
+            .attr("x1", vertical_separator - 1)
+            .attr("y1", 0)
+            .attr("x2", vertical_separator - 1)
+            .attr("y2", bar_height * data.times.length);
 
-            <!--  Footer -->
-            chart.append("text")
-                .attr("class", "footer")
-                .attr("x", total_width / 2 + total_width * 0.15)
-                .attr("y", bar_height * data.times.length + 20)
-                .text(data.domain);
-        });
+        <!--  Footer -->
+        chart.append("text")
+            .attr("class", "footer")
+            .attr("x", total_width / 2 + total_width * 0.15)
+            .attr("y", bar_height * data.times.length + 20)
+            .text(data.domain);
     }
     // getter / setter for all settings
     draw.width = function (x) {
