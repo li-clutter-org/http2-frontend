@@ -107,3 +107,77 @@ def update_progress_mock(analysis):
     status_progress_file = open(status_progress_file_path, 'w')
     status_progress_file.write(str(value))
     status_progress_file.close()
+
+
+def format_json(http1_json, http2_json):
+    """
+    This utility formats the json data to make it suitable for the UI.
+    :return something like
+        {
+            domain:'https :// www.zunzun.se',
+            times:[
+            {
+            path:'/main.css',
+            http1: [0,1,6,7,14],
+            http2: [0,1,3,5,9]
+            },
+            {
+            path:'/styles.css',
+            http1: [3,4,8,9,21],
+            http2: [5,4,5,6,15]
+            },
+            {
+            path:'/scripts',
+            http1: [2,3,6,7,16],
+            http2: [1,3,5,9,17]
+            },
+            {
+            path:'/routings.js',
+            http1: [6,1,1,2,4],
+            http2: [7,2,1,1,4]
+            }
+            ]
+        }
+    """
+    item_template = {
+        'path': ''
+    }
+    new_json = {
+        'domain': http1_json['originUrl'],
+        'times': []
+    }
+    # http1
+    entries = http1_json['har']['entries']
+    for entry in entries:
+        item_template = item_template.copy()
+        item_template['path'] = entry['request']['url']
+        item_template.update({
+            'http1': [
+                0,  # start time 0 for now
+                entry['timings']['send'],
+                entry['timings']['wait'],
+                entry['timings']['receive'],
+                entry['time']
+            ]}
+        )
+        new_json['times'].append(item_template)
+
+    # http2
+    entries_http2 = http2_json['har']['entries']
+    for entry in new_json['times']:
+        found = False
+        for item in entries_http2:
+            if entry['path'] == item['request']['url']:
+                found = True
+                entry['http2'] = [
+                    0,  # start time 0 for now
+                    item['timings']['send'],
+                    item['timings']['wait'],
+                    item['timings']['receive'],
+                    item['time']
+                ]
+        if not found:
+            #TODO what to do in this case?
+            entry['http2'] = [0, 0, 0, 0, 0]
+
+    return new_json
