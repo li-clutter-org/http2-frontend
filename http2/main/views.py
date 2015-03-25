@@ -92,7 +92,7 @@ class GetAnalysisState(APIView):
         try:
             analysis = AnalysisInfo.objects.get(analysis_id=analysis_id)
         except AnalysisInfo.DoesNotExist:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_404_NOT_FOUND)
         result = AnalysisInfoSerializer(analysis).data
         # otherwise check status via the files
         if (analysis.state == AnalysisInfo.STATE_SENT or
