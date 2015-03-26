@@ -30,6 +30,8 @@ build
 /wingdbstub.py
 /http2/static_dev/css/sass/.sass-cache/
 .sass-cache/
+/localenv
+.*.swp
 *~
 venv/
 /settings/secret_keys/production.txt

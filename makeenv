@@ -1,0 +1,19 @@
+# Invoke this script as
+#
+#  $ source makeenv
+
+current_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+export HTTP2_LOAD_IMPACT__PROJECT_DIR=$current_dir
+
+if ! [ -L "$HTTP2_LOAD_IMPACT__PROJECT_DIR/localenv" ] ; then
+    echo "ERROR: Add  a symlink from setup/environments/somefile.sh to localenv for this to work"
+else
+    source  "$HTTP2_LOAD_IMPACT__PROJECT_DIR/localenv"
+fi
+
+if [ -f "$HTTP2_LOAD_IMPACT__PROJECT_DIR/venv/bin/activate" ] ; then
+    source "$HTTP2_LOAD_IMPACT__PROJECT_DIR/venv/bin/activate"
+else
+    echo "WARNING: No environment to activate found"
+fi
+
