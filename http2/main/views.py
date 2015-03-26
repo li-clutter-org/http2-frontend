@@ -37,6 +37,11 @@ class SendAnalysisViewSet(APIView):
             url_analyzed=url_to_analyze,
             analysis_id=hash_id
         )
+        # If it is an URL that was already analyzed we should ensure
+        # that its state is AnalysisInfo.STATE_SENT
+        if not created and analysis_info.state != AnalysisInfo.STATE_SENT:
+            analysis_info.state = AnalysisInfo.STATE_SENT
+            analysis_info.save()
 
         return Response(AnalysisInfoSerializer(analysis_info).data, status=status.HTTP_200_OK)
 
