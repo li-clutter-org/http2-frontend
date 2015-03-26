@@ -9,8 +9,8 @@
 **/
 
  angular.module('http2')
-    .controller('analyzerController', ['$scope', '$rootScope', '$interval', 'analyzerService',
-         function($scope, $rootScope, $interval, analyzerService){
+    .controller('analyzerController', ['$scope', '$stateParams', '$rootScope', '$interval', 'analyzerService',
+         function($scope, $stateParams, $rootScope, $interval, analyzerService){
 
     var stopInterval = function() {
         $interval.cancel($scope.interval);
@@ -42,6 +42,7 @@
         **/
 
         var analysis_data = $scope.analysis.data;
+        console.log($scope.analysis)
 
         analyzerService.requestAnalysis(analysis_data).then(function(response) {
             $scope.analysis.data = analysis_data.data;
@@ -51,7 +52,23 @@
         });
     };
 
-    $scope.$on('$stateChangeSuccess', stopInterval);
+    $scope.$on('$stateChangeSuccess', function(e){
+        stopInterval();
+        var analysis_id = $stateParams.analysis_id;
+
+        if (analysis_id) {
+            if(!$scope.analysis) {
+                $scope.analysis = {
+                    'data': {
+                        'analysis_id': analysis_id,
+                        'state': 'processing'
+                    }
+                }
+            }
+            startInterval();
+        }
+
+    });
     $scope.$on('$destroy', stopInterval);
 
 }]);

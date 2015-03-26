@@ -36,6 +36,7 @@ angular.module('http2')
             var me = service;
 
             growl.addInfoMessage('Sending analysis', {ttl: 15000});
+            console.log(analysis)
 
             return $http.post(me.send_analysis.url, analysis)
                 .then(function(response){
