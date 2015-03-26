@@ -42,7 +42,6 @@
         **/
 
         var analysis_data = $scope.analysis.data;
-        console.log($scope.analysis)
 
         analyzerService.requestAnalysis(analysis_data).then(function(response) {
             $scope.analysis.data = analysis_data.data;
