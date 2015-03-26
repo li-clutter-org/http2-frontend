@@ -9,8 +9,12 @@
 **/
 
  angular.module('http2')
-    .controller('analyzerController', ['$scope', '$stateParams', '$rootScope', '$interval', 'analyzerService',
-         function($scope, $stateParams, $rootScope, $interval, analyzerService){
+    .controller('analyzerController', ['$scope', '$stateParams', '$location', '$rootScope', '$interval', 'analyzerService',
+         function($scope, $stateParams, $location, $rootScope, $interval, analyzerService) {
+
+    var root_url = $location.protocol() + '://' + $location.host(),
+        port = $location.port(),
+        base_url = port ? root_url + ':' + port : root_url;
 
     var stopInterval = function() {
         $interval.cancel($scope.interval);
@@ -61,7 +65,8 @@
                     'data': {
                         'analysis_id': analysis_id,
                         'state': 'processing'
-                    }
+                    },
+                    'base_url': base_url
                 }
             }
             startInterval();
