@@ -18,7 +18,7 @@ def install_grunt():
     "Installs grunt"
     with lcd(os.environ.get("HTTP2_LOAD_IMPACT__PROJECT_DIR")):
         local("npm install")
-        
+
 
 
 def local_deploy():

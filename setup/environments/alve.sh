@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # She-bang line up is to pacify the IDE, but otherwise counter-producing. This
-# script SHOULD NOT be executed as ./script.sh, but source instead.
+# script SHOULD NOT be executed as ./script.sh, but sourced instead.
 
-## The fragment below is to determine the current directory of the script
-
+export DJANGO_SETTINGS_MODULE="settings.local_alve"
