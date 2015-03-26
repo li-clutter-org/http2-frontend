@@ -2,6 +2,7 @@ import os
 import json
 from urllib.parse import *
 import hashlib
+from datetime import datetime as dt
 
 from django.conf import settings
 
@@ -146,14 +147,23 @@ def format_json(http1_json, http2_json):
         'domain': http1_json['originUrl'],
         'times': []
     }
-    # http1
+    # computing the moment the first request start
+    all_entries = http1_json['har']['entries']
+    all_entries.extend(http2_json['har']['entries'])
+    all_start_times = [
+        dt.strptime(tmp_entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f")
+        for tmp_entry in all_entries
+    ]
+    global_start_time = min(all_start_times)
+
+    # Add http1 entries
     entries = http1_json['har']['entries']
     for entry in entries:
         item_template = item_template.copy()
         item_template['path'] = entry['request']['url']
         item_template.update({
             'http1': [
-                0,  # start time 0 for now
+                (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time).total_seconds(),
                 entry['timings']['send'],
                 entry['timings']['wait'],
                 entry['timings']['receive'],
@@ -161,8 +171,7 @@ def format_json(http1_json, http2_json):
             ]}
         )
         new_json['times'].append(item_template)
-
-    # http2
+    # Add http2 entries
     entries_http2 = http2_json['har']['entries']
     for entry in new_json['times']:
         found = False
@@ -170,7 +179,7 @@ def format_json(http1_json, http2_json):
             if entry['path'] == item['request']['url']:
                 found = True
                 entry['http2'] = [
-                    0,  # start time 0 for now
+                    (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time).total_seconds(),
                     item['timings']['send'],
                     item['timings']['wait'],
                     item['timings']['receive'],
