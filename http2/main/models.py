@@ -1,8 +1,9 @@
+import ast
 import hashlib
 
 from django.db import models
 
-from .analyzer import generate_hash_id
+from .analyzer import generate_hash_id, format_json
 
 
 class AnalysisInfo(models.Model):
@@ -42,3 +43,10 @@ class AnalysisInfo(models.Model):
             self.analysis_id = generate_hash_id(self.url_analyzed)
 
         super(AnalysisInfo, self).save(*args, **kwargs)
+
+    def get_json(self):
+        if self.http1_json_data and self.http2_json_data:
+            return format_json(
+                ast.literal_eval(self.http1_json_data), ast.literal_eval(self.http2_json_data)
+            )
+        return {}
