@@ -75,4 +75,13 @@
     });
     $scope.$on('$destroy', stopInterval);
 
+    $scope.$watch('analysis.data.analysis_id', function(newValue, oldValue) {
+        if ($scope.analysis) {
+            if (!$scope.analysis.base_url) {
+                $scope.analysis['base_url'] = base_url;
+            }
+        }
+
+    }, true);
+
 }]);
