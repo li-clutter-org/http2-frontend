@@ -9,24 +9,27 @@
 *  where data should look like:
 *
 * var data = {
-*     domain:'https :// www.zunzun.se',
 *     times:[
 *         {
+*             domain:'https :// www.zunzun.se',
 *             path:'/main.css',
 *             http1: [0,1,6,7,14],  // [moment the request starts, sending, waiting, receiving, Total elapsed time of the request]
 *             http2: [0,1,3,5,9]
 *         },
 *         {
+*             domain:'https :// www.zunzun.se',
 *             path:'/styles.css',
 *             http1: [3,4,8,9,21],
 *             http2: [5,4,5,6,15]
 *         },
 *         {
+*             domain:'https :// www.zunzun.se',
 *             path:'/scripts',
 *             http1: [2,3,6,7,16],
 *             http2: [1,3,5,9,17]
 *         },
 *         {
+*             domain:'https :// www.zunzun.se',
 *             path:'/routings.js',
 *             http1: [6,1,1,2,4],
 *             http2: [7,2,1,1,4]
@@ -43,10 +46,9 @@ d3.timechart = function (data) {
         series_height = bar_height * 0.12, /* Height of each time series */
         http1_y = bar_height * 0.33, /* Vertical position of http1 series */
         http2_y = bar_height * 0.55, /* Vertical position of http2 series */
-        left_align = 20, /* Position (in percent) of vertical separator */
+        left_align = 40, /* Position (in percent) of vertical separator */
         vertical_separator = left_align * width / 100, /* Position of vertical separator */
-        total_width = width + vertical_separator, /* Total width of the chart */
-        footer_height = 30 /* Height of the footer line */
+        total_width = width + vertical_separator /* Total width of the chart */
     ;
     function draw() {
          var x = d3.scale.linear()
@@ -62,7 +64,7 @@ d3.timechart = function (data) {
         /* Define the canva sizes */
         var chart = d3.select(".chart")
             .attr("width", vertical_separator + width)
-            .attr("height", bar_height * data.times.length + footer_height);
+            .attr("height", bar_height * data.times.length);
         console.log(chart);
         /* Create the series lines */
         var serie = chart.selectAll("g")
@@ -157,7 +159,14 @@ d3.timechart = function (data) {
 
         url.append("text")
             .attr("x", vertical_separator - 20)
-            .attr("y", http2_y - 1)
+            .attr("y", http1_y + 4)
+            .text(function (d) {
+            return d.domain;
+        });
+
+        url.append("text")
+            .attr("x", vertical_separator - 20)
+            .attr("y", http2_y + 4)
             .text(function (d) {
                 return d.path;
             });
@@ -183,13 +192,6 @@ d3.timechart = function (data) {
             .attr("y1", 0)
             .attr("x2", vertical_separator - 1)
             .attr("y2", bar_height * data.times.length);
-
-        <!--  Footer -->
-        chart.append("text")
-            .attr("class", "footer")
-            .attr("x", total_width / 2 + total_width * 0.15)
-            .attr("y", bar_height * data.times.length + 20)
-            .text(data.domain);
     }
     // getter / setter for all settings
     draw.width = function (x) {
@@ -230,11 +232,6 @@ d3.timechart = function (data) {
     draw.total_width = function (x) {
         if (!arguments.length) return total_width;
         total_width = x;
-        return draw;
-    };
-    draw.footer_height = function (x) {
-        if (!arguments.length) return footer_height;
-        footer_height = x;
         return draw;
     };
     return draw;
