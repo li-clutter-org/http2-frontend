@@ -41,7 +41,7 @@
 */
 
 d3.timechart = function (data) {
-    var width = 620, /* With of the series part */
+    var width = 560, /* With of the series part */
         bar_height = 80, /* Height of each line */
         series_height = bar_height * 0.12, /* Height of each time series */
         http1_y = bar_height * 0.33, /* Vertical position of http1 series */
