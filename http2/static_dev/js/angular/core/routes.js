@@ -27,6 +27,19 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
                 bodyClass: 'index'
             }
         })
+        .state('analysisStatus', {
+            url: '/analysis/status/:analysis_id',
+            title: 'Analysis status',
+            views: {
+                'mainView':{
+                    templateUrl: 'partials/http2/analyzer.html',
+                    controller: 'analyzerController'
+                }
+            },
+            extras: {
+                bodyClass: 'index'
+            }
+        })
         .state('404', {
             url: '/404',
             title: 'Page not found',

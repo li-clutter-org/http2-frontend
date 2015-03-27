@@ -23,7 +23,7 @@
           </div>
         </div>
         <p data-ng-show="analysis.data.analysis_id" class="pull-left">You can check your analysis results later through this URL:
-          <a href="http://127.0.0.1:8080/analysis/status/{[{analysis.data.analysis_id}]}">http://127.0.0.1:8080/analysis/status/{[{analysis.data.analysis_id}]}</a>
+          <a href="{[{ analysis.base_url }]}/analysis/status/{[{analysis.data.analysis_id}]}">{[{ analysis.base_url }]}/analysis/status/{[{analysis.data.analysis_id}]}</a>
         </p>
 
         <div class="span4 text-center">
