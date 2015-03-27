@@ -1,0 +1,1729 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"safe",
+				"hashSafeFromUrl"
+			],
+			[
+				"Hah",
+				"Hashable"
+			],
+			[
+				"return",
+				"returncode"
+			],
+			[
+				"chrome",
+				"chrome_process"
+			],
+			[
+				"hash",
+				"hashFromUrl	B.ByteString -> B.ByteString"
+			],
+			[
+				"HOME",
+				"HomeDir_Name"
+			],
+			[
+				"ho",
+				"hosts"
+			],
+			[
+				"local",
+				"local_path"
+			],
+			[
+				"Stat",
+				"StationA_InternalIP"
+			],
+			[
+				"host",
+				"hosts_file"
+			],
+			[
+				"loca",
+				"local_file"
+			],
+			[
+				"deploy",
+				"deploy_specific"
+			],
+			[
+				"Station",
+				"StationB"
+			],
+			[
+				"cance",
+				"cancelled_streams_mvar"
+			],
+			[
+				"read",
+				"readMVar"
+			],
+			[
+				"is",
+				"isStreamCancelled"
+			],
+			[
+				"canc",
+				"cancelled_streams_mvar"
+			],
+			[
+				"Strem",
+				"Stream2HeaderBlockFragment"
+			],
+			[
+				"Reader",
+				"ReaderT"
+			],
+			[
+				"worker",
+				"workerThread"
+			],
+			[
+				"fli",
+				"flippedRunReader"
+			],
+			[
+				"decode",
+				"decode_headers_table_mvar"
+			],
+			[
+				"startStream",
+				"startStreamOrFailWithBuilder"
+			],
+			[
+				"headers",
+				"headers_decoding_mvar"
+			],
+			[
+				"StreamSt",
+				"StreamStateT	m a"
+			],
+			[
+				"as",
+				"ask	Monad m => ReaderT r m r"
+			],
+			[
+				"serve",
+				"servedEntryFromStatusHeadersAndContents"
+			],
+			[
+				"Here",
+				"HereString	"
+			],
+			[
+				"handle",
+				"handleFromMethodAndUrl"
+			],
+			[
+				"resour",
+				"resource_handle"
+			],
+			[
+				"quali",
+				"qualified"
+			],
+			[
+				"Ou",
+				"Har_Outer	"
+			],
+			[
+				"Unpac",
+				"UnpackedNameValueList"
+			],
+			[
+				"unp",
+				"UnpackedNameValueList	"
+			],
+			[
+				"Serv",
+				"ServedRehashEntry"
+			],
+			[
+				"pars",
+				"parseJSON	FromJSON a => Value -> Parser a"
+			],
+			[
+				"P",
+				"Parser	newtype Parser a"
+			],
+			[
+				"Har_Page",
+				"Har_PageTimings	"
+			],
+			[
+				"chun",
+				"chunkProducerHelper	  Monad m =>\n  LB.ByteString ->\n    m B.ByteString -> Maybe Int -> m (LB.ByteString, LB.ByteString)"
+			],
+			[
+				"push",
+				"pushFrameHelper"
+			],
+			[
+				"chunk",
+				"chunk_producer_helper"
+			],
+			[
+				"frames",
+				"framesToOutput	  MonadIO m => C.Conduit AnyFrame m LB.ByteString"
+			],
+			[
+				"input",
+				"inputToFrames	  Monad m => C.Conduit LB.ByteString m AnyFrame"
+			],
+			[
+				"Len",
+				"LengthFromFrame	"
+			],
+			[
+				"Byte",
+				"ByteString	(module)"
+			],
+			[
+				"maybe_",
+				"maybe_mime2"
+			],
+			[
+				"get",
+				"getInterfaceName	IO String"
+			],
+			[
+				"getPo",
+				"getServedPort	IO Int"
+			],
+			[
+				"Con",
+				"ConfigHelp	(module)"
+			],
+			[
+				"host_por",
+				"host_port_bytestring"
+			],
+			[
+				"hostPort",
+				"hostPortByteString"
+			],
+			[
+				"getServe",
+				"getServedPort	IO Int"
+			],
+			[
+				"config",
+				"config_dir"
+			],
+			[
+				"avail",
+				"available_in_session"
+			],
+			[
+				"streamIdFro",
+				"streamIdFromAnyFrame	AnyFrame -> Int"
+			],
+			[
+				"ava",
+				"available_in_session"
+			],
+			[
+				"av",
+				"available_in_session_mv"
+			],
+			[
+				"sessio",
+				"sessionWindow"
+			],
+			[
+				"Frame",
+				"FrameResetReason	"
+			],
+			[
+				"stream",
+				"stream_info_mvar"
+			],
+			[
+				"init",
+				"initFlowControlOnStream"
+			],
+			[
+				"A",
+				"AnyControl_AF"
+			],
+			[
+				"RstStre",
+				"RstStreamFrame	"
+			],
+			[
+				"stream_info",
+				"stream_info_mvar"
+			],
+			[
+				"size",
+				"size_to_send"
+			],
+			[
+				"modi",
+				"modifyMVar_	MVar a -> (a -> IO a) -> IO ()"
+			],
+			[
+				"byte",
+				"bytes_remaining"
+			],
+			[
+				"Settings",
+				"SettingsFrame_ACF"
+			],
+			[
+				"spd",
+				"spdyDataFrameMaxLength"
+			],
+			[
+				"yield",
+				"yieldDataFramesFromData"
+			],
+			[
+				"DataFrame",
+				"DataFrame_PC"
+			],
+			[
+				"which",
+				"which_stream"
+			],
+			[
+				"streamId",
+				"streamIdFromAnyFrame	AnyFrame -> Int"
+			],
+			[
+				"runRead",
+				"runReaderT	ReaderT r m a -> r -> m a"
+			],
+			[
+				"flow",
+				"flow_control_gate"
+			],
+			[
+				"Wnd",
+				"WindowUpdate	(module)"
+			],
+			[
+				"WindowU",
+				"WindowUpdateFrame_ACF"
+			],
+			[
+				"AnyCon",
+				"AnyControl_AF"
+			],
+			[
+				"assoc",
+				"associatedLength"
+			],
+			[
+				"popp",
+				"popped_frame_maybe"
+			],
+			[
+				"flowCon",
+				"flowControlCanPopFrame"
+			],
+			[
+				"bytes",
+				"bytes_remaining"
+			],
+			[
+				"associ",
+				"_associatedLength"
+			],
+			[
+				"anyfra",
+				"anyframe_maybe"
+			],
+			[
+				"add",
+				"addBytesToStream"
+			],
+			[
+				"byt",
+				"bytes_remaining"
+			],
+			[
+				"dataframe",
+				"dataframe"
+			],
+			[
+				"Data",
+				"DataFrame_AF"
+			],
+			[
+				"steramId",
+				"streamIdFromAnyFrame	AnyFrame -> Int"
+			],
+			[
+				"Headers",
+				"HeadersFrame	"
+			],
+			[
+				"Ha",
+				"HeadersFrame_ACF"
+			],
+			[
+				"SynStre",
+				"SynStream_ACF"
+			],
+			[
+				"Window",
+				"WindowUpdateFrame	"
+			],
+			[
+				"window",
+				"window_bytes"
+			],
+			[
+				"initi",
+				"initial_size_mvar"
+			],
+			[
+				"initial",
+				"initialWindowSize"
+			],
+			[
+				"StreamInfo",
+				"StreamWindowInfo"
+			],
+			[
+				"Has",
+				"HasStreamId	a"
+			],
+			[
+				"streamI",
+				"streamIdFromFrame"
+			],
+			[
+				"datafram",
+				"dataframe"
+			],
+			[
+				"datafra",
+				"dataframe"
+			],
+			[
+				"DataFra",
+				"DataFrameValidFlags	"
+			],
+			[
+				"AnyC",
+				"AnyControl_AF"
+			],
+			[
+				"Any",
+				"AnyFrame	"
+			],
+			[
+				"unc",
+				"uncompressFrameHeaders"
+			],
+			[
+				"Uncompre",
+				"UncompressedKeyValueBlock"
+			],
+			[
+				"recv_",
+				"recv_zlib_mvar"
+			],
+			[
+				"compress",
+				"compressFrameHeaders"
+			],
+			[
+				"uncompre",
+				"uncompressed_uvl"
+			],
+			[
+				"compre",
+				"compressFrameHeaders"
+			],
+			[
+				"wrap",
+				"wrapCF"
+			],
+			[
+				"Compre",
+				"CompressedKeyValueBlock	"
+			],
+			[
+				"uncompressed",
+				"uncompressed_uvl"
+			],
+			[
+				"uncomp",
+				"uncompressed_uvl"
+			],
+			[
+				"create",
+				"_createTrivialSource"
+			],
+			[
+				"runRea",
+				"runReaderT	ReaderT r m a -> r -> m a"
+			],
+			[
+				"Header",
+				"HeadersFrame	"
+			],
+			[
+				"compresse",
+				"compressedKeyValueBlock"
+			],
+			[
+				"syns",
+				"synstreamframe"
+			],
+			[
+				"Stre",
+				"StreamStateT	m a"
+			],
+			[
+				"prepare",
+				"prepareDataFrame	B.ByteString -> Int -> AnyFrame"
+			],
+			[
+				"associate",
+				"associated_to_stream"
+			],
+			[
+				"global_",
+				"global_stream_id"
+			],
+			[
+				"Unp",
+				"UnpackedNameValueList	"
+			],
+			[
+				"next_push",
+				"next_pushed_stream_id"
+			],
+			[
+				"next_pus",
+				"next_pushed_stream_mvar"
+			],
+			[
+				"next",
+				"next_pushed_stream"
+			],
+			[
+				"globa",
+				"global_id"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 46.0,
+		"selected_items":
+		[
+			[
+				"boo",
+				"Bookmarks: Clear All"
+			],
+			[
+				"git: r",
+				"Git: Reset (unstage) Current File"
+			],
+			[
+				"sty",
+				"SublimeHaskell: Stylish"
+			],
+			[
+				"book",
+				"Bookmarks: Clear All"
+			],
+			[
+				"Bookm",
+				"Bookmarks: Toggle"
+			],
+			[
+				"styli",
+				"SublimeHaskell: Stylish"
+			],
+			[
+				"styl",
+				"SublimeHaskell: Stylish"
+			],
+			[
+				"remove",
+				"SublimeBookmarks: Remove All Bookmarks (Clear Bookmarks)"
+			],
+			[
+				"Book",
+				"SublimeBookmarks: Remove All Bookmarks (Clear Bookmarks)"
+			],
+			[
+				"bookma",
+				"SublimeBookmarks: Add Bookmark"
+			],
+			[
+				"go to ",
+				"SublimeBookmarks: Goto Bookmark"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"space",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"",
+				"Bookmarks: Clear All"
+			],
+			[
+				"Styl",
+				"SublimeHaskell: Stylish"
+			],
+			[
+				"Sty",
+				"SublimeHaskell: Stylish"
+			],
+			[
+				"spaces",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"alignm",
+				"Preferences: Alignment Key Bindings – User"
+			],
+			[
+				"spa",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"spa	",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"sele",
+				"Rot13 Selection"
+			],
+			[
+				"stylish",
+				"SublimeHaskell: Stylish"
+			],
+			[
+				"Styli",
+				"SublimeHaskell: Stylish"
+			],
+			[
+				"next err",
+				"SublimeHaskell: Go to next error"
+			],
+			[
+				"haskell",
+				"SublimeHaskell: Stylish"
+			],
+			[
+				"lint",
+				"SublimeHaskell: Lint"
+			],
+			[
+				"commit",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add Current File"
+			],
+			[
+				"Haskell",
+				"SublimeHaskell: Show symbol info"
+			],
+			[
+				"git:add",
+				"Git: Add Current File"
+			],
+			[
+				"git:",
+				"Git: Status"
+			],
+			[
+				"go to",
+				"SublimeHaskell: Go to Declaration"
+			],
+			[
+				"sublime",
+				"Preferences: SublimeHaskell Settings – User"
+			],
+			[
+				"sub",
+				"SublimeHaskell: Go to Declaration"
+			],
+			[
+				"info",
+				"SublimeHaskell: Show symbol info"
+			],
+			[
+				"add cu",
+				"Git: Add Current File"
+			],
+			[
+				"add",
+				"Git: Add Current File"
+			],
+			[
+				"ignore",
+				"Git: Update Project Ignored Files"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"togg",
+				"Toggle ScopeAlways"
+			],
+			[
+				"to",
+				"Toggle ScopeAlways"
+			],
+			[
+				"tog",
+				"Toggle ScopeAlways"
+			],
+			[
+				"new",
+				"z:AAAPackageDev: New Completions File"
+			],
+			[
+				"comple",
+				"z:AAAPackageDev: New Completions File"
+			],
+			[
+				"togle",
+				"Toggle ScopeAlways"
+			],
+			[
+				"toggle",
+				"Toggle ScopeAlways"
+			],
+			[
+				"Togle",
+				"Toggle ScopeAlways"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"clear",
+				"Bookmarks: Clear All"
+			],
+			[
+				"side",
+				"View: Toggle Side Bar"
+			],
+			[
+				"Packa",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: CO",
+				"Package Control: Discover Packages"
+			],
+			[
+				"ali",
+				"TheIndent: Realign (latex) paragraph"
+			],
+			[
+				"alig",
+				"TheIndent: Realign (latex) paragraph"
+			],
+			[
+				"algi",
+				"TheIndent: Realign (latex) paragraph"
+			],
+			[
+				"Inden",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"tab",
+				"Indentation: Convert to Tabs"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 790.0
+	},
+	"console":
+	{
+		"height": 633.0,
+		"history":
+		[
+			"window.project_data()['settings']['atcac']['entry_point']",
+			"window.project_data()['settings']['atcac']",
+			"window.project_data()['settings']",
+			"window.project_data()",
+			"sublime.get_window()",
+			"sublime.get_current_window()",
+			"sublime.window",
+			"window.project_data()",
+			"window",
+			"dir( view )",
+			"view",
+			"s = sublime.Settings()",
+			"sublime.Settings",
+			"sublime.settings",
+			"Settings",
+			"settings",
+			"dir",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors.stTheme')",
+			"s = view.settings()",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors.stTheme')",
+			"s = view.settings()",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors.stTheme')",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors_11.stTheme')",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors_10.stTheme')",
+			"s = view.settings()",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors_08.stTheme')",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors_07.stTheme')",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors_05.stTheme')",
+			"s = view.settings()",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors_05.stTheme')",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors_04.stTheme')",
+			"s = view.settings()",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors_04.stTheme')",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors_03.stTheme')",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors_02.stTheme')",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors_01.stTheme')",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors.stTheme')",
+			"s.set('color_scheme', 'Packages/AtcacPlugin/transcolors_.stTheme')",
+			"s.get('color_scheme')",
+			"s.get",
+			"s = view.settings()",
+			"view.settings()",
+			"view",
+			"view.settings().get('atcac')",
+			"view.settings",
+			"dir(ctypes)",
+			"import ctypes",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) ",
+			" import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) ",
+			"view.run_command('realign_block')",
+			"mo.start(0)",
+			"mo.start",
+			"mo = re.search('a', 'ba')",
+			"re.match('a', 'ba')",
+			"import re",
+			"re.match('a', 'ba')",
+			"list('ba')",
+			"''.join((reversed('ab')))",
+			"str(reversed('ab'))",
+			"reversed('ab')",
+			"'ab'.reverse()",
+			"view.run_command('realign_block')",
+			"'This 10 \\\\%\\nLook\\n'.split('\\n')",
+			"view.run_command('realign_block')",
+			"view.size()",
+			"view.rowcol( 2674 )",
+			"view.rowcol( 2675 )",
+			"view.run_command('realign_block')",
+			"view.rowcol( view.size()-1 )",
+			"view.rowcol( view.size() )",
+			"view.size()",
+			"view.size",
+			"view",
+			"view.run_command('realign_block')",
+			"view.substr(s0)",
+			"s0 = view.sel()[0]",
+			"view.sel()[0]",
+			"view.line(1877)",
+			"s0",
+			"s0 = view.sel()[0]",
+			"view.sel()[1]",
+			"view.sel()[0]",
+			"view.sel()",
+			"view.line(2)",
+			"view.line(1)",
+			"view.line(0)",
+			"view.line()",
+			"view.line",
+			"view.run_command('test')",
+			"help( view.run_command )",
+			"view.run_command('TestCommand')",
+			"view.run_command('test_command')",
+			"view.run_command('test_com')",
+			"view.run_command('test_command')",
+			"view.run_command('xx')",
+			"view.run_command",
+			"view",
+			"buffer",
+			"window.run_command('test_commandx')",
+			"window.run_command('test_command')",
+			"window",
+			"dir(ctypes)",
+			"dir(dtypes)",
+			"import ctypes",
+			"sys.version",
+			"sys.version()",
+			"import sys",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"print (view.scope_name(0))",
+			"print (view.scope_name('.'))",
+			"print (view.scope_name)",
+			"print (view)",
+			"print (view.syntax_name(view.sel()[0].b))"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": true,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/alcides/projects/http2_loadimpact"
+	],
+	"file_history":
+	[
+		"/home/alcides/projects/loadimpact/loadimpact-services/venv/lib/python2.7/site-packages/libcloud/test/compute/fixtures/vcloud_1_5/api_query_group.xml",
+		"/home/alcides/projects/loadimpact/api.loadimpact.com/api3/admin.py",
+		"/home/alcides/projects/loadimpact/loadimpact-services/loadimpact-lib/setup.py",
+		"/home/alcides/projects/loadimpact/loadimpact-services/loadimpact-lib/.git",
+		"/home/alcides/projects/loadimpact/loadimpact-services/proxy/cert/loadimpact-ca.pem",
+		"/home/alcides/projects/loadimpact/loadimpact-services/logs/loadimpact.testworker_db.log",
+		"/home/alcides/projects/loadimpact/loadimpact-services/load_zone_monitoring_service.py",
+		"/home/alcides/projects/loadimpact/loadimpact-services/load_zone_service.py",
+		"/home/alcides/projects/loadimpact/loadimpact-services/lextab.py",
+		"/home/alcides/projects/loadimpact/loadimpact-services/.Dockerfile.swp",
+		"/home/alcides/projects/loadimpact/loadimpact-services/services.sh",
+		"/home/alcides/projects/loadimpact/loadimpact-services/parsetab_inline.py",
+		"/home/alcides/projects/loadimpact/loadimpact-services/validation_worker.py",
+		"/home/alcides/projects/loadimpact/loadimpact-services/README.md",
+		"/home/alcides/projects/loadimpact/loadimpact-services/export_worker.py",
+		"/home/alcides/projects/loadimpact/loadimpact-services/logs/loadimpact.queue_service_db.log.2015-03-18",
+		"/home/alcides/projects/loadimpact/.idea/loadimpact.iml",
+		"/home/alcides/projects/loadimpact/api.loadimpact.com/functest/fixtures/li.Organization.csv",
+		"/home/alcides/projects/loadimpact/api.loadimpact.com/loadimpact-lib/loadimpact/util/subprocess_helpers.py",
+		"/home/alcides/projects/loadimpact/loadimpact-lib/loadimpact/util/subprocess_helpers.py",
+		"/home/alcides/projects/loadimpact/loadimpact-services/loadimpact-lib/loadimpact/util/subprocess_helpers.py",
+		"/home/alcides/projects/loadimpact/api.loadimpact.com/setup.py",
+		"/home/alcides/projects/loadimpact/api.loadimpact.com/conf/nginx/api.loadimpact.com",
+		"/home/alcides/projects/loadimpact/api.loadimpact.com/docs/api.md",
+		"/home/alcides/projects/loadimpact/loadimpact-services/keys/alphakey_amazon_us_paloalto.pem",
+		"/home/alcides/projects/loadimpact/api.loadimpact.com/appdirect/subscriptions.py",
+		"/home/alcides/projects/loadimpact/loadimpact-services/venv/lib/python2.7/site-packages/setuptools/svn_utils.py",
+		"/home/alcides/projects/loadimpact/loadimpact-lib/loadimpact/loadtest/results/__init__.py",
+		"/home/alcides/projects/loadimpact/loadimpact-lib/loadimpact/loadtest/streaming/results.py",
+		"/home/alcides/projects/loadimpact/api.loadimpact.com/api3/serializers/test_run_exports.py",
+		"/home/alcides/projects/loadimpact/api.loadimpact.com/README.md",
+		"/home/alcides/projects/loadimpact/api.loadimpact.com/li/backends.py",
+		"/home/alcides/projects/loadimpact/loadimpact-lib/loadimpact/loadtest/results/backends.py",
+		"/home/alcides/projects/rede/cabal.config",
+		"/home/alcides/projects/rede/hs-src/Rede/Constants.hs",
+		"/home/alcides/projects/rede/hs-src/Rede/MainLoop/ConfigHelp.hs",
+		"/home/alcides/projects/rede/scripts/StationB/configure_dnsmasq.py",
+		"/home/alcides/projects/rede/kel-data-dir/config/ca/cacert_.pem",
+		"/home/alcides/projects/rede/kel-data-dir/config/ca/certindex.txt.attr",
+		"/home/alcides/projects/rede/hs-src/reh.hs",
+		"/home/alcides/projects/rede/scripts/undaemon.py",
+		"/home/alcides/projects/rede/scripts/StationB/onstartup.py",
+		"/home/alcides/projects/rede/kazu-yamamoto-http2/Network/HPACK/Builder.hs",
+		"/home/alcides/projects/rede/hs-src/Rede/Utils/PrintfArgByteString.hs",
+		"/home/alcides/projects/rede/fabfile.py",
+		"/home/alcides/projects/rede/kazu-yamamoto-http2/test-frame/json/settings-normal",
+		"/home/alcides/projects/rede/hs-src/Rede/SpdyProtocol/Framing/Settings.hs",
+		"/home/alcides/projects/rede/scripts/StationA/chrome_captures_hars/manifest.json",
+		"/home/alcides/projects/rede/scripts/StationA/chrome_captures_hars/popup.js",
+		"/home/alcides/projects/rede/rede.cabal",
+		"/home/alcides/projects/rede/scripts/StationA/chrome_captures_hars/cch_extension.js",
+		"/home/alcides/projects/rede/hs-src/main.hs",
+		"/home/alcides/projects/rede/scripts/StationA/chrome_captures_hars/chrome_captures_hars.sublime-project",
+		"/home/alcides/projects/rede/scripts/ca-certificates.crt",
+		"/home/alcides/projects/rede/hs-src/Rede/HarFiles/ServedEntry.hs",
+		"/home/alcides/projects/rede/hs-src/Rede/HarFiles/JSONDataStructure.hs",
+		"/home/alcides/projects/rede/hs-src/Rede/Utils.hs",
+		"/home/alcides/projects/rede/scripts/vncserv-ubuntu.conf",
+		"/home/alcides/projects/rede/scripts/aws_cf_http2study_stack.json",
+		"/home/alcides/projects/rede/scripts/StationA/onstartup.py",
+		"/home/alcides/projects/rede/kazu-yamamoto-http2/test-frame/json/window-update-normal",
+		"/home/alcides/projects/rede/misc/openssl-noprompt.cnf",
+		"/home/alcides/projects/rede/fake-sec/ca/openssl.cnf",
+		"/home/alcides/projects/rede/hs-src/Rede/MainLoop/Framer.hs",
+		"/home/alcides/projects/rede/hs-src/Rede/Http2/Streams/State.hs",
+		"/home/alcides/projects/rede/hs-src/Rede/Http2/Session.hs",
+		"/home/alcides/projects/rede/hs-src/Rede/Research/ResearchWorker.hs",
+		"/home/alcides/projects/rede/README.md",
+		"/home/alcides/projects/rede/kel-data-dir/config/servedhost.conf",
+		"/home/alcides/projects/rede/fake-sec/ca/serial",
+		"/home/alcides/projects/rede/hs-src/Rede/MainLoop/CoherentWorker.hs",
+		"/home/alcides/projects/rede/kazu-yamamoto-http2/Network/HPACK.hs",
+		"/home/alcides/projects/rede/hs-src/Rede/SpdyProtocol/Session.hs",
+		"/home/alcides/projects/rede/kazu-yamamoto-http2/test-frame/json/data-frame-size-error",
+		"/home/alcides/projects/rede/.gitignore",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/HarFiles/ServedRehash.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/HarFiles/DataStructure.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/AnyFrame.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/ChunkProducer.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/Framer.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/StreamWorker.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/Common.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/PushPullType.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/StreamPlug.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/Tokens.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/Conduit.hs",
+		"/home/alcides/.config/sublime-text-3/Packages/User/SublimeHaskell.sublime-settings",
+		"/home/alcides/projects/spdy-ping/hs-src/reh.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Streams/State.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Session.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/Pipes.hs",
+		"/home/alcides/projects/spdy-ping/rede.cabal",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/DataFrame.hs",
+		"/home/alcides/projects/spdy-ping/httptwodd/config/certs/AddTrustExternalCARoot.crt",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Conduit.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/Frame.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/Settings.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/SynReply.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/Constants.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/ConfigHelp.hs",
+		"/home/alcides/projects/spdy-ping/.gitignore",
+		"/home/alcides/projects/spdy-ping/makeenvsensible",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/Utils.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/Tls.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/main.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/Subprograms/BasicPing.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/Subprograms/BasicConnect.hs",
+		"/home/alcides/projects/spdy-ping/README.md",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/TrivialTestWorker.hs",
+		"/home/alcides/projects/spdy-ping/kel-data-dir/www/mathjax23/fonts/HTML-CSS/TeX/otf/MathJax_Typewriter-Regular.otf",
+		"/home/alcides/projects/spdy-ping/makeenv",
+		"/home/alcides/projects/spdy-ping/kel-data-dir/www/mathjax23/fonts/HTML-CSS/Neo-Euler/otf/NeoEulerMathJax_Alphabets-Regular.otf",
+		"/home/alcides/projects/spdy-ping/spdyping.sublime-project",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/RstStream.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/SynStream.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/Headers.hs",
+		"/home/alcides/projects/spdy-ping/demo-site/mathjax23/fonts/HTML-CSS/Gyre-Termes/otf/GyreTermesMathJax_Normal-Regular.otf",
+		"/home/alcides/projects/spdy-ping/demo-site/mathjax23/fonts/HTML-CSS/Asana-Math/otf/AsanaMathJax_Symbols-Regular.otf",
+		"/home/alcides/projects/spdy-ping/demo-site/mathjax23/fonts/HTML-CSS/Gyre-Termes/MANIFEST-GyreTermesMathJax.txt",
+		"/home/alcides/projects/spdy-ping/tests/AnyFrame.hs",
+		"/home/alcides/projects/spdy-ping/demo-site/mathjax23/fonts/HTML-CSS/TeX/otf/MathJax_Typewriter-Regular.otf",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/WindowUpdate.hs",
+		"/home/alcides/projects/spdy-ping/demo-site/mathjax23/fonts/HTML-CSS/TeX/otf/MathJax_WinIE6-Regular.otf",
+		"/home/alcides/projects/spdy-ping/demo-site/mathjax23/jax/input/MathML/entities/w.js",
+		"/home/alcides/projects/spdy-ping/cabal.config",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/KeyValueBlock.hs",
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/Ping.hs",
+		"/home/alcides/projects/spdy-ping/demo-site/http2/_includes/header.html"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 123.0,
+		"where_history":
+		[
+			"**",
+			"/**",
+			"loadimpact-lib/**",
+			"hs-src/**",
+			"/hs-src/**",
+			"/rede/hs-src/**",
+			"hs-src/**",
+			"kazu-yamamoto-http2/**",
+			"hs-src/**",
+			"hs-src/Rede/MainLoop/**",
+			"hs-src/**",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"store_urls",
+			"store_results",
+			"/usr/bin/ssh",
+			"\\<store_ids",
+			"\\<store_urls",
+			"\\<store_pages",
+			"\\<store_ids",
+			"store_ids",
+			"store_counters",
+			"modifyUrlState",
+			"safeHashFromUrl",
+			"hashFromUrl",
+			"_urlState",
+			"-- Remember that composition works in reverse...",
+			"++",
+			"ti",
+			"consol\\>",
+			"onstart",
+			"kill",
+			"HereString",
+			"hashFromUrl",
+			"hashFromHarPostResponse",
+			"start",
+			"-",
+			"hashFromHarLog",
+			"ReaderT WorkerThreadEnvironment IO ",
+			"flippedRunReader",
+			"decoder_shared_state",
+			"makeInputPlug",
+			"fromHeaderBlock",
+			"DynamicTable",
+			"inputPlug",
+			"UnpackedNameValueList",
+			"Har_Entr",
+			"ServedRehashEntry",
+			"Deriving",
+			"Har_VersionPair",
+			"version",
+			"Har_PageTimings",
+			"comment",
+			"startedDateTime",
+			"HereString",
+			"`ba`",
+			"\\.:",
+			".:",
+			"Har_Header",
+			"::",
+			"_content     :: HereString",
+			"     :: ",
+			"::",
+			"Har_Headers",
+			"<*>",
+			"SpdyProtocol",
+			"AnyFrame",
+			"pushFrameHelper",
+			"StreamStateT",
+			"readFrame",
+			"outputConsumer",
+			"AnyFrame",
+			"PushAction",
+			"SessionM",
+			"chunkProducerHelper",
+			"chunkProducer",
+			"chunkProducerHelper",
+			"--",
+			"chunkProducerHelper",
+			"perfunctoryClassify",
+			"AnyFrame",
+			"reportTimedEvent",
+			"Got ping back",
+			"spdyDataFrameMaxLength",
+			"\n\n",
+			"\n",
+			"disableRecordingOnSession",
+			"getRelPathMime",
+			"sendResponse",
+			"the_path",
+			"www_dir",
+			"wwwDir",
+			"www_dir",
+			"ht_mvar",
+			"pushContentsOfHead",
+			"the_path",
+			"Settings",
+			"putStrLn",
+			"getAddrInfo",
+			"host_port",
+			"::",
+			"HostPort",
+			"WIRED",
+			"Wired",
+			"Host",
+			"initFlowControlOnStream",
+			"Settings",
+			"streamIdFromFrame",
+			"deleteStream",
+			"session_window",
+			"Rst",
+			"WindowUpdate",
+			"->",
+			"<-",
+			"initStream",
+			"createStreamWindowInfo",
+			"<-",
+			"_sendFramesForStream",
+			"output",
+			"SendAssociatedFinish_SOA",
+			"putStrLn",
+			"initialWindowSize",
+			"655",
+			"iDropThisFrame",
+			"_yieldDataFramesFromData",
+			"prepareDataFrame",
+			"readMVar",
+			"streamIdFromFrame",
+			"somebody_drops_outputs_here",
+			"output_mvar",
+			"somebody_drops_outputs_here",
+			"_associatedLength",
+			"frame_id",
+			"--",
+			"frame",
+			"->",
+			"wupd",
+			"initial_size_mvar",
+			"=",
+			"                                 = ",
+			"="
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"hashSafeFromUrl",
+			"safeHashFromUrl",
+			".:",
+			"`ba`",
+			"plugStream",
+			" ",
+			"None_SVF",
+			"FrameControlOrData",
+			"SpdyProtocol.Framing",
+			"Rede",
+			"Rede.SpdyProtocol.Framing",
+			"Headers",
+			"SynReplyFrame",
+			"\\\\",
+			"\\\\r\\\\n\\\\",
+			"\\\\",
+			"\\\"",
+			"",
+			"DataFrame",
+			"settings",
+			"Settings",
+			"rstStreamFrame",
+			"intersection",
+			"cond",
+			"shufflePreservingDegrees"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 35.0
+	},
+	"input":
+	{
+		"height": 45.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.haskell_error_checker":
+	{
+		"height": 371.0
+	},
+	"output.haskell_sublime_load":
+	{
+		"height": 160.0
+	},
+	"output.sftp":
+	{
+		"height": 0.0
+	},
+	"project": "http2.sublime-project",
+	"replace":
+	{
+		"height": 66.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"aggr",
+				"loadimpact-lib/loadimpact/loadtest/results/aggregation.py"
+			],
+			[
+				"loadimpact-services/loadimpact-lib/subpr",
+				"loadimpact-services/loadimpact-lib/loadimpact/util/subprocess_helpers.py"
+			],
+			[
+				"subpro",
+				"api.loadimpact.com/loadimpact-lib/loadimpact/util/subprocess_helpers.py"
+			],
+			[
+				"subrp",
+				"loadimpact-services/loadimpact-lib/loadimpact/util/subprocess_helpers.py"
+			],
+			[
+				"results/ba",
+				"loadimpact-lib/loadimpact/loadtest/results/backends.py"
+			],
+			[
+				"bac",
+				"api.loadimpact.com/li/backends.py"
+			],
+			[
+				"cabal.con",
+				"cabal.config"
+			],
+			[
+				"rede.ca",
+				"rede.cabal"
+			],
+			[
+				"util",
+				"hs-src/Rede/Utils.hs"
+			],
+			[
+				"fab",
+				"fabfile.py"
+			],
+			[
+				"reh",
+				"hs-src/reh-mimic.hs"
+			],
+			[
+				"sni",
+				"SNIPPETS.md"
+			],
+			[
+				".json",
+				"scripts/aws_cf_http2study_stack.json"
+			],
+			[
+				"manif",
+				"scripts/StationA/chrome_captures_hars/manifest.json"
+			],
+			[
+				"cch_e",
+				"scripts/StationA/chrome_captures_hars/cch_extension.js"
+			],
+			[
+				"on",
+				"scripts/StationB/onstartup.py"
+			],
+			[
+				"onstar",
+				"scripts/StationA/onstartup.py"
+			],
+			[
+				"fabfi",
+				"fabfile.py"
+			],
+			[
+				"undaem",
+				"scripts/undaemon.py"
+			],
+			[
+				"resear",
+				"hs-src/Rede/Research/ResearchWorker.hs"
+			],
+			[
+				"cabal",
+				"cabal.config"
+			],
+			[
+				"onstartu",
+				"scripts/StationA/onstartup.py"
+			],
+			[
+				"unda",
+				"scripts/undaemon.py"
+			],
+			[
+				"onstart",
+				"scripts/StationA/onstartup.py"
+			],
+			[
+				"servedentr",
+				"hs-src/Rede/HarFiles/ServedEntry.hs"
+			],
+			[
+				"read",
+				"README.md"
+			],
+			[
+				"research",
+				"hs-src/Rede/Research/ResearchWorker.hs"
+			],
+			[
+				".cabal",
+				"rede.cabal"
+			],
+			[
+				"session",
+				"hs-src/Rede/Http2/Session.hs"
+			],
+			[
+				"sessio",
+				"hs-src/Rede/SpdyProtocol/Session.hs"
+			],
+			[
+				".giti",
+				".gitignore"
+			],
+			[
+				"data",
+				"hs-src/Rede/HarFiles/DataStructure.hs"
+			],
+			[
+				".ca",
+				"rede.cabal"
+			],
+			[
+				"d",
+				"hs-src/Rede/HarFiles/DataStructure.hs"
+			],
+			[
+				".caba",
+				"rede.cabal"
+			],
+			[
+				"datastru",
+				"hs-src/Rede/HarFiles/DataStructure.hs"
+			],
+			[
+				"framer",
+				"hs-src/Rede/MainLoop/Framer.hs"
+			],
+			[
+				"fra",
+				"hs-src/Rede/MainLoop/Framer.hs"
+			],
+			[
+				"condu",
+				"hs-src/Rede/MainLoop/Conduit.hs"
+			],
+			[
+				"anyframe",
+				"hs-src/Rede/SpdyProtocol/Framing/AnyFrame.hs"
+			],
+			[
+				"tls.hs",
+				"hs-src/Rede/MainLoop/Tls.hs"
+			],
+			[
+				"trivia",
+				"hs-src/Rede/SpdyProtocol/TrivialTestWorker.hs"
+			],
+			[
+				"cons",
+				"hs-src/Rede/Constants.hs"
+			],
+			[
+				"tls",
+				"hs-src/Rede/MainLoop/Tls.hs"
+			],
+			[
+				"makeenv",
+				"makeenvsensible"
+			],
+			[
+				"re",
+				"hs-src/reh.hs"
+			],
+			[
+				"trivi",
+				"hs-src/Rede/SpdyProtocol/TrivialTestWorker.hs"
+			],
+			[
+				"config",
+				"hs-src/Rede/MainLoop/ConfigHelp.hs"
+			],
+			[
+				"header",
+				"hs-src/Rede/SpdyProtocol/Framing/Headers.hs"
+			],
+			[
+				"synrepl",
+				"hs-src/Rede/SpdyProtocol/Framing/SynReply.hs"
+			],
+			[
+				"anystr",
+				"demo-site/mathjax23/fonts/HTML-CSS/Asana-Math/otf/AsanaMathJax_Symbols-Regular.otf"
+			],
+			[
+				"synstream",
+				"hs-src/Rede/SpdyProtocol/Framing/SynStream.hs"
+			],
+			[
+				"rststream",
+				"hs-src/Rede/SpdyProtocol/Framing/RstStream.hs"
+			],
+			[
+				"trivial",
+				"hs-src/Rede/SpdyProtocol/TrivialTestWorker.hs"
+			],
+			[
+				"state",
+				"hs-src/Rede/SpdyProtocol/Streams/State.hs"
+			],
+			[
+				"settings",
+				"hs-src/Rede/SpdyProtocol/Framing/Settings.hs"
+			],
+			[
+				"window",
+				"hs-src/Rede/SpdyProtocol/Framing/WindowUpdate.hs"
+			],
+			[
+				"synrep",
+				"hs-src/Rede/SpdyProtocol/Framing/SynReply.hs"
+			],
+			[
+				"windowup",
+				"hs-src/Rede/SpdyProtocol/Framing/WindowUpdate.hs"
+			],
+			[
+				"synre",
+				"hs-src/Rede/SpdyProtocol/Framing/SynReply.hs"
+			],
+			[
+				"frame",
+				"hs-src/Rede/SpdyProtocol/Framing/Frame.hs"
+			],
+			[
+				"datafra",
+				"hs-src/Rede/SpdyProtocol/Framing/DataFrame.hs"
+			],
+			[
+				"anyfra",
+				"hs-src/Rede/SpdyProtocol/Framing/AnyFrame.hs"
+			],
+			[
+				"any",
+				"hs-src/Rede/SpdyProtocol/Framing/AnyFrame.hs"
+			],
+			[
+				"headers",
+				"hs-src/Rede/SpdyProtocol/Framing/Headers.hs"
+			],
+			[
+				"synstre",
+				"hs-src/Rede/SpdyProtocol/Framing/SynStream.hs"
+			],
+			[
+				"ping",
+				"hs-src/Rede/SpdyProtocol/Framing/Ping.hs"
+			],
+			[
+				"kel",
+				"hs-src/kel.hs"
+			],
+			[
+				"kel.",
+				"hs-src/kel.hs"
+			],
+			[
+				"wor",
+				"hs-src/Rede/SpdyProtocol/TrivialTestWorker.hs"
+			],
+			[
+				"syn",
+				"hs-src/Rede/SpdyProtocol/Framing/SynReply.hs"
+			],
+			[
+				"test.",
+				"hs-src/Rede/Test.hs"
+			],
+			[
+				"test.hs",
+				"hs-src/test.hs"
+			],
+			[
+				"dataf",
+				"hs-src/Rede/SpdyProtocol/Framing/DataFrame.hs"
+			],
+			[
+				"token",
+				"hs-src/Rede/MainLoop/Tokens.hs"
+			],
+			[
+				"anyfr",
+				"hs-src/Rede/SpdyProtocol/Framing/AnyFrame.hs"
+			],
+			[
+				"key",
+				"hs-src/Rede/SpdyProtocol/Framing/KeyValueBlock.hs"
+			],
+			[
+				"sysst",
+				"hs-src/Rede/SpdyProtocol/Framing/SynStream.hs"
+			],
+			[
+				".c",
+				"rede.cabal"
+			],
+			[
+				"keyvalue",
+				"hs-src/Rede/SpdyProtocol/Framing/KeyValueBlock.hs"
+			],
+			[
+				"syns",
+				"hs-src/Rede/SpdyProtocol/Framing/SynStream.hs"
+			],
+			[
+				"go",
+				"hs-src/Rede/SpdyProtocol/Framing/GoAway.hs"
+			],
+			[
+				"sett",
+				"hs-src/Rede/SpdyProtocol/Framing/Settings.hs"
+			],
+			[
+				"kel.hs",
+				"hs-src/kel.hs"
+			],
+			[
+				"rede",
+				"rede.cabal"
+			],
+			[
+				"rede.cab",
+				"rede.cabal"
+			],
+			[
+				"main",
+				"hs-src/main.hs"
+			],
+			[
+				"",
+				"hs-src/SpdyPing/MainLoop/Pipes.hs"
+			],
+			[
+				".cab",
+				"spdy-ping.cabal"
+			],
+			[
+				"bas",
+				"hs-src/SpdyPing/Subprograms/BasicConnect.hs"
+			],
+			[
+				"mai",
+				"hs-src/SpdyPing/MainLoop.hs"
+			],
+			[
+				"a",
+				"hs-src/SpdyPing/Framing/AnyFrame.hs"
+			],
+			[
+				"frame.hs",
+				"hs-src/SpdyPing/Framing/Frame.hs"
+			],
+			[
+				"ut",
+				"hs-src/SpdyPing/Utils.hs"
+			],
+			[
+				"uti",
+				"hs-src/SpdyPing/Utils.hs"
+			],
+			[
+				"spdy",
+				"spdy-ping.cabal"
+			],
+			[
+				".hs",
+				"hs-src/SpdyPing/TLSConnect.hs"
+			],
+			[
+				"my",
+				"mybib.bib"
+			],
+			[
+				"organo",
+				"scripts/make_organogram.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 700.0,
+		"selected_items":
+		[
+			[
+				"",
+				"~/projects/spdy-ping/demo-site/http2/http2site.sublime-project"
+			]
+		],
+		"width": 532.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 353.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -36,3 +36,14 @@ Step 2: Have an automatic bootstrap of the virtualenv
 Step 3: Do a local deployment:
 
     $ fab -f setup/scripts/fabric_local.py local_deploy
+
+
+Remote setup at Amazon EC2
+--------------------------
+
+This one is simpler. You need to have awscli correctly configured to connect to your 
+instances, and said instances need to be tagged (take a look to the script setup/scripts/findout_instance-ips.py). Once you have got the instances and they are correctly tagged, you can 
+use 
+
+    $ fab -f setup/scripts/fabric_ec2.py complete_remote_deploy
+

@@ -2,6 +2,14 @@
 #
 # Install a virtualenv and prepares fabric for working.
 #
+
+# Try to pull the HTTP2_LOAD_IMPACT__PROJECT_DIR from the first 
+# script argument. 
+
+if ! [ -z "$1" ] ; then 
+	HTTP2_LOAD_IMPACT__PROJECT_DIR="$1"
+fi
+
 if [ -z "$HTTP2_LOAD_IMPACT__PROJECT_DIR" ]; then
     echo "Please do \"source makeenv\" first"
     exit 1
