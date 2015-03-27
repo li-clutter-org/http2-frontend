@@ -10,3 +10,4 @@ class AnalysisInfoSerializer(ModelSerializer):
 
     class Meta:
         model = AnalysisInfo
+        fields = ('analysis_id', 'state', 'json', 'url_analyzed')

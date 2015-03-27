@@ -46,7 +46,7 @@ class AnalysisInfo(models.Model):
     def get_json(self):
         if self.http1_json_data and self.http2_json_data:
             return format_json(
-                ast.literal_eval(self.http1_json_data),
-                ast.literal_eval(self.http2_json_data)
+                ast.literal_eval(str(self.http1_json_data)),
+                ast.literal_eval(str(self.http2_json_data))
             )
         return {}

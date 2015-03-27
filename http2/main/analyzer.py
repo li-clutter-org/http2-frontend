@@ -164,7 +164,10 @@ def format_json(http1_json, http2_json):
     entries = http1_json['har']['entries']
     for entry in entries:
         item_template = item_template.copy()
-        parsed_url = urlparse(entry['request']['url'])
+        try:
+            parsed_url = urlparse(entry['request']['url'])
+        except KeyError:
+            continue
         item_template['path'] = parsed_url.path
         item_template['domain'] = parsed_url.netloc
         item_template.update({

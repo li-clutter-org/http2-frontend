@@ -14,8 +14,10 @@ angular.module('http2').directive('d3Chars', [function() {
     return {
         restrict:'EA',
         link: function(scope, element, attrs) {
-            if (scope.analysis.data.json.times) {
-                d3.select("#timechart").call(d3.timechart(scope.analysis.data.json));
+            if (scope.analysis.data.json) {
+                if (scope.analysis.data.json.times) {
+                    d3.select("#timechart").call(d3.timechart(scope.analysis.data.json));
+                }
             }
         }
     }

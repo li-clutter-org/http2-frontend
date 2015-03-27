@@ -2,13 +2,19 @@ import os
 import shutil
 import requests
 import os.path as path
+import ast
 
 from django.conf import settings
 
 from rest_framework.views import APIView, status
 from rest_framework.response import Response
 
-from .analyzer import get_har_data_as_json, generate_hash_id, update_progress_mock
+from .analyzer import (
+    get_har_data_as_json,
+    generate_hash_id,
+    update_progress_mock,
+    format_json
+)
 from .models import AnalysisInfo
 from .serializers import AnalysisInfoSerializer
 
@@ -145,7 +151,11 @@ class GetAnalysisState(APIView):
 
                 # TODO: 100 % done... just for now, to see the progress and the state change.
                 if int(progress_info) is 100:
+                    http1_json_data, http2_json_data = get_har_data_as_json(result_dir)
+
                     analysis.state = AnalysisInfo.STATE_DONE
+                    analysis.http1_json_data = http1_json_data
+                    analysis.http2_json_data = http2_json_data
             else:
                 # TODO what to do in this case?
                 # Returning the analysis_info data for now, but we should check
@@ -154,6 +164,15 @@ class GetAnalysisState(APIView):
             # save new status
             analysis.save()
             result = AnalysisInfoSerializer(analysis).data
+
+            # TODO: More mocking stuffs
+            if analysis.state == AnalysisInfo.STATE_DONE:
+                result.update({
+                    'json': format_json(
+                            ast.literal_eval(str(http1_json_data)),
+                            ast.literal_eval(str(http2_json_data))
+                    )
+                })
             if progress:
                 result.update(progress)
         # and return data
