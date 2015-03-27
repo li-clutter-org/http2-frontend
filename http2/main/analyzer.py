@@ -141,10 +141,10 @@ def format_json(http1_json, http2_json):
         }
     """
     item_template = {
-        'path': ''
+        'path': '',
+        'domain': ''
     }
     new_json = {
-        'domain': http1_json['originUrl'],
         'times': []
     }
     # computing the moment the first request start
@@ -160,7 +160,9 @@ def format_json(http1_json, http2_json):
     entries = http1_json['har']['entries']
     for entry in entries:
         item_template = item_template.copy()
-        item_template['path'] = entry['request']['url']
+        parsed_url = urlparse(entry['request']['url'])
+        item_template['path'] = parsed_url.path
+        item_template['domain'] = parsed_url.netloc
         item_template.update({
             'http1': [
                 (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time).total_seconds(),
@@ -176,7 +178,8 @@ def format_json(http1_json, http2_json):
     for entry in new_json['times']:
         found = False
         for item in entries_http2:
-            if entry['path'] == item['request']['url']:
+            parsed_url = urlparse(item['request']['url'])
+            if entry['path'] == parsed_url.path and entry['domain'] == parsed_url.netloc:
                 found = True
                 entry['http2'] = [
                     (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time).total_seconds(),
