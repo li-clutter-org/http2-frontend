@@ -24,11 +24,5 @@ class Migration(migrations.Migration):
             name='analysis_id',
             field=models.CharField(editable=False, max_length=60),
             preserve_default=True,
-        ),
-        migrations.AlterField(
-            model_name='analysisinfo',
-            name='state',
-            field=models.IntegerField(choices=[(1, 'Send'), (2, 'Failed'), (3, 'Done')], default=1),
-            preserve_default=True,
-        ),
+        )
     ]

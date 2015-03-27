@@ -4,3 +4,4 @@
 # script SHOULD NOT be executed as ./script.sh, but sourced instead.
 
 export DJANGO_SETTINGS_MODULE="settings.local_alve"
+export PYTHONPATH="$HTTP2_LOAD_IMPACT__PROJECT_DIR/http2"
