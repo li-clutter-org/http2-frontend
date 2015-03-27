@@ -15,5 +15,5 @@ DATABASES = {
 ANALYSIS_RESULT_PATH = MEDIA_ROOT
 
 # Analyzer URL: http2 server coded in Haskell
-ANALYZER_URL = "'http://127.0.0.1:8000/api/analyzer/mocking"
+ANALYZER_URL = "http://127.0.0.1:8000/api/analyzer/mocking"
 PROGRESS_PERCENT = 50
