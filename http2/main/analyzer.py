@@ -39,6 +39,10 @@ def process_har_file(harfile_path):
         del entry['request']['headersSize']
         del entry['request']['bodySize']
 
+        # Removing weird URLs, for now allowing just the ones that start with http
+        if not str(entry['request']['url']).startswith('http'):
+            del entry['request']['url']
+
         clean_entries.append(entry)
 
     json_data['har']['entries'] = clean_entries
@@ -102,7 +106,7 @@ def update_progress_mock(analysis):
         settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME)
     status_progress_file = open(status_progress_file_path, 'r')
     # print(status_progress_file.read())
-    value = int(status_progress_file.read()) + 10
+    value = int(status_progress_file.read()) + settings.PROGRESS_PERCENT
     status_progress_file.close()
 
     status_progress_file = open(status_progress_file_path, 'w')
