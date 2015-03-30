@@ -519,6 +519,56 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "http2/static_dev/js/angular/core/controllers/analyzerController.js",
+			"settings":
+			{
+				"buffer_size": 3167,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "http2/static_dev/js/angular/core/controllers/entryController.js",
+			"settings":
+			{
+				"buffer_size": 3177,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "http2/static_dev/js/angular/core/routes.js",
+			"settings":
+			{
+				"buffer_size": 2716,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "http2/static_dev/partials/http2/analyzer.html",
+			"settings":
+			{
+				"buffer_size": 4900,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "http2/templates/base.html",
+			"settings":
+			{
+				"buffer_size": 1499,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Searching 9062 files for \"mainView\" (regex, case sensitive)\n\n~/projects/rede/http2_loadimpact/http2/static_dev/build/js/general.js:\n    <binary>\n\n/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/js/angular/core/routes.js:\n   19              title: 'Http2 tests',\n   20              views: {\n   21:                 'mainView':{\n   22                      templateUrl: 'partials/http2/analyzer.html',\n   23                      controller: 'analyzerController'\n   ..\n   32              title: 'Analysis status',\n   33              views: {\n   34:                 'mainView':{\n   35                      templateUrl: 'partials/http2/analyzer.html',\n   36                      controller: 'analyzerController'\n   ..\n   45              title: 'Page not found',\n   46              views: {\n   47:                 'mainView':{\n   48                      templateUrl: 'partials/http2/404.html',\n   49                      controller: '404controller'\n\n/home/alcides/projects/rede/http2_loadimpact/http2/templates/base.html:\n   29      </div>\n   30  \n   31:     <div data-ui-view=\"mainView\" class=\"main-view\"></div>\n   32  \n   33      <div class=\"footer\">Copyright 2014 Load Impact AB. All rights reserved. Terms.</div>\n\n7 matches across 3 files\n\n\nSearching 9062 files for \"ui-view\" (regex, case sensitive)\n\n/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/js/lib/angular-ui-router.js:\n 2505     * <pre>template:\n 2506     *   \"<h1>inline template definition</h1>\" +\n 2507:    *   \"<div ui-view></div>\"</pre>\n 2508     * <pre>template: function(params) {\n 2509     *       return \"<h1>generated template</h1>\"; }</pre>\n ....\n 2615     * Examples:\n 2616     *\n 2617:    * Targets three named `ui-view`s in the parent state's template\n 2618     * <pre>views: {\n 2619     *     header: {\n ....\n 2629     *   }</pre>\n 2630     *\n 2631:    * Targets named `ui-view=\"header\"` from grandparent state 'top''s template, and named `ui-view=\"body\" from parent state's template.\n 2632     * <pre>views: {\n 2633     *     'header@top': {\n ....\n 3621  /**\n 3622   * @ngdoc directive\n 3623:  * @name ui.router.state.directive:ui-view\n 3624   *\n 3625   * @requires ui.router.state.$state\n ....\n 3633   *\n 3634   * @description\n 3635:  * The ui-view directive tells $state where to place your templates.\n 3636   *\n 3637   * @param {string=} name A view name. The name should be unique amongst the other views in the\n ....\n 3641   * when a view is populated. By default, $anchorScroll is overridden by ui-router's custom scroll\n 3642   * service, {@link ui.router.state.$uiViewScroll}. This custom service let's you\n 3643:  * scroll ui-view elements into view when they are populated during a state activation.\n 3644   *\n 3645   * *Note: To revert back to old [`$anchorScroll`](http://docs.angularjs.org/api/ng.$anchorScroll)\n ....\n 3652   * <pre>\n 3653   * <!-- Unnamed -->\n 3654:  * <div ui-view></div> \n 3655   * \n 3656   * <!-- Named -->\n 3657:  * <div ui-view=\"viewName\"></div>\n 3658   * </pre>\n 3659   *\n ....\n 3661   * single view and it is unnamed then you can populate it like so:\n 3662   * <pre>\n 3663:  * <div ui-view></div> \n 3664   * $stateProvider.state(\"home\", {\n 3665   *   template: \"<h1>HELLO!</h1>\"\n ....\n 3683   * but you could if you wanted, like so:\n 3684   * <pre>\n 3685:  * <div ui-view=\"main\"></div>\n 3686   * </pre> \n 3687   * <pre>\n ....\n 3697   * Really though, you'll use views to set up multiple views:\n 3698   * <pre>\n 3699:  * <div ui-view></div>\n 3700:  * <div ui-view=\"chart\"></div> \n 3701:  * <div ui-view=\"data\"></div> \n 3702   * </pre>\n 3703   * \n ....\n 3722   * <pre>\n 3723   * <!-- If autoscroll present with no expression,\n 3724:  *      then scroll ui-view into view -->\n 3725:  * <ui-view autoscroll/>\n 3726   *\n 3727   * <!-- If autoscroll present with valid expression,\n 3728:  *      then scroll ui-view into view if expression evaluates to true -->\n 3729:  * <ui-view autoscroll='true'/>\n 3730:  * <ui-view autoscroll='false'/>\n 3731:  * <ui-view autoscroll='scopeVariable'/>\n 3732   * </pre>\n 3733   */\n ....\n 3854            /**\n 3855             * @ngdoc event\n 3856:            * @name ui.router.state.directive:ui-view#$viewContentLoaded\n 3857:            * @eventOf ui.router.state.directive:ui-view\n 3858:            * @eventType emits on ui-view directive scope\n 3859             * @description           *\n 3860             * Fired once the view is **loaded**, *after* the DOM is rendered.\n ....\n 3910  \n 3911  /**\n 3912:  * Shared ui-view code for both directives:\n 3913   * Given scope, element, and its attributes, return the view's name\n 3914   */\n\n/home/alcides/projects/rede/http2_loadimpact/http2/templates/base.html:\n   29      </div>\n   30  \n   31:     <div data-ui-view=\"mainView\" class=\"main-view\"></div>\n   32  \n   33      <div class=\"footer\">Copyright 2014 Load Impact AB. All rights reserved. Terms.</div>\n\n25 matches across 2 files\n",
+			"settings":
+			{
+				"buffer_size": 4900,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -900,10 +950,53 @@
 	},
 	"expanded_folders":
 	[
-		"/home/alcides/projects/http2_loadimpact"
+		"/home/alcides/projects/rede/http2_loadimpact",
+		"/home/alcides/projects/rede/http2_loadimpact/http2",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/main/templatetags",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/main/templatetags/__pycache__",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/js",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/js/angular",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/js/angular/core",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/js/angular/core/controllers",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/partials",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/partials/http2",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/templates",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/templates/docs/frontend",
+		"/home/alcides/projects/rede/http2_loadimpact/setup",
+		"/home/alcides/projects/rede/http2_loadimpact/setup/environments",
+		"/home/alcides/projects/rede/http2_loadimpact/setup/scripts"
 	],
 	"file_history":
 	[
+		"/home/alcides/projects/rede/http2_loadimpact/README.md",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/js/angular/core/config.js",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/js/angular/core/services/analyzerService.js",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/js/general.json",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/js/angular/core/app.js",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/partials/http2/analyzer.html",
+		"/home/alcides/projects/rede/http2_loadimpact/setup/environments/alve-desktop.sh",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/settings/local_alve.py",
+		"/home/alcides/projects/rede/http2_loadimpact/makeenv",
+		"/home/alcides/projects/rede/http2_loadimpact/setup/scripts/prepare_local_environ.sh",
+		"/home/alcides/projects/rede/http2_loadimpact/setup/environments/alve-at-work.sh",
+		"/home/alcides/projects/rede/http2_loadimpact/node_modules/npm/lib/cache/add-named.js",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/main/templatetags/basic_tags.py",
+		"/home/alcides/projects/rede/http2_loadimpact/node_modules/npm/node_modules/npm-registry-client/test/get-error-403.js",
+		"/home/alcides/projects/rede/http2_loadimpact/Gruntfile.js",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/js/lib/angular.js",
+		"/home/alcides/projects/rede/http2_loadimpact/run.sh",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/main/analyzer.py",
+		"/home/alcides/projects/rede/http2_loadimpact/localenv",
+		"/home/alcides/projects/rede/http2_loadimpact/node_modules/grunt-contrib-watch/test/tasks/livereload_test.js",
+		"/home/alcides/projects/rede/http2_loadimpact/setup/environments/alve-laptop.sh",
+		"/home/alcides/projects/rede/http2_loadimpact/node_modules/grunt-cli/AUTHORS",
+		"/home/alcides/projects/rede/http2_loadimpact/venv/include/python3.4m/numpy/multiarray_api.txt",
+		"/home/alcides/projects/rede/http2_loadimpact/setup/scripts/fabric_ec2.py",
+		"/home/alcides/projects/rede/http2_loadimpact/setup/environments/alve.sh",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/js/lib/angular-loader.js",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/main/admin.py",
+		"/home/alcides/projects/rede/http2_loadimpact/http2/static_dev/font/font-awesome/FontAwesome.otf",
 		"/home/alcides/projects/loadimpact/loadimpact-services/venv/lib/python2.7/site-packages/libcloud/test/compute/fixtures/vcloud_1_5/api_query_group.xml",
 		"/home/alcides/projects/loadimpact/api.loadimpact.com/api3/admin.py",
 		"/home/alcides/projects/loadimpact/loadimpact-services/loadimpact-lib/setup.py",
@@ -1003,39 +1096,11 @@
 		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/Settings.hs",
 		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/SynReply.hs",
 		"/home/alcides/projects/spdy-ping/hs-src/Rede/Constants.hs",
-		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/ConfigHelp.hs",
-		"/home/alcides/projects/spdy-ping/.gitignore",
-		"/home/alcides/projects/spdy-ping/makeenvsensible",
-		"/home/alcides/projects/spdy-ping/hs-src/Rede/Utils.hs",
-		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/Tls.hs",
-		"/home/alcides/projects/spdy-ping/hs-src/main.hs",
-		"/home/alcides/projects/spdy-ping/hs-src/Rede/Subprograms/BasicPing.hs",
-		"/home/alcides/projects/spdy-ping/hs-src/Rede/Subprograms/BasicConnect.hs",
-		"/home/alcides/projects/spdy-ping/README.md",
-		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/TrivialTestWorker.hs",
-		"/home/alcides/projects/spdy-ping/kel-data-dir/www/mathjax23/fonts/HTML-CSS/TeX/otf/MathJax_Typewriter-Regular.otf",
-		"/home/alcides/projects/spdy-ping/makeenv",
-		"/home/alcides/projects/spdy-ping/kel-data-dir/www/mathjax23/fonts/HTML-CSS/Neo-Euler/otf/NeoEulerMathJax_Alphabets-Regular.otf",
-		"/home/alcides/projects/spdy-ping/spdyping.sublime-project",
-		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/RstStream.hs",
-		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/SynStream.hs",
-		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/Headers.hs",
-		"/home/alcides/projects/spdy-ping/demo-site/mathjax23/fonts/HTML-CSS/Gyre-Termes/otf/GyreTermesMathJax_Normal-Regular.otf",
-		"/home/alcides/projects/spdy-ping/demo-site/mathjax23/fonts/HTML-CSS/Asana-Math/otf/AsanaMathJax_Symbols-Regular.otf",
-		"/home/alcides/projects/spdy-ping/demo-site/mathjax23/fonts/HTML-CSS/Gyre-Termes/MANIFEST-GyreTermesMathJax.txt",
-		"/home/alcides/projects/spdy-ping/tests/AnyFrame.hs",
-		"/home/alcides/projects/spdy-ping/demo-site/mathjax23/fonts/HTML-CSS/TeX/otf/MathJax_Typewriter-Regular.otf",
-		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/WindowUpdate.hs",
-		"/home/alcides/projects/spdy-ping/demo-site/mathjax23/fonts/HTML-CSS/TeX/otf/MathJax_WinIE6-Regular.otf",
-		"/home/alcides/projects/spdy-ping/demo-site/mathjax23/jax/input/MathML/entities/w.js",
-		"/home/alcides/projects/spdy-ping/cabal.config",
-		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/KeyValueBlock.hs",
-		"/home/alcides/projects/spdy-ping/hs-src/Rede/SpdyProtocol/Framing/Ping.hs",
-		"/home/alcides/projects/spdy-ping/demo-site/http2/_includes/header.html"
+		"/home/alcides/projects/spdy-ping/hs-src/Rede/MainLoop/ConfigHelp.hs"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 38.0
 	},
 	"find_in_files":
 	{
@@ -1061,6 +1126,13 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			" ",
+			"ui-view",
+			"mainView",
+			"ng-controller",
+			",",
+			"ANALYZER_URL",
+			"HASH_ID_SECRET_SALT",
 			"store_urls",
 			"store_results",
 			"/usr/bin/ssh",
@@ -1181,14 +1253,7 @@
 			"somebody_drops_outputs_here",
 			"_associatedLength",
 			"frame_id",
-			"--",
-			"frame",
-			"->",
-			"wupd",
-			"initial_size_mvar",
-			"=",
-			"                                 = ",
-			"="
+			"--"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1231,8 +1296,316 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "http2/static_dev/js/angular/core/controllers/analyzerController.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3167,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1720,
+								1720
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 594.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "http2/static_dev/js/angular/core/controllers/entryController.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3177,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								362,
+								362
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "http2/static_dev/js/angular/core/routes.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2716,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1130,
+								1130
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 198.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "http2/static_dev/partials/http2/analyzer.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4900,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3935,
+								3935
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 132.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "http2/templates/base.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1499,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1165,
+								1165
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 264.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4900,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										328,
+										336
+									],
+									[
+										575,
+										583
+									],
+									[
+										821,
+										829
+									],
+									[
+										1084,
+										1092
+									],
+									[
+										1503,
+										1510
+									],
+									[
+										1708,
+										1715
+									],
+									[
+										1868,
+										1875
+									],
+									[
+										1938,
+										1945
+									],
+									[
+										2127,
+										2134
+									],
+									[
+										2241,
+										2248
+									],
+									[
+										2631,
+										2638
+									],
+									[
+										2888,
+										2895
+									],
+									[
+										2955,
+										2962
+									],
+									[
+										3119,
+										3126
+									],
+									[
+										3301,
+										3308
+									],
+									[
+										3462,
+										3469
+									],
+									[
+										3492,
+										3499
+									],
+									[
+										3531,
+										3538
+									],
+									[
+										3688,
+										3695
+									],
+									[
+										3721,
+										3728
+									],
+									[
+										3839,
+										3846
+									],
+									[
+										3904,
+										3911
+									],
+									[
+										3943,
+										3950
+									],
+									[
+										3983,
+										3990
+									],
+									[
+										4160,
+										4167
+									],
+									[
+										4242,
+										4249
+									],
+									[
+										4290,
+										4297
+									],
+									[
+										4485,
+										4492
+									],
+									[
+										4725,
+										4732
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								1251,
+								1251
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 2,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2574.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1294,6 +1667,42 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"analyzercontro",
+				"http2/static_dev/js/angular/core/controllers/analyzerController.js"
+			],
+			[
+				"general.json",
+				"http2/static_dev/js/general.json"
+			],
+			[
+				"analyzerser",
+				"http2/static_dev/js/angular/core/services/analyzerService.js"
+			],
+			[
+				"analyzercontr",
+				"http2/static_dev/js/angular/core/controllers/analyzerController.js"
+			],
+			[
+				"local_alve",
+				"http2/settings/local_alve.py"
+			],
+			[
+				"alve-d",
+				"setup/environments/alve-desktop.sh"
+			],
+			[
+				"make",
+				"makeenv"
+			],
+			[
+				"alve",
+				"setup/environments/alve.sh"
+			],
+			[
+				"fabr",
+				"setup/scripts/fabric_ec2.py"
+			],
 			[
 				"aggr",
 				"loadimpact-lib/loadimpact/loadtest/results/aggregation.py"
@@ -1721,7 +2130,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 353.0,
+	"side_bar_width": 653.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

@@ -27,6 +27,19 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
                 bodyClass: 'index'
             }
         })
+        .state('entry', {
+            url: '/entry/',
+            title: "HTTP/2 Goody!",
+            views: {
+                'mainView': {
+                    templateUrl: 'partials/http2/analyzer.html',
+                    controller: 'analyzerController'
+                }
+            },
+            extras: {
+                bodyClass: 'index'
+            }
+        })
         .state('analysisStatus', {
             url: '/analysis/status/:analysis_id',
             title: 'Analysis status',

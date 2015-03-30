@@ -2,15 +2,15 @@
 
 /**
     * @ngdoc object
-    * @name http2.controllers:analyzerController
+    * @name http2.controllers:entryController
     * @description
     *
     * Used for the index page.
 **/
 
- angular.module('http2')
+angular.module('http2')
     .controller(
-        'analyzerController',
+        'entryController',
         [
           '$scope'
         , '$stateParams'
@@ -47,12 +47,12 @@
 
             $scope.send = function() {
                 /**
-                    * @ngdoc method
-                    * @name http2.controllers:analyzerController
-                    * @methodOf http2.controllers:analyzerController
-                    * @description
-                    *
-                    * Requests analysis
+                     * @ngdoc method
+                     * @name http2.controllers:analyzerController
+                     * @methodOf http2.controllers:analyzerController
+                     * @description
+                     *
+                     * Requests analysis
                 **/
 
                 var analysis_data = $scope.analysis.data;
@@ -93,5 +93,5 @@
                 }
 
             }, true);
-
-}]);
+        }]
+    );
