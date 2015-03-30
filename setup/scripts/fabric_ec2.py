@@ -146,6 +146,19 @@ def install_ruby_pieces():
 	sudo("gem install sass")
 
 
+def install_postgresql_newrelic_plugin():
+	sudo("gem install newrelic_postgres_plugin")
+
+
+def configure_postgresql_newrelic_plugin():
+	put(
+		local_path = "setup/scripts/newrelic_plugin.yml",
+		remote_path = "/home/ubuntu/config/newrelic_plugin.yml",
+		use_sudo=True # <-- TODO
+		)
+	# sudo("pg_monitor install -l c98a269a407478b492309396130415711a641ee2")
+
+
 def grunt():
     "Executes Grunt"
     with cd(EC2_REMOTE_DIR):
