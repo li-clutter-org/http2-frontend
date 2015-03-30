@@ -11,49 +11,59 @@
 **/
 
 angular.module('http2')
-    .service('analyzerService', ['$http', '$q', '$location', '$state', 'growl', function ($http, $q, $location, $state, growl) {
+    .service(
+        'analyzerService', 
+        [
+          '$http'
+        , '$q'
+        , '$location'
+        , '$state'
+        , 'growl'
+         
+        , function ($http, $q, $location, $state, growl) 
+        {
+            var service = {
+                send_analysis:{
+                    url: "/api/send/analysis"
+                }
+            };
 
-        var service = {
-            send_analysis:{
-                url: "/api/send/analysis"
-            }
-        };
+            service.requestAnalysis = function(analysis) {
+                /**
+                     * @ngdoc method
+                     * @name http2.service:analyzerService#requestAnalysis
+                     * @methodOf http2.service:analyzerService
+                     * @description
+                     *
+                     * Requests the analysis of the given url.
+                     *
+                     * @param {string} url The url to analyze
+                     * @returns {promise} Resolved when the analysis has been sent.
+                **/
 
-        service.requestAnalysis = function(analysis) {
-            /**
-                 * @ngdoc method
-                 * @name http2.service:analyzerService#requestAnalysis
-                 * @methodOf http2.service:analyzerService
-                 * @description
-                 *
-                 * Requests the analysis of the given url.
-                 *
-                 * @param {string} url The url to analyze
-                 * @returns {promise} Resolved when the analysis has been sent.
-            **/
+                var me = service;
 
-            var me = service;
+                growl.addInfoMessage('Sending analysis', {ttl: 15000});
 
-            growl.addInfoMessage('Sending analysis', {ttl: 15000});
+                return $http.post(me.send_analysis.url, analysis)
+                    .then(function(response){
+                        analysis.data = response.data;
 
-            return $http.post(me.send_analysis.url, analysis)
-                .then(function(response){
-                    analysis.data = response.data;
+                        growl.removeMessage('Sending analysis');
+                        growl.addSuccessMessage('Analysis sent', {ttl: 1000});
+                    });
+            };
 
-                    growl.removeMessage('Sending analysis');
-                    growl.addSuccessMessage('Analysis sent', {ttl: 1000});
-                });
-        };
-
-        service.getAnalysisState = function(analysis) {
-            var url = '/api/get/analysis/state/' + analysis.analysis_id;
-            return $http.get(url)
-                .then(function(response){
-                    analysis.data = response.data;
-                });
-        };
+            service.getAnalysisState = function(analysis) {
+                var url = '/api/get/analysis/state/' + analysis.analysis_id;
+                return $http.get(url)
+                    .then(function(response){
+                        analysis.data = response.data;
+                    });
+            };
 
 
-        return service;
+            return service;
 
-    }]);
+        }
+    ]);
