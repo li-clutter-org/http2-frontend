@@ -31,12 +31,15 @@ Step 2: Do "makeenv"
 
 Step 2: Have an automatic bootstrap of the virtualenv
 
-    $ scripts/preliminary.sh
+    $ setup/scripts/preliminary.sh
 
 Step 3: Do a local deployment:
 
     $ fab -f setup/scripts/fabric_local.py local_deploy
 
+
+You will also need SASS installed somewhere... TODO: Write how to do that in a 
+correct way.
 
 Remote setup at Amazon EC2
 --------------------------
