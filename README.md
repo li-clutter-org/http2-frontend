@@ -42,8 +42,15 @@ Remote setup at Amazon EC2
 --------------------------
 
 This one is simpler. You need to have awscli correctly configured to connect to your 
-instances, and said instances need to be tagged (take a look to the script setup/scripts/findout_instance-ips.py). Once you have got the instances and they are correctly tagged, you can 
-use 
+instances, and said instances need to be tagged (take a look to the script setup/scripts/findout_instance-ips.py). Once you have got the instances and they are correctly tagged,
+
+if you need to do a partial deploy, do:
+
+    $ fab -f setup/scripts/fabric_ec2.py refresh_running_state
+
+
+If you need to do a complete deploy, do:
+
 
     $ fab -f setup/scripts/fabric_ec2.py complete_remote_deploy
 
