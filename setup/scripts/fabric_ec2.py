@@ -232,7 +232,7 @@ def refresh_running_state():
 	with settings(hosts=hosts_list):
 		rsync_subdirs()
 		rsync_resources()
+		grunt()
+    	collectstatic()
 		# The one below also happens to trigger a restart of the services...
     	config_supervisord()
-    	grunt()
-    	collectstatic()

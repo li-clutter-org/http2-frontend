@@ -1,16 +1,26 @@
 import os
 import shutil
-import requests
+#import requests
 import os.path as path
+import ast
+import logging as lg
+import subprocess as sp
+import tempfile
 
 from django.conf import settings
 
 from rest_framework.views import APIView, status
 from rest_framework.response import Response
 
-from .analyzer import get_har_data_as_json, generate_hash_id, update_progress_mock
+from .analyzer import (
+    get_har_data_as_json,
+    generate_hash_id,
+    update_progress_mock,
+    format_json
+)
 from .models import AnalysisInfo
 from .serializers import AnalysisInfoSerializer
+from .system import getopenssl_env
 
 
 class SendAnalysisViewSet(APIView):
@@ -25,13 +35,41 @@ class SendAnalysisViewSet(APIView):
         url_to_analyze = data['url_analyzed']
         hash_id = generate_hash_id(url_to_analyze)
 
-        # TODO: do the POST request to the analyzer according with this:
+        # There down I'm doing the equivalent of this.
+        #
         # curl -k --data-binary "http://www.reddit.com/r/haskell/" --http2 https://instr.httpdos.com:1070/setnexturl/
-        # varify=False is the equivalent to curl -k
-        requests.post(
-            settings.ANALYZER_URL,
-            data={'url': url_to_analyze},
-            verify=False)
+        #
+        # I'm using curl because requests doesn't support HTTP/2,
+        # and the Haskell webserver is listening using HTTP/2 . The latest version of curl
+        # is okej with that. .....
+
+        logger = lg.getLogger("http2front")
+        try:
+            output_stream = tempfile.TemporaryFile(prefix="http2_django_tmp_")
+            p = sp.Popen(
+                args=[
+                    settings.RECENT_CURL_BINARY_LOCATION,
+                    "-k",
+                    "--data-binary", url_to_analyze.encode('ascii'),
+                    "--http2",
+                    settings.ANALYZER_URL
+                ],
+                stdout=output_stream,
+                stderr=sp.STDOUT,
+                env= getopenssl_env()
+            )
+            process_exit_code = p.wait()
+
+        except sp.SubprocessError as e :
+            logger.error("Could not invoke process, Popen raised ... ", exc_info=True)
+            return Response({"error": "Internal error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        if process_exit_code != 0:
+            output_stream.seek(0)
+            contents = output_stream.read()
+            logger.error("Curl returned error, error information: %s ", contents)
+            return Response({"error": "Internal error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
         analysis_info, created = AnalysisInfo.objects.get_or_create(
             url_analyzed=url_to_analyze,
@@ -145,7 +183,11 @@ class GetAnalysisState(APIView):
 
                 # TODO: 100 % done... just for now, to see the progress and the state change.
                 if int(progress_info) is 100:
+                    http1_json_data, http2_json_data = get_har_data_as_json(result_dir)
+
                     analysis.state = AnalysisInfo.STATE_DONE
+                    analysis.http1_json_data = http1_json_data
+                    analysis.http2_json_data = http2_json_data
             else:
                 # TODO what to do in this case?
                 # Returning the analysis_info data for now, but we should check
@@ -154,6 +196,15 @@ class GetAnalysisState(APIView):
             # save new status
             analysis.save()
             result = AnalysisInfoSerializer(analysis).data
+
+            # TODO: More mocking stuffs
+            if analysis.state == AnalysisInfo.STATE_DONE:
+                result.update({
+                    'json': format_json(
+                            ast.literal_eval(str(http1_json_data)),
+                            ast.literal_eval(str(http2_json_data))
+                    )
+                })
             if progress:
                 result.update(progress)
         # and return data
