@@ -16,4 +16,3 @@ if [ -f "$HTTP2_LOAD_IMPACT__PROJECT_DIR/venv/bin/activate" ] ; then
 else
     echo "WARNING: No environment to activate found"
 fi
-
