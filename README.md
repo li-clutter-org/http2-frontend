@@ -2,6 +2,9 @@
 The http2\_loadimpact project
 =============================
 
+This README.md lists things you want to know if you want to deploy or *run* the website. Please check below 
+for the comments regarding using the manage.py script of Python.
+
 Local setup
 -----------
 
@@ -57,3 +60,21 @@ If you need to do a complete deploy, do:
 
     $ fab -f setup/scripts/fabric_ec2.py complete_remote_deploy
 
+Running manage.py the easy way
+------------------------------
+
+After you do
+
+    $ ln -s setup/environments/my_favourite_environment.sh localenv
+
+if you don't want to set DJANGO_SETTINGS_MODULE by hand all the time, you can 
+locally use 
+
+    $ ./manage.sh runserver 
+
+or 
+
+    $ ./manage.sh migarte
+
+The wrapper script takes care of setting an environment for the `manage.py`  Django 
+script.
