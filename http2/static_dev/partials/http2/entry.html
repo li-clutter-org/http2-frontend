@@ -1,0 +1,26 @@
+<div class="container main-container text-center" data-ng-controller="entryController">
+    <i class="icon-house hero"></i>
+    <div class="row-fluid">
+        <div class="span4 text-center">
+          <div class="analyze">
+            <div class="table analyze-input-group">
+                <form novalidate name="analyze" data-ng-submit="send();">
+                    <input
+                      type="url"
+                      class="col-md-11 analyze-input input-block-level text-center invis-valid"
+                      placeholder="Type your url here"
+                      data-ng-maxlength="200"
+                      data-ng-autofocus
+                      data-ng-model="analysis.data.url_analyzed"
+                      data-ng-required="true"
+                      name="url"
+                  />
+                  <span class="pull-left">
+                    <button type="submit" class="btn analyze-button btn btn-primary" data-ng-disabled="analyze.$invalid || analyze.$pristine"><bold>Go</bold></button>
+                  </span>
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

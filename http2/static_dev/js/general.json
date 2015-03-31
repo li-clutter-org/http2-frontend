@@ -32,6 +32,7 @@
 
         "js/angular/core/controllers/404controller.js",
         "js/angular/core/controllers/analyzerController.js",
+        "js/angular/core/controllers/entryController.js",
 
         "js/angular/core/directives/monkey-patches/growlAddons.js",
         "js/angular/core/directives/fallbacks/svgFallback.js",
