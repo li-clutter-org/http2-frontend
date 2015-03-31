@@ -196,7 +196,14 @@ def format_json(http1_json, http2_json):
                     item['time']
                 ]
         if not found:
-            #TODO what to do in this case?
             entry['http2'] = [0, 0, 0, 0, 0]
 
-    return new_json
+    def isfake(entry):
+        return [0, 0, 0, 0] == entry[1:]
+
+    result = []
+    for entry in new_json['times']:
+        if not isfake(entry['http1']) and not isfake(entry['http2']):
+            result.append(entry)
+
+    return result

@@ -74,7 +74,7 @@ locally use
 
 or 
 
-    $ ./manage.sh migarte
+    $ ./manage.sh migrate
 
 The wrapper script takes care of setting an environment for the `manage.py`  Django 
 script.
