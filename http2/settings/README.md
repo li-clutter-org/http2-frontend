@@ -25,7 +25,7 @@ Having personal settings files under revision is good, as it makes it a lot easi
 
 ## Running Django
 
-Our `manage.py` (and other files that similarly automagically detects the settings file to use) have been altered to detect the proper settings file _only_ based on the `DJANGO_SETTINGS_MODULE` environment variable. If this is not defined, an exception will be raised (i.e. not even the `--settings` flag for `manage.py` will work).
+Our `manage.py` (and other files that similarly automatically detects the settings file to use) have been altered to detect the proper settings file _only_ based on the `DJANGO_SETTINGS_MODULE` environment variable. If this is not defined, an exception will be raised (i.e. not even the `--settings` flag for `manage.py` will work).
 
 For your local development use, `DJANGO_SETTINGS_MODULE` should be set to something like `settings.local_YOURNAME`.
 
