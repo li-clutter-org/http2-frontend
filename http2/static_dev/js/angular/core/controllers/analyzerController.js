@@ -36,8 +36,8 @@
                 stopInterval();
 
                 $scope.interval =  $interval(function() {
-                    analyzerService.getAnalysisState(analysis_data).then(function(response) {
-                        $scope.analysis.data = analysis_data.data;
+                    analyzerService.getAnalysisState(analysis_data.analysis_id).then(function(response) {
+                        $scope.analysis.data = response.data;
                         if($scope.analysis.data.state === 'done' || $scope.analysis.data.state === 'failed'){
                             stopInterval();
                         };
@@ -79,9 +79,14 @@
                             'base_url': base_url
                         }
                     }
+                    // We just arrived here, so let's be sure we 
+                    // fetch the rest of the data from somewhere. 
+                    analyzerService.getAnalysisState(analysis_id).then(function(analysis_data){
+                        $scope.analysis.data = analysis_data.data;
+                    })
+
                     startInterval();
                 }
-
             });
             $scope.$on('$destroy', stopInterval);
 

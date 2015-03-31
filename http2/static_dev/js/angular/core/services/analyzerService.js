@@ -44,23 +44,25 @@ angular.module('http2')
 
                 growl.addInfoMessage('Sending analysis', {ttl: 15000});
 
-                return $http.post(me.send_analysis.url, analysis)
-                    .then(function(response){
-                        analysis.data = response.data;
-
-                        growl.removeMessage('Sending analysis');
-                        growl.addSuccessMessage('Analysis sent', {ttl: 1000});
-                    });
+                return $q(
+                    function(resolve, reject) {
+                        $http.post(me.send_analysis.url, analysis).then(
+                            function (response) {
+                                growl.removeMessage('Sending analysis');
+                                growl.addSuccessMessage('Analysis sent', {ttl: 1000});
+                                resolve(response);
+                            }, reject);
+                    }
+                );
             };
 
-            service.getAnalysisState = function(analysis) {
-                var url = '/api/get/analysis/state/' + analysis.analysis_id;
-                return $http.get(url)
-                    .then(function(response){
-                        analysis.data = response.data;
-                    });
+            service.getAnalysisState = function(analysis_id) {
+                /**
+                 * Returns a promise
+                 */
+                var url = '/api/get/analysis/state/' + analysis_id;
+                return $http.get(url);
             };
-
 
             return service;
 

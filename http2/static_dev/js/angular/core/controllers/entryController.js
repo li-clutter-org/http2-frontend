@@ -23,8 +23,8 @@ angular.module('http2')
             $scope.send = function() {
                 /**
                      * @ngdoc method
-                     * @name http2.controllers:analyzerController
-                     * @methodOf http2.controllers:analyzerController
+                     * @name http2.controllers:entryController
+                     * @methodOf http2.controllers:entryController
                      * @description
                      *
                      * Requests analysis
@@ -33,7 +33,7 @@ angular.module('http2')
                 var analysis_data = $scope.analysis.data;
 
                 analyzerService.requestAnalysis(analysis_data).then(function(response) {
-                    $scope.analysis.data = analysis_data.data;
+                    $scope.analysis.data = analysis_data = response;
                     if (analysis_data.data.state === 'sent' || analysis_data.data.state === 'processing') {
                         //startInterval();
                         $state.go("analysisStatus", {
