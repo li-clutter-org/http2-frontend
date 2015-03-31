@@ -6,6 +6,7 @@
 *.pyo
 *.log
 *.bat
+*.sublime-workspace
 .idea
 pip-log.txt
 build
