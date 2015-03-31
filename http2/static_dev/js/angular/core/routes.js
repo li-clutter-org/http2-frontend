@@ -14,6 +14,7 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
     }]);
 
     $stateProvider
+        // v--- Change this (TODO)
         .state('index', {
             url: '/',
             title: 'Http2 tests',

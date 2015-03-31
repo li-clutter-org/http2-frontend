@@ -14,9 +14,10 @@ angular.module('http2')
         'entryController',
         [
           '$scope'
+        , '$state'
         , 'analyzerService'
 
-        , function($scope, analyzerService) 
+        , function($scope, $state, analyzerService) 
         {
 
             $scope.send = function() {
@@ -34,10 +35,20 @@ angular.module('http2')
                 analyzerService.requestAnalysis(analysis_data).then(function(response) {
                     $scope.analysis.data = analysis_data.data;
                     if (analysis_data.data.state === 'sent' || analysis_data.data.state === 'processing') {
-                        startInterval();
+                        //startInterval();
+                        $state.go("analysisStatus", {
+                            "analysis_id": analysis_data.data.analysis_id
+                        });
                     }
                 });
             };
+
+            $scope.analysis = {
+                "data": {
+                    "state": null,
+                    "url_analyzed": null
+                }
+            }
 
         }]
     );

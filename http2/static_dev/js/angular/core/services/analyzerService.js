@@ -17,10 +17,9 @@ angular.module('http2')
           '$http'
         , '$q'
         , '$location'
-        , '$state'
         , 'growl'
          
-        , function ($http, $q, $location, $state, growl) 
+        , function ($http, $q, $location, growl) 
         {
             var service = {
                 send_analysis:{
