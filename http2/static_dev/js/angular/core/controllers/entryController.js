@@ -5,7 +5,8 @@
     * @name http2.controllers:entryController
     * @description
     *
-    * Used for the index page.
+    * Used for the landing page: there is a text-entry box, but no 
+    * contents yet....
 **/
 
 angular.module('http2')
@@ -13,37 +14,10 @@ angular.module('http2')
         'entryController',
         [
           '$scope'
-        , '$stateParams'
-        , '$location'
-        , '$rootScope'
-        , '$interval'
         , 'analyzerService'
 
-        , function($scope, $stateParams, $location, $rootScope, $interval, analyzerService) 
+        , function($scope, analyzerService) 
         {
-
-            var root_url = $location.protocol() + '://' + $location.host(),
-                port = $location.port(),
-                base_url = port ? root_url + ':' + port : root_url;
-
-            var stopInterval = function() {
-                $interval.cancel($scope.interval);
-                $scope.interval = null;
-            };
-
-            var startInterval = function(){
-                var analysis_data = $scope.analysis.data;
-                stopInterval();
-
-                $scope.interval =  $interval(function() {
-                    analyzerService.getAnalysisState(analysis_data).then(function(response) {
-                        $scope.analysis.data = analysis_data.data;
-                        if($scope.analysis.data.state === 'done' || $scope.analysis.data.state === 'failed'){
-                            stopInterval();
-                        };
-                    });
-                }, 10000);
-            };
 
             $scope.send = function() {
                 /**
@@ -65,33 +39,5 @@ angular.module('http2')
                 });
             };
 
-            $scope.$on('$stateChangeSuccess', function(e){
-                stopInterval();
-                var analysis_id = $stateParams.analysis_id;
-
-                if (analysis_id) {
-                    if(!$scope.analysis) {
-                        $scope.analysis = {
-                            'data': {
-                                'analysis_id': analysis_id,
-                                'state': 'processing'
-                            },
-                            'base_url': base_url
-                        }
-                    }
-                    startInterval();
-                }
-
-            });
-            $scope.$on('$destroy', stopInterval);
-
-            $scope.$watch('analysis.data.analysis_id', function(newValue, oldValue) {
-                if ($scope.analysis) {
-                    if (!$scope.analysis.base_url) {
-                        $scope.analysis['base_url'] = base_url;
-                    }
-                }
-
-            }, true);
         }]
     );

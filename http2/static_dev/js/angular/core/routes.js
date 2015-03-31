@@ -2,7 +2,7 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
     function($stateProvider, $locationProvider, $urlRouterProvider) {
 
     var defaultState = ['$state', function($state){
-        $state.go('index');
+        $state.go('entry');
     }];
 
     $urlRouterProvider.when('/', defaultState);
@@ -32,8 +32,8 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
             title: "HTTP/2 Goody!",
             views: {
                 'mainView': {
-                    templateUrl: 'partials/http2/analyzer.html',
-                    controller: 'analyzerController'
+                    templateUrl: 'partials/http2/entry.html',
+                    controller: 'entryController'
                 }
             },
             extras: {
