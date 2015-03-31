@@ -116,7 +116,10 @@ def install_newrelic_agent():
 
 
 def install_nginx():
-	sudo("apt-get install nginx")
+	sudo("apt-get install -y nginx")
+
+def install_inotify_wait():
+	sudo("apt-get install -y inotify-tools")
 
 
 def configure_nginx():

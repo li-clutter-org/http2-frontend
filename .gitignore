@@ -30,6 +30,7 @@ build
 /http2/static_dev/js/general.js
 /wingdbstub.py
 /http2/static_dev/css/sass/.sass-cache/
+/http2/media/
 .sass-cache/
 /localenv
 .*.swp

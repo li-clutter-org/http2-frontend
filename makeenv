@@ -2,6 +2,7 @@
 #
 #  $ source makeenv
 
+echo "Hi!"
 current_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 export HTTP2_LOAD_IMPACT__PROJECT_DIR=$current_dir
 
@@ -14,5 +15,5 @@ fi
 if [ -f "$HTTP2_LOAD_IMPACT__PROJECT_DIR/venv/bin/activate" ] ; then
     source "$HTTP2_LOAD_IMPACT__PROJECT_DIR/venv/bin/activate"
 else
-    echo "WARNING: No environment to activate found"
+    >&2 echo "Ensure that we reach this point with a valid HTTP2_LOAD_IMPACT__PROJECT_DIR environment variable"
 fi

@@ -58,4 +58,4 @@ def findout_instance_ips():
 
 
 if __name__ == "__main__":
-    print(findout_instance_ips())
+    print(json.dumps(findout_instance_ips()))
