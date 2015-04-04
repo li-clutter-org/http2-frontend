@@ -13,17 +13,20 @@ tools are found:
 
 - node, npm, grunt
 - virtualenv
-- fab (The entry point script of fabric).
+- fab (The entry point script of fabric)
+- A recent OpenSSL and curl version. There is an easy to setup 
+  binary version for Ubuntu 64 bits in a [Trello card](https://trello.com/c/7lgxp6mc/29-recent-curl-is-needed-how-to-install-it).
 
 To customize your path, create a file at project-path/setup/environments  
 that just assign values to the environment variables. For example:
 
-    # File /setup/environments/alve.sh
-    PATH=/opt/node10/bin:$PATH
+    # File /setup/environments/myenv.sh
+    PATH=/opt/node10/bin:/opt/openssl-1.0.2/bin:$PATH
+    LD_LIBRARY_PATH=/opt/openssl-1.0.2/lib
 
 Then symlink that file to localenv:
 
-    $ ln -s setup/environments/alve.sh localenv
+    $ ln -s setup/environments/myenv.sh localenv
 
 You can (and should) use your own file for setting up the environment, according
 to the way in which you have installed your tools and goodies in your computer.
