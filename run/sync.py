@@ -11,6 +11,7 @@ import sys
 import subprocess as sp
 import threading
 import django
+from functools import partial
 
 django.setup()
 from django.conf import settings
@@ -61,6 +62,9 @@ class SyncWorker(object):
             'inotifywait -m -e modify,create {0}'.format(self._remote_dir),
             bufsize=1, # <-- Line buffering.... 
             )
+        stderr_reporter_thread = threading.Thread(
+            target = partial(self._watch_stderr, stderr) )
+        stderr_reporter_thread.start()
         for line in stdout:
             print(line)
             # Got a line, activate the alarm
@@ -68,6 +72,11 @@ class SyncWorker(object):
                 self._waker.cancel()
             self._waker = threading.Timer(PAUSE_TO_TRIGGER, self._trigger)
             self._waker.start()
+
+    def _watch_stderr(self, stderr):
+        for line in stderr:
+            print(line)
+        
 
     def join(self):
         self._watcher.join()
@@ -92,6 +101,9 @@ def main():
 
     project_dir = os.environ["HTTP2_LOAD_IMPACT__PROJECT_DIR"]
     server_ip = fetch_server_ip()
+
+    print("Remote dir:  ", os.environ["HTTP2_LOAD_IMPACT__REMOTE_RESULTS_PATH"])
+    print("Local dir: ", settings.ANALYSIS_RESULT_PATH)
 
     sync_worker = SyncWorker(
         local_dir = settings.ANALYSIS_RESULT_PATH,
