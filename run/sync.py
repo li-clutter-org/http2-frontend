@@ -24,7 +24,6 @@ project_dir = None
 server_ip = None
 
 
-
 def fetch_server_ip():
     instance_ips_json = sp.check_output([
         "python2", # <-- Python 2 is needed here
@@ -82,7 +81,6 @@ class SyncWorker(object):
             self._local_dir
         ]
         sp.check_call(cmd)
-
 
 
 def main():
