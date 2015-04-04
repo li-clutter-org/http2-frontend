@@ -86,10 +86,6 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
                 params: $state.params
             }));
         };
-
-        requestAnimationFrame(function(){
-            window.scroll(0, 0);
-        });
     });
 
 }]);
