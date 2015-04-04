@@ -75,11 +75,4 @@ angular.module('http2').config(['$interpolateProvider', '$httpProvider', '$locat
             };
         });
     };
-
-    $rootScope.$on('$stateChangeSuccess', function(){
-
-        requestAnimationFrame(function(){
-            window.scroll(0, 0);
-        });
-    });
 }]);

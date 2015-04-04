@@ -5,6 +5,5 @@ angular.module('http2', [
     'ngCookies',
     'ngMessages',
     'ngSanitize',
-    'angular-growl',
-    'ngAnimate'
+    'angular-growl'
 ]);
