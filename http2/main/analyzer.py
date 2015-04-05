@@ -206,4 +206,6 @@ def format_json(http1_json, http2_json):
         if not isfake(entry['http1']) and not isfake(entry['http2']):
             result.append(entry)
 
-    return result
+    new_json['times'] = result
+
+    return new_json
