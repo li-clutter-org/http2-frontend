@@ -36,34 +36,30 @@
                 stopInterval();
 
                 $scope.interval =  $interval(function() {
-                    analyzerService.getAnalysisState(analysis_data.analysis_id).then(function(response) {
-                        $scope.analysis.data = response.data;
-                        if($scope.analysis.data.state === 'done' || $scope.analysis.data.state === 'failed'){
+                    analyzerService.getAnalysisState(analysis_data.analysis_id).
+                        success(function(data, status, headers, config) {
+                            // Updating the scope, and stopping the polling properly if the response is a success.
+                            $scope.analysis.data = data;
+                            if($scope.analysis.data.state === 'done' || $scope.analysis.data.state === 'failed'){
+                                stopInterval();
+                            };
+                        }).
+                        error(function(data, status, headers, config) {
+                            // Stopping the polling if the response was an error and setting the state as failed.
+                            if(!$scope.analysis) {
+                                $scope.analysis = {
+                                    'data': {
+                                        'state': 'failed'
+                                    }
+                                }
+                            }
+                            else {
+                                $scope.analysis.data.state = 'failed'
+                            }
                             stopInterval();
-                        };
-                    });
+                        });
                 }, 10000);
             };
-
-            // $scope.send = function() {
-            //     /**
-            //         * @ngdoc method
-            //         * @name http2.controllers:analyzerController
-            //         * @methodOf http2.controllers:analyzerController
-            //         * @description
-            //         *
-            //         * Requests analysis
-            //     **/
-
-            //     var analysis_data = $scope.analysis.data;
-
-            //     analyzerService.requestAnalysis(analysis_data).then(function(response) {
-            //         $scope.analysis.data = analysis_data.data;
-            //         if (analysis_data.data.state === 'sent' || analysis_data.data.state === 'processing') {
-            //             startInterval();
-            //         }
-            //     });
-            // };
 
             $scope.$on('$stateChangeSuccess', function(e){
                 stopInterval();
@@ -81,9 +77,28 @@
                     }
                     // We just arrived here, so let's be sure we 
                     // fetch the rest of the data from somewhere. 
-                    analyzerService.getAnalysisState(analysis_id).then(function(analysis_data){
-                        $scope.analysis.data = analysis_data.data;
-                    })
+                    analyzerService.getAnalysisState(analysis_id).
+                        success(function(data, status, headers, config) {
+                            // Updating the scope, and stopping the polling properly if the response is a success.
+                            $scope.analysis.data = data;
+                            if($scope.analysis.data.state === 'done' || $scope.analysis.data.state === 'failed'){
+                                stopInterval();
+                            };
+                        }).
+                        error(function(data, status, headers, config) {
+                            // Stopping the polling if the response was an error and setting the state as failed.
+                            if(!$scope.analysis) {
+                                $scope.analysis = {
+                                    'data': {
+                                        'state': 'failed'
+                                    }
+                                }
+                            }
+                            else {
+                                $scope.analysis.data.state = 'failed'
+                            }
+                            stopInterval();
+                        });
 
                     startInterval();
                 }
