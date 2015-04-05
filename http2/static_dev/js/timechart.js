@@ -65,7 +65,7 @@ d3.timechart = function (data) {
         var chart = d3.select(".chart")
             .attr("width", vertical_separator + width)
             .attr("height", bar_height * data.times.length);
-        console.log(chart);
+
         /* Create the series lines */
         var serie = chart.selectAll("g")
             .data(data.times)
