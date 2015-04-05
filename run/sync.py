@@ -59,14 +59,14 @@ class SyncWorker(object):
     def _wait_for_remote_changes(self):
         client = self._client
         stdin, stdout, stderr = client.exec_command(
-            'inotifywait -m -e modify,create {0}'.format(self._remote_dir),
+            'inotifywait -r -m -e modify,create,close_write,delete {0}'.format(self._remote_dir),
             bufsize=1, # <-- Line buffering.... 
             )
         stderr_reporter_thread = threading.Thread(
             target = partial(self._watch_stderr, stderr) )
         stderr_reporter_thread.start()
         for line in stdout:
-            print(line)
+            # print(line)
             # Got a line, activate the alarm
             if isinstance(self._waker, threading.Timer):
                 self._waker.cancel()
