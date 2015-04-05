@@ -1,6 +1,5 @@
 import os
 import shutil
-#import requests
 import os.path as path
 import ast
 import logging as lg
@@ -42,6 +41,13 @@ class SendAnalysisViewSet(APIView):
         # I'm using curl because requests doesn't support HTTP/2,
         # and the Haskell webserver is listening using HTTP/2 . The latest version of curl
         # is okej with that. .....
+        try:
+            analysis_info = AnalysisInfo.objects.get(
+                url_analyzed=url_to_analyze,
+                analysis_id=hash_id
+            )
+        except AnalysisInfo.DoesNotExist:
+            analysis_info = None
 
         logger = lg.getLogger("http2front")
         try:
@@ -60,24 +66,35 @@ class SendAnalysisViewSet(APIView):
             )
             process_exit_code = p.wait()
 
-        except sp.SubprocessError as e :
+        except sp.SubprocessError as e:
+            # If there is already an AnalysisInfo entry for this URL
+            # we should mark it as failed.
+            if analysis_info:
+                analysis_info.state = AnalysisInfo.STATE_FAILED
+                analysis_info.save()
             logger.error("Could not invoke process, Popen raised ... ", exc_info=True)
             return Response({"error": "Internal error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         if process_exit_code != 0:
+            # If there is already an AnalysisInfo entry for this URL
+            # we should mark it as failed.
+            if analysis_info:
+                analysis_info.state = AnalysisInfo.STATE_FAILED
+                analysis_info.save()
             output_stream.seek(0)
             contents = output_stream.read()
             logger.error("Curl returned error, error information: %s ", contents)
             return Response({"error": "Internal error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-        analysis_info, created = AnalysisInfo.objects.get_or_create(
-            url_analyzed=url_to_analyze,
-            analysis_id=hash_id
-        )
+        # We should create an instance at this point.
+        if not analysis_info:
+            analysis_info = AnalysisInfo.objects.create(
+                url_analyzed=url_to_analyze,
+                analysis_id=hash_id
+            )
         # If it is an URL that was already analyzed we should ensure
         # that its state is AnalysisInfo.STATE_SENT
-        if not created and analysis_info.state != AnalysisInfo.STATE_SENT:
+        elif analysis_info.state != AnalysisInfo.STATE_SENT:
             analysis_info.state = AnalysisInfo.STATE_SENT
             analysis_info.save()
 
@@ -92,8 +109,7 @@ class AnalyzerMockingViewSet(APIView):
 
     def post(self, request):
         data = request.DATA
-
-        hash_id = generate_hash_id(data['url'])
+        hash_id = generate_hash_id(list(data.dict().keys())[0])
         analysis_result_path = os.path.join(
             settings.ANALYSIS_RESULT_PATH,
             hash_id)
