@@ -48,7 +48,12 @@ d3.timechart = function (data) {
         http2_y = bar_height * 0.55, /* Vertical position of http2 series */
         left_align = 40, /* Position (in percent) of vertical separator */
         vertical_separator = left_align * width / 100, /* Position of vertical separator */
-        total_width = width + vertical_separator /* Total width of the chart */
+        legend_height = 50, /* Height of the */
+        total_width = width + vertical_separator, /* Total width of the chart */
+        legend_data = [
+            {x: total_width * 0.35, y:10, size: 15, text: "http1", class: ['http1_sending','http1_waiting', 'http1_receiving']},
+            {x: total_width * 0.35, y:25, size: 15, text: "http2", class: ['http2_sending','http2_waiting', 'http2_receiving']}],
+        legend_line_top = 10
     ;
     function draw() {
          var x = d3.scale.linear()
@@ -59,6 +64,66 @@ d3.timechart = function (data) {
             }
         )])
         .range([0, width]);
+        /* Legend */
+        this.append("svg").attr("class","legend");
+        var legend = d3.select(".legend")
+            .attr("width", vertical_separator + width)
+            .attr("height", legend_height);
+        var legend_series = legend.selectAll("g")
+            .data(legend_data)
+            .enter().append("g")
+            .attr("transform", function (d, i) {
+                return "translate(" + d.x + ",0)";
+            }
+        );
+        legend_series.append("rect")
+            .attr("class", function(d){
+                return d.class[0]
+            })
+            .attr("x", function (d) {
+                return x(d.x);
+            })
+            .attr("y", function(d){ return x(d.y);})
+            .attr("width", function (d) {
+                return x(d.size);
+            })
+            .attr("height", series_height);
+        legend_series.append("rect")
+            .attr("class", function(d){
+                return d.class[1]
+            })
+            .attr("x", function (d) {
+                return x(d.x+ d.size);
+            })
+            .attr("y", function(d){ return x(d.y);})
+            .attr("width", function (d) {
+                return x(d.size);
+            })
+            .attr("height", series_height);
+        legend_series.append("rect")
+            .attr("class", function(d){
+                return d.class[2]
+            })
+            .attr("x", function (d) {
+                return x(d.x + d.size + d.size);
+            })
+            .attr("y", function(d){ return x(d.y);})
+            .attr("width", function (d) {
+                return x(d.size);
+            })
+            .attr("height", series_height);
+
+        legend_series.append("text")
+            .attr("x", function (d) {
+                return x(d.x + d.size + d.size + d.size + 25);
+            })
+            .attr("y", function(d){ return x(d.y) + 8;})
+            .text(function (d) {
+                return d.text ;
+            });
+
+
+
         /* Add the SVG object */
         this.append("svg").attr("class","chart");
         /* Define the canva sizes */
