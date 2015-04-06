@@ -51,8 +51,8 @@ d3.timechart = function (data) {
         legend_height = 50, /* Height of the */
         total_width = width + vertical_separator, /* Total width of the chart */
         legend_data = [
-            {x: total_width * 0.42, y:10, size: 15, text: "http1", class: ['http1_sending','http1_waiting', 'http1_receiving']},
-            {x: total_width * 0.42, y:25, size: 15, text: "http2", class: ['http2_sending','http2_waiting', 'http2_receiving']}],
+            {x: total_width * 0.42, y:10, size: 25, text: "http1", class: ['http1_sending','http1_waiting', 'http1_receiving']},
+            {x: total_width * 0.42, y:25, size: 25, text: "http2", class: ['http2_sending','http2_waiting', 'http2_receiving']}],
         legend_line_top = 10
     ;
     function draw() {
