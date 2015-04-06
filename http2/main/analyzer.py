@@ -185,7 +185,10 @@ def format_json(http1_json, http2_json):
     for entry in new_json['times']:
         found = False
         for item in entries_http2:
-            parsed_url = urlparse(item['request']['url'])
+            try:
+                parsed_url = urlparse(item['request']['url'])
+            except KeyError:
+                continue
             if entry['path'] == parsed_url.path and entry['domain'] == '%s://%s' % (parsed_url.scheme, parsed_url.netloc):
                 found = True
                 entry['http2'] = [
