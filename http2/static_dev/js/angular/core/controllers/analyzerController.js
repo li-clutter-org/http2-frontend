@@ -19,7 +19,7 @@
         , '$interval'
         , 'analyzerService'
 
-        , function($scope, $stateParams, $location, $rootScope, $interval, analyzerService) 
+        , function($scope, $stateParams, $location, $rootScope, $interval, analyzerService)
         {
 
             var root_url = $location.protocol() + '://' + $location.host(),

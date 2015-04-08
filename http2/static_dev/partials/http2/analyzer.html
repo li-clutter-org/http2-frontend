@@ -2,25 +2,8 @@
     <i class="icon-house hero"></i>
     <div class="row-fluid">
         <div class="span4 text-center">
-          <div class="analyze">
-            <div class="table analyze-input-group">
-                <form novalidate name="analyze" data-ng-submit="send();">
-                    <input
-                      type="url"
-                      class="col-md-11 analyze-input input-block-level text-center invis-valid"
-                      placeholder="Type your url here"
-                      data-ng-maxlength="200"
-                      data-ng-autofocus
-                      data-ng-model="analysis.data.url_analyzed"
-                      data-ng-required="true"
-                      name="url"
-                  />
-                  <span class="pull-left">
-                    <button type="submit" class="btn analyze-button btn btn-primary" data-ng-disabled="analyze.$invalid || analyze.$pristine"><bold>Go</bold></button>
-                  </span>
-                </form>
-            </div>
-          </div>
+            <p class="nav-btn">URL analyzed: {[{ analysis.data.url_analyzed }]}</p>
+            <p><a class="btn btn-success btn-lg" data-ui-sref="entry" role="button">Clear and do a new analysis</a></p>
         </div>
         <p data-ng-show="analysis.data.analysis_id" class="pull-left">You can check your analysis results later through this URL:
           <a href="{[{ analysis.base_url }]}/analysis/status/{[{analysis.data.analysis_id}]}">{[{ analysis.base_url }]}/analysis/status/{[{analysis.data.analysis_id}]}</a>
