@@ -50,10 +50,16 @@ d3.timechart = function (data) {
         vertical_separator = left_align * width / 100, /* Position of vertical separator */
         legend_height = 50, /* Height of the */
         total_width = width + vertical_separator, /* Total width of the chart */
-        legend_data = [
-            {x: total_width * 0.42, y:10, size: 15, text: "http1", class: ['http1_sending','http1_waiting', 'http1_receiving']},
-            {x: total_width * 0.42, y:25, size: 15, text: "http2", class: ['http2_sending','http2_waiting', 'http2_receiving']}],
-        legend_line_top = 10
+        legend_data = {
+            labels: [
+                {label: 'Sending', x:total_width * 0.748},
+                {label: 'Waiting', x:total_width * 0.806 },
+                {label: 'Receiving', x:total_width * 0.872}],
+            series: [
+            {x: total_width * 0.378, y:20, size: 50, text: "http1", class: ['http1_sending','http1_waiting', 'http1_receiving']},
+            {x: total_width * 0.378, y:35, size: 50, text: "http2", class: ['http2_sending','http2_waiting', 'http2_receiving']}
+        ]
+        }
     ;
     function draw() {
          var x = d3.scale.linear()
@@ -70,7 +76,7 @@ d3.timechart = function (data) {
             .attr("width", vertical_separator + width)
             .attr("height", legend_height);
         var legend_series = legend.selectAll("g")
-            .data(legend_data)
+            .data(legend_data.series)
             .enter().append("g")
             .attr("transform", function (d, i) {
                 return "translate(" + d.x + ",0)";
@@ -115,13 +121,18 @@ d3.timechart = function (data) {
 
         legend_series.append("text")
             .attr("x", function (d) {
-                return d.x + d.size + d.size + d.size + 35;
+                return d.x + d.size + d.size + d.size + 40;
             })
             .attr("y", function(d){ return d.y + 8;})
             .text(function (d) {
                 return d.text ;
             });
 
+        legend.selectAll("ag").data(legend_data.labels)
+            .enter().append("text")
+            .attr("x",function (d){return x(d.x);})
+            .attr("y", 10)
+            .text(function(d){return d.label;});
 
 
         /* Add the SVG object */

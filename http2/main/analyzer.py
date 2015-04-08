@@ -169,7 +169,7 @@ def format_json(http1_json, http2_json):
         except KeyError:
             continue
         item_template['path'] = parsed_url.path
-        item_template['domain'] = '%s://%s' % (parsed_url.scheme, parsed_url.netloc)
+        item_template['domain'] = parsed_url.netloc
         item_template.update({
             'http1': [
                 (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time).total_seconds(),
@@ -189,7 +189,7 @@ def format_json(http1_json, http2_json):
                 parsed_url = urlparse(item['request']['url'])
             except KeyError:
                 continue
-            if entry['path'] == parsed_url.path and entry['domain'] == '%s://%s' % (parsed_url.scheme, parsed_url.netloc):
+            if entry['path'] == parsed_url.path and entry['domain'] == parsed_url.netloc:
                 found = True
                 entry['http2'] = [
                     (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time).total_seconds(),
