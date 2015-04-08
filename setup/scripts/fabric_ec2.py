@@ -236,6 +236,6 @@ def refresh_running_state():
 		rsync_subdirs()
 		rsync_resources()
 		grunt()
-    	collectstatic()
+    	collect_static()
 		# The one below also happens to trigger a restart of the services...
     	config_supervisord()
