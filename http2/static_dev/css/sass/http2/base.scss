@@ -7,10 +7,10 @@
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em; // fixes ie7 issues
-  src: url(../../../font/League-Gothic/LeagueGothic-CondensedItalic.otf),
-  url(../../../font/League-Gothic/LeagueGothic-CondensedRegular.otf),
-  url(../../../font/League-Gothic/LeagueGothic-Italic.otf),
-  url(../../../font/League-Gothic/LeagueGothic-Regular.otf);
+  src: url(../font/League-Gothic/LeagueGothic-CondensedItalic.otf),
+  url(../font/League-Gothic/LeagueGothic-CondensedRegular.otf),
+  url(../font/League-Gothic/LeagueGothic-Italic.otf),
+  url(../font/League-Gothic/LeagueGothic-Regular.otf);
 }
 
 @font-face {
@@ -22,11 +22,11 @@
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em; // fixes ie7 issues
-  src: url(../../../font/font-awesome/fontawesome-webfont.eot),
-  url(../../../font/font-awesome/fontawesome-webfont.svg),
-  url(../../../font/font-awesome/fontawesome-webfont.ttf),
-  url(../../../font/font-awesome/fontawesome-webfont.woff),
-  url(../../../font/font-awesome/fontawesome-webfont.woff2);
+  src: url(../font/font-awesome/fontawesome-webfont.eot),
+  url(../font/font-awesome/fontawesome-webfont.svg),
+  url(../font/font-awesome/fontawesome-webfont.ttf),
+  url(../font/font-awesome/fontawesome-webfont.woff),
+  url(../font/font-awesome/fontawesome-webfont.woff2);
 }
 
 @font-face {
@@ -38,8 +38,8 @@
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em; // fixes ie7 issues
-  src: url(../../../font/Open-Sans/Open-Sans.woff),
-  url(../../../font/Open-Sans/Open-Sans.woff2);
+  src: url(../font/Open-Sans/Open-Sans.woff),
+  url(../font/Open-Sans/Open-Sans.woff2);
 }
 
 @font-face {
@@ -51,8 +51,8 @@
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
   *margin-right: .3em; // fixes ie7 issues
-  src: url(../../../font/Monserrat/Monserrat.woff),
-  url(../../../font/Monserrat/Monserrat.woff2);
+  src: url(../font/Monserrat/Monserrat.woff),
+  url(../font/Monserrat/Monserrat.woff2);
 }
 
 html {
@@ -78,6 +78,11 @@ body{
     @include breakpoint(phone_landscape){
         padding-top:50px;
     }
+}
+
+h1,h2,h3,h4,h5,h6, header, hgroup {
+    font-family: 'Monserrat';
+
 }
 
 body.errors .main-container{
