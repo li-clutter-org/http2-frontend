@@ -57,9 +57,7 @@ if you need to do a partial deploy, do:
 
     $ fab -f setup/scripts/fabric_ec2.py refresh_running_state
 
-
 If you need to do a complete deploy, do:
-
 
     $ fab -f setup/scripts/fabric_ec2.py complete_remote_deploy
 
