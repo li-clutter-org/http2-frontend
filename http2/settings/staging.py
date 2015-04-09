@@ -8,6 +8,8 @@ ALLOWED_HOSTS = ["http2.httptwo.com"]
 
 ANALYZER_URL = "https://192.168.112.131:1070/setnexturl/"
 
+ANALYSIS_RESULT_PATH="/home/ubuntu/mimic/hars/"
+
 DATABASES = {
     'default': {
         'ENGINE'     : 'django.db.backends.postgresql_psycopg2',
