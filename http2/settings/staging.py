@@ -2,7 +2,7 @@ from .base import *
 
 from logging.handlers import SysLogHandler
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = ["http2.httptwo.com"]
 
@@ -20,6 +20,13 @@ DATABASES = {
         'PORT'       : '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': '/home/ubuntu/http2db'
+#     }
+# }
 
 LOGGING = {
     'version': 1,

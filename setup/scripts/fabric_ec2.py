@@ -204,7 +204,8 @@ def collect_static():
 
 def syncdb():
 	with cd(EC2_REMOTE_DIR):
-		run("env_run python http2/manage.py syncdb")
+		#run("env_run python http2/manage.py syncdb")
+		run("env_run python http2/manage.py migrate")
 
 
 def resetdb():
