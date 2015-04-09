@@ -1,3 +1,5 @@
+import logging
+
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -20,3 +22,9 @@ class RenderBaseMiddleware(object):
                 'base.html',
                 {},
                 context_instance=RequestContext(request))
+
+
+class ExceptionLoggingMiddleware(object):
+
+    def process_exception(self, request, exception):
+        logging.exception('Exception handling request for %s' % request.path)
