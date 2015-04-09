@@ -2,11 +2,11 @@
     <i class="icon-house hero"></i>
     <div class="row-fluid">
         <div class="span4 text-center">
-            <p class="nav-btn">URL analyzed: {[{ analysis.data.url_analyzed }]}</p>
-            <p><a class="btn btn-success btn-lg" data-ui-sref="entry" role="button">Clear and do a new analysis</a></p>
+            <p class="nav-btn"><b>URL analyzed:</b> <span class="url-analyzed">{[{ analysis.data.url_analyzed }]}</span></p>
+            <p class=""><span><a class="btn btn-success btn-lg" data-ui-sref="entry" role="button">Clear and do a new analysis</a></span></p>
         </div>
-        <p data-ng-show="analysis.data.analysis_id" class="pull-left">You can check your analysis results later through this URL:
-          <a href="{[{ analysis.base_url }]}/analysis/status/{[{analysis.data.analysis_id}]}">{[{ analysis.base_url }]}/analysis/status/{[{analysis.data.analysis_id}]}</a>
+        <p data-ng-show="analysis.data.analysis_id" class=""><b>You can check your analysis results later through this URL:</b>
+          <a href="{[{ analysis.base_url }]}/analysis/status/{[{analysis.data.analysis_id}]}"><span class="url-analyzed">{[{ analysis.base_url }]}/analysis/status/{[{analysis.data.analysis_id}]}</span></span></a>
         </p>
 
         <div class="span4 text-center">
