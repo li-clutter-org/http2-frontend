@@ -8,6 +8,7 @@ from __future__ import with_statement, print_function
 from fabric.api import local, settings, abort, run, sudo, cd, hosts, env, execute, lcd
 from fabric.contrib.console import confirm
 from fabric.operations import put, get
+import fabric.operations as fo
 from fabric.contrib.project import rsync_project
 import re
 import os
@@ -231,6 +232,7 @@ def refresh_running_state():
 	hosts_list = [
 		findout_instance_ips()["serversInstance"]
 	]
+	fo.local("rm -rf http2/media/*")
 	print( "Proceeding with hosts_list: {0}".format(hosts_list) )
 	with settings(hosts=hosts_list):
 		rsync_subdirs()

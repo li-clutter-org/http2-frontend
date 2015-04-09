@@ -76,7 +76,6 @@ class SyncWorker(object):
     def _watch_stderr(self, stderr):
         for line in stderr:
             print(line)
-        
 
     def join(self):
         self._watcher.join()
