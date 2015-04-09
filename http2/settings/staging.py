@@ -6,6 +6,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = ["http2.httptwo.com"]
 
+ANALYZER_URL = "https://192.168.112.131:1070/setnexturl/"
 
 DATABASES = {
     'default': {
