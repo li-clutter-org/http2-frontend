@@ -1,4 +1,62 @@
+@font-face {
+  font-family: 'League-Gothic';
+  font-style: normal;
+  font-size: $baseFontSize;
+  font-weight: 400;
+  display: inline-block;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em; // fixes ie7 issues
+  src: url(../../../font/League-Gothic/LeagueGothic-CondensedItalic.otf),
+  url(../../../font/League-Gothic/LeagueGothic-CondensedRegular.otf),
+  url(../../../font/League-Gothic/LeagueGothic-Italic.otf),
+  url(../../../font/League-Gothic/LeagueGothic-Regular.otf);
+}
+
+@font-face {
+  font-family: 'font-awesome';
+  font-style: normal;
+  font-size: $baseFontSize;
+  font-weight: 400;
+  display: inline-block;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em; // fixes ie7 issues
+  src: url(../../../font/font-awesome/fontawesome-webfont.eot),
+  url(../../../font/font-awesome/fontawesome-webfont.svg),
+  url(../../../font/font-awesome/fontawesome-webfont.ttf),
+  url(../../../font/font-awesome/fontawesome-webfont.woff),
+  url(../../../font/font-awesome/fontawesome-webfont.woff2);
+}
+
+@font-face {
+  font-family: 'Open-Sans';
+  font-style: normal;
+  font-size: $baseFontSize;
+  font-weight: 400;
+  display: inline-block;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em; // fixes ie7 issues
+  src: url(../../../font/Open-Sans/Open-Sans.woff),
+  url(../../../font/Open-Sans/Open-Sans.woff2);
+}
+
+@font-face {
+  font-family: 'Monserrat';
+  font-style: normal;
+  font-size: $baseFontSize;
+  font-weight: 400;
+  display: inline-block;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  *margin-right: .3em; // fixes ie7 issues
+  src: url(../../../font/Monserrat/Monserrat.woff),
+  url(../../../font/Monserrat/Monserrat.woff2);
+}
+
 html {
+    //font-family: 'Monserrat';
     position: relative;
     min-height: 100%;
     -webkit-font-smoothing: antialiased;
@@ -14,6 +72,7 @@ html {
 }
 
 body{
+    font-family: 'Open-Sans';
     font-weight: 300;
 
     @include breakpoint(phone_landscape){
