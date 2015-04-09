@@ -52,9 +52,9 @@ d3.timechart = function (data) {
         total_width = width + vertical_separator, /* Total width of the chart */
         legend_data = {
             labels: [
-                {label: 'Sending', x:total_width * 0.748},
-                {label: 'Waiting', x:total_width * 0.806 },
-                {label: 'Receiving', x:total_width * 0.872}],
+                {label: 'Sending', x:total_width * 0.810},
+                {label: 'Waiting', x:total_width * 0.872 },
+                {label: 'Receiving', x:total_width * 0.948}],
             series: [
             {x: total_width * 0.378, y:20, size: 50, text: "http1", class: ['http1_sending','http1_waiting', 'http1_receiving']},
             {x: total_width * 0.378, y:35, size: 50, text: "http2", class: ['http2_sending','http2_waiting', 'http2_receiving']}
@@ -130,7 +130,7 @@ d3.timechart = function (data) {
 
         legend.selectAll("ag").data(legend_data.labels)
             .enter().append("text")
-            .attr("x",function (d){return x(d.x);})
+            .attr("x",function (d){return d.x;})
             .attr("y", 10)
             .text(function(d){return d.label;});
 
