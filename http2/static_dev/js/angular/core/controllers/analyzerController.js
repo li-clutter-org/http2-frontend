@@ -33,7 +33,7 @@
                 var analysis_data = $scope.analysis.data;
                 stopInterval();
 
-                $scope.interval =  $interval(function() {
+                $scope.interval = $interval(function() {
                     getAnalysisState(analysis_data.analysis_id);
 
                 }, 10000);
@@ -64,7 +64,7 @@
                     });
             }
 
-            $scope.$on('$stateChangeSuccess', function(e){
+            $scope.$on('$stateChangeSuccess', function(e) {
                 stopInterval();
                 var analysis_id = $stateParams.analysis_id;
 
@@ -79,7 +79,7 @@
                         }
                     }
                     // We just arrived here, so let's be sure we 
-                    // fetch the rest of the data from somewhere. 
+                    // fetch the rest of the data from somewhere.
                     getAnalysisState(analysis_id);
 
                     startInterval();
