@@ -61,7 +61,14 @@ d3.timechart = function (data) {
         ]
         }
     ;
+
+    function format_tooltip_text(amount){ return amount.toFixed(2) + 'ms';}
+
     function draw() {
+        var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
          var x = d3.scale.linear()
         .domain([0, d3.max(data.times, function (d) {
                 return Math.max(
@@ -217,6 +224,93 @@ d3.timechart = function (data) {
                 return x(d.http2[3]);
             })
             .attr("height", series_height);
+
+        /* Tooltips */
+       serie.selectAll(".http1_sending")
+            .on("mouseover", function(d) {
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .6);
+                div .html(format_tooltip_text(d.http1[1]))
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+                })
+            .on("mouseout", function(d) {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+        serie.selectAll(".http1_waiting")
+            .on("mouseover", function(d) {
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .6);
+                div .html(format_tooltip_text(d.http1[2]))
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+                })
+            .on("mouseout", function(d) {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+        serie.selectAll(".http1_receiving")
+            .on("mouseover", function(d) {
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .6);
+                div .html(format_tooltip_text(d.http1[3]))
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+                })
+            .on("mouseout", function(d) {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+
+        serie.selectAll(".http2_sending")
+            .on("mouseover", function(d) {
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .6);
+                div .html(format_tooltip_text(d.http2[1]))
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+                })
+            .on("mouseout", function(d) {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+        serie.selectAll(".http2_waiting")
+            .on("mouseover", function(d) {
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .6);
+                div .html(format_tooltip_text(d.http2[2]))
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+                })
+            .on("mouseout", function(d) {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+        serie.selectAll(".http2_receiving")
+            .on("mouseover", function(d) {
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .6);
+                div .html(format_tooltip_text(d.http2[3]))
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+                })
+            .on("mouseout", function(d) {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
 
         <!--  URLs - paths -->
         var url = chart.selectAll("div")
