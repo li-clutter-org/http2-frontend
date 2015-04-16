@@ -141,6 +141,11 @@ d3.timechart = function (data) {
             .attr("y", 10)
             .text(function(d){return d.label;});
 
+        legend.append("text")
+            .attr("x", vertical_separator)
+            .attr("y", 25)
+            .text("Effectivenes: " + data.effectiveness);
+
 
         /* Add the SVG object */
         this.append("svg").attr("class","chart");

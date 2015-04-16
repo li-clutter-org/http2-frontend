@@ -120,7 +120,7 @@ def format_json(http1_json, http2_json):
     This utility formats the json data to make it suitable for the UI.
     :return something like
         {
-            domain:'https :// www.zunzun.se',
+            effectiveness: 0.87,
             times:[
             {
             path:'/main.css',
@@ -152,6 +152,7 @@ def format_json(http1_json, http2_json):
     new_json = {
         'times': []
     }
+    r1, r2, r1r2 = len(http1_json['har']['entries']), len(http2_json['har']['entries']), 0
     # computing the moment the first request start
     all_entries = http1_json['har']['entries']
     all_entries.extend(http2_json['har']['entries'])
@@ -181,6 +182,7 @@ def format_json(http1_json, http2_json):
             ]}
         )
         new_json['times'].append(item_template)
+
     # Add http2 entries
     entries_http2 = http2_json['har']['entries']
     for entry in new_json['times']:
@@ -191,6 +193,7 @@ def format_json(http1_json, http2_json):
             except KeyError:
                 continue
             if entry['path'] == parsed_url.path and entry['domain'] == parsed_url.netloc:
+                r1r2 += 1
                 found = True
                 entry['http2'] = [
                     (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time).total_seconds(),
@@ -211,5 +214,6 @@ def format_json(http1_json, http2_json):
             result.append(entry)
 
     new_json['times'] = result
+    new_json['effectiveness'] = settings.EFFECTIVENESS(r1, r2, r1r2)
 
     return new_json
