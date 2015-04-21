@@ -16,7 +16,7 @@ import subprocess as sp
 import os.path 
 from StringIO import StringIO
 from findout_instance_ips import findout_instance_ips
-
+import passwfile
 
 
 LOCAL_FILES_TO_SYNC = [
@@ -32,7 +32,6 @@ LOCAL_FILES_TO_SYNC = [
 
 EC2_REMOTE_DIR="/home/ubuntu/http2_loadimpact"
 
-POSTGRESQL_PASSWORD = "233feeA4af"
 
 if "HTTP2_LOAD_IMPACT__PROJECT_DIR" not in os.environ:
     print("** Could not find HTTP2_LOAD_IMPACT__PROJECT_DIR, maybe you need "
@@ -221,10 +220,10 @@ def install_postgresql():
 
 def configure_postgresql():
 	sudo("""sudo -u postgres psql -U postgres -d postgres -c "alter user postgres with password '{0}';" """.format(
-		POSTGRESQL_PASSWORD)
+		passwfile.POSTGRESQL_PASSWORD)
 	)
 	sudo("""sudo -u postgres psql -U postgres -d postgres -c "CREATE USER http2django with password '{0}';" """.format(
-		POSTGRESQL_PASSWORD)
+		passwfile.POSTGRESQL_PASSWORD)
 	)
 	sudo("""sudo -u postgres psql -U postgres -d postgres -c "CREATE DATABASE http2django WITH OWNER = http2django;" """
 	)

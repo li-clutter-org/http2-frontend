@@ -1,0 +1,8 @@
+"""
+Python file for variable declarations with secret data.
+
+Rename this file and don't include in the version control for locally use.
+"""
+
+# Password of the PostgreSQL admin user
+POSTGRESQL_PASSWORD = "QWERTY.123*"
