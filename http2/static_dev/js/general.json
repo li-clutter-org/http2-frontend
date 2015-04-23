@@ -19,7 +19,6 @@
         "js/lib/angular-route.js",
         "js/lib/angular-touch.js",
         "js/lib/angular-messages.js",
-        "js/lib/d3.js",
 
         "js/angular/core/app.js",
         "js/angular/core/config.js",
@@ -37,6 +36,8 @@
         "js/angular/core/directives/monkey-patches/growlAddons.js",
         "js/angular/core/directives/fallbacks/svgFallback.js",
         "js/angular/core/directives/d3_chars.js",
-        "js/timechart.js"
+        "js/timechart.js",
+
+        "js/do-bootstrap.js"
     ]
 }

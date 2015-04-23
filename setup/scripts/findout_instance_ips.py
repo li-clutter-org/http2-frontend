@@ -42,11 +42,12 @@ def findout_instance_ips():
     result = {}
     for instance_name in INSTANCE_NAMES:
         json_description = sp.check_output(
-            ["aws",
-             "ec2",
-             "describe-instances",
-             "--filter",
-             "Name=tag:Name,Values={0}".format(instance_name)
+            [
+                "aws",
+                "ec2",
+                "describe-instances",
+                "--filter",
+                "Name=tag:Name,Values={0}".format(instance_name)
             ])
         obj = json.loads(json_description)
         network_interfaces = obj["Reservations"][0]["Instances"][0]["NetworkInterfaces"]

@@ -2,7 +2,7 @@
 {% load url from future %}
 
 <!DOCTYPE html>
-<html data-ng-app="http2">
+<html >
 <head>
     <meta charset="utf-8">
     <title data-ng-bind="$root.title ? $root.title + ' - Load Impact' : 'Load Impact'">Load Impact</title>
@@ -35,10 +35,11 @@
     <div data-growl></div>
 
 
-
     {% if debug_set %}
+        {% render_js_files 'js/lib/d3.json'  %}
         {% render_js_files 'js/general.json' %}
     {% else %}
+        <script src='{% static "build/js/d3.js" %}'></script>
         <script src='{% static "build/js/general.js" %}'></script>
     {% endif %}
 </body>

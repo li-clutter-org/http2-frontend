@@ -1,0 +1,9 @@
+{
+    "root": "static_dev/",
+    "credits": [
+        "d3.js: d3.js"
+    ],
+    "files": [
+        "js/lib/d3.js"
+    ]
+}

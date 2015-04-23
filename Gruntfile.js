@@ -1,6 +1,7 @@
 ﻿module.exports = function(grunt) {
     var base = './http2/';
     var generalJS = prepare(grunt.file.readJSON(base + 'static_dev/js/general.json'));
+    var d3JS = prepare(grunt.file.readJSON(base+'static_dev/js/d3.json'));
 
     require('load-grunt-tasks')(grunt);
 
@@ -53,7 +54,27 @@
         uglify: {
             options:{
                 compress:{
-                    drop_console: true
+                },
+                mangle: true,
+                beautify: false,
+                sourceMap : false
+            },
+            build_d3: {
+                options:{
+                    compress:{
+                        drop_debugger: false,
+                        sequences: false,
+                        unused: false,
+                        keep_fargs: true,
+                        hoist_funs: false, 
+                        join_vars: false
+                    },
+                    mangle: false,
+                    beautify: true,
+                    sourceMap : false
+                },
+                files: {
+                    'static_dev/build/js/d3.js': d3JS.files
                 }
             },
             build_general: {
