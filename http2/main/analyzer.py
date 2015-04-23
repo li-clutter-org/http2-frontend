@@ -217,3 +217,21 @@ def format_json(http1_json, http2_json):
     new_json['effectiveness'] = settings.EFFECTIVENESS(r1, r2, r1r2)
 
     return new_json
+
+
+def fit_times(json_times):
+    times = json_times['times']
+    new_list = []
+    for item in times:
+        # uniqify the list
+        if item['path'] not in filter(lambda e: e['path'], new_list):
+            # replace http2 times
+            item['http2'][1] = item['http1'][1]
+            item['http2'][2] = item['http1'][2]
+            item['http2'][3] = item['http1'][3]
+            item['http2'][4] = item['http1'][4]
+            new_list.append(item)
+    # sort by http1 start time
+    json_times['times'] = sorted(new_list, key=lambda i: i['http1'][0])
+    return json_times
+

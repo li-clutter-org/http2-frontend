@@ -2,7 +2,7 @@ import ast
 
 from django.db import models
 
-from .analyzer import generate_hash_id, format_json
+from .analyzer import generate_hash_id, format_json, fit_times
 
 
 class AnalysisInfo(models.Model):
@@ -45,8 +45,10 @@ class AnalysisInfo(models.Model):
 
     def get_json(self):
         if self.http1_json_data and self.http2_json_data:
-            return format_json(
-                ast.literal_eval(str(self.http1_json_data)),
-                ast.literal_eval(str(self.http2_json_data))
+            return fit_times(
+                format_json(
+                    ast.literal_eval(str(self.http1_json_data)),
+                    ast.literal_eval(str(self.http2_json_data))
+                )
             )
         return {}

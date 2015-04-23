@@ -14,8 +14,6 @@ from rest_framework.response import Response
 from .analyzer import (
     get_har_data_as_json,
     generate_hash_id,
-    update_progress_mock,
-    format_json
 )
 from .models import AnalysisInfo
 from .serializers import AnalysisInfoSerializer
