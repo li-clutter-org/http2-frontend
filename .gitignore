@@ -37,6 +37,7 @@ build
 *~
 venv/
 /settings/secret_keys/production.txt
+/setup/scripts/passwfile.py
 /logs
 /node_modules
 /templates/docs
