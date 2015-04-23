@@ -36,8 +36,6 @@
         "js/angular/core/directives/monkey-patches/growlAddons.js",
         "js/angular/core/directives/fallbacks/svgFallback.js",
         "js/angular/core/directives/d3_chars.js",
-        "js/timechart.js",
-
-        "js/do-bootstrap.js"
+        "js/timechart.js"
     ]
 }
