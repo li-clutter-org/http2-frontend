@@ -36,7 +36,7 @@
 
 
     {% if debug_set %}
-        {% render_js_files 'js/lib/d3.json'  %}
+        {% render_js_files 'js/d3.json'  %}
         {% render_js_files 'js/general.json' %}
     {% else %}
         <script src='{% static "build/js/d3.js" %}'></script>
