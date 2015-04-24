@@ -48,7 +48,7 @@ d3.timechart = function (data) {
         http2_y = bar_height * 0.55, /* Vertical position of http2 series */
         left_align = 40, /* Position (in percent) of vertical separator */
         vertical_separator = left_align * width / 100, /* Position of vertical separator */
-        legend_height = 50, /* Height of the */
+        legend_height = 130, /* Height of the */
         total_width = width + vertical_separator, /* Total width of the chart */
         legend_data = {
             labels: [
@@ -144,7 +144,27 @@ d3.timechart = function (data) {
         legend.append("text")
             .attr("x", vertical_separator)
             .attr("y", 25)
-            .text("Effectivenes: " + data.effectiveness);
+            .text("Effectiveness: " + data.effectiveness);
+
+        legend.append("text")
+            .attr("x", total_width)
+            .attr("y", 70)
+            .text("Effectiveness = 1 - 2 * ( Max(R1,R2) - R1R2 ) / (R1 + R2)");
+
+        legend.append("text")
+            .attr("x", total_width)
+            .attr("y", 85)
+            .text("R1: number of HTTP/1.1 resources");
+
+        legend.append("text")
+            .attr("x", total_width)
+            .attr("y", 100)
+            .text("R2: number of HTTP/2 resources");
+
+            legend.append("text")
+            .attr("x", total_width)
+            .attr("y", 115)
+            .text("R1R2: number of common resources");
 
 
         /* Add the SVG object */
