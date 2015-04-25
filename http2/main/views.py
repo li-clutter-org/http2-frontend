@@ -1,7 +1,6 @@
 import os
 import shutil
 import os.path as path
-import ast
 import logging as lg
 import subprocess as sp
 import tempfile
@@ -30,7 +29,6 @@ class SendAnalysisViewSet(APIView):
     def post(self, request):
         data = request.DATA
         url_to_analyze = data['url_analyzed']
-        hash_id = generate_hash_id(url_to_analyze)
 
         # There down I'm doing the equivalent of this.
         #
@@ -39,13 +37,6 @@ class SendAnalysisViewSet(APIView):
         # I'm using curl because requests doesn't support HTTP/2,
         # and the Haskell webserver is listening using HTTP/2 . The latest version of curl
         # is okej with that. .....
-        try:
-            analysis_info = AnalysisInfo.objects.get(
-                url_analyzed=url_to_analyze,
-                analysis_id=hash_id
-            )
-        except AnalysisInfo.DoesNotExist:
-            analysis_info = None
 
         logger = lg.getLogger("http2front")
         try:
@@ -60,41 +51,37 @@ class SendAnalysisViewSet(APIView):
                 ],
                 stdout=output_stream,
                 stderr=sp.STDOUT,
-                env= getopenssl_env()
+                env=getopenssl_env()
             )
             process_exit_code = p.wait()
+            # TODO: Get the hash_id from the response...
+            # I know that contents has the hash_id, but we will
+            # need to parse that to get this. I also tried "communicate" method,
+            # and I tried to store the hash_id in an output file passing this
+            # option to curl command, and any of them worked for me :(
+            output_stream.seek(0)
+            contents = output_stream.read()
+            # We need to figure out how to get the hash_id, and set this to
+            # the local var hash_id... something like below...
+            # hash_id = parse_contents(contents)
+            hash_id = contents # TODO: remove this, just for testing...
 
         except sp.SubprocessError as e:
-            # If there is already an AnalysisInfo entry for this URL
-            # we should mark it as failed.
-            if analysis_info:
-                analysis_info.state = AnalysisInfo.STATE_FAILED
-                analysis_info.save()
             logger.error("Could not invoke process, Popen raised ... ", exc_info=True)
             return Response({"error": "Internal error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         if process_exit_code != 0:
-            # If there is already an AnalysisInfo entry for this URL
-            # we should mark it as failed.
-            if analysis_info:
-                analysis_info.state = AnalysisInfo.STATE_FAILED
-                analysis_info.save()
             output_stream.seek(0)
             contents = output_stream.read()
             logger.error("Curl returned error, error information: %s ", contents)
             return Response({"error": "Internal error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         # We should create an instance at this point.
-        if not analysis_info:
-            analysis_info = AnalysisInfo.objects.create(
-                url_analyzed=url_to_analyze,
-                analysis_id=hash_id
-            )
-        # If it is an URL that was already analyzed we should ensure
-        # that its state is AnalysisInfo.STATE_SENT
-        elif analysis_info.state != AnalysisInfo.STATE_SENT:
-            analysis_info.state = AnalysisInfo.STATE_SENT
-            analysis_info.save()
+        analysis_info = AnalysisInfo.objects.create(
+            url_analyzed=url_to_analyze,
+            analysis_id=hash_id,
+            state=AnalysisInfo.STATE_SENT
+        )
 
         return Response(AnalysisInfoSerializer(analysis_info).data, status=status.HTTP_200_OK)
 
