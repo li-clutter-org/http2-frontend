@@ -38,8 +38,6 @@ class AnalysisInfo(models.Model):
 
     def save(self, *args, **kwargs):
         # Populating analysis ID
-        if not self.analysis_id:
-            self.analysis_id = generate_hash_id(self.url_analyzed)
 
         super(AnalysisInfo, self).save(*args, **kwargs)
 

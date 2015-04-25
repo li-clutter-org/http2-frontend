@@ -141,6 +141,7 @@ def create_empty_directories():
     run("mkdir -p /home/ubuntu/logs/http2_prod/")
     run("mkdir -p /home/ubuntu/logs/supervisord/")
 
+
 def install_ruby_pieces():
     sudo("gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3")
     sudo("curl -sSL https://get.rvm.io | bash -s stable")
@@ -214,6 +215,7 @@ def resetdb():
         sudo("""sudo -u postgres psql -U postgres -d postgres -c "CREATE DATABASE http2django WITH OWNER = http2django;" """
              )
 
+
 def install_postgresql():
     sudo("sudo apt-get install -y postgresql postgresql-contrib postgresql-client libpq-dev")
 
@@ -227,6 +229,7 @@ def configure_postgresql():
          )
     sudo("""sudo -u postgres psql -U postgres -d postgres -c "CREATE DATABASE http2django WITH OWNER = http2django;" """
          )
+
 
 def refresh_running_state():
     hosts_list = [

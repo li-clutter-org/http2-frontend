@@ -29,51 +29,21 @@ class SendAnalysisViewSet(APIView):
     def post(self, request):
         data = request.DATA
         url_to_analyze = data['url_analyzed']
-
-        # There down I'm doing the equivalent of this.
-        #
-        # curl -k --data-binary "http://www.reddit.com/r/haskell/" --http2 https://instr.httpdos.com:1070/setnexturl/
-        #
-        # I'm using curl because requests doesn't support HTTP/2,
-        # and the Haskell webserver is listening using HTTP/2 . The latest version of curl
-        # is okej with that. .....
-
         logger = lg.getLogger("http2front")
         try:
-            output_stream = tempfile.TemporaryFile(prefix="http2_django_tmp_")
-            p = sp.Popen(
+            hash_id = sp.check_output(
                 args=[
                     settings.RECENT_CURL_BINARY_LOCATION,
-                    "-k",
+                    "-k", # <-- Insecure
+                    "-s", # <-- Silent
                     "--data-binary", url_to_analyze.encode('ascii'),
                     "--http2",
                     settings.ANALYZER_URL
-                ],
-                stdout=output_stream,
-                stderr=sp.STDOUT,
+                    ],
                 env=getopenssl_env()
-            )
-            process_exit_code = p.wait()
-            # TODO: Get the hash_id from the response...
-            # I know that contents has the hash_id, but we will
-            # need to parse that to get this. I also tried "communicate" method,
-            # and I tried to store the hash_id in an output file passing this
-            # option to curl command, and any of them worked for me :(
-            output_stream.seek(0)
-            contents = output_stream.read()
-            # We need to figure out how to get the hash_id, and set this to
-            # the local var hash_id... something like below...
-            # hash_id = parse_contents(contents)
-            hash_id = contents # TODO: remove this, just for testing...
-
-        except sp.SubprocessError as e:
+            ).decode('ascii')
+        except sp.SubprocessError:
             logger.error("Could not invoke process, Popen raised ... ", exc_info=True)
-            return Response({"error": "Internal error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        if process_exit_code != 0:
-            output_stream.seek(0)
-            contents = output_stream.read()
-            logger.error("Curl returned error, error information: %s ", contents)
             return Response({"error": "Internal error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         # We should create an instance at this point.
@@ -94,7 +64,7 @@ class AnalyzerMockingViewSet(APIView):
 
     def post(self, request):
         data = request.DATA
-        hash_id = generate_hash_id(list(data.dict().keys())[0])
+        hash_id = "4jdkfjkedjfk3"
         analysis_result_path = os.path.join(
             settings.ANALYSIS_RESULT_PATH,
             hash_id)
