@@ -174,7 +174,8 @@ def format_json(http1_json, http2_json):
         item_template['domain'] = parsed_url.netloc
         item_template.update({
             'http1': [
-                (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time).total_seconds(),
+                (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time)
+                    .total_seconds()*1000.0,
                 entry['timings']['send'],
                 entry['timings']['wait'],
                 entry['timings']['receive'],
@@ -196,7 +197,8 @@ def format_json(http1_json, http2_json):
                 r1r2 += 1
                 found = True
                 entry['http2'] = [
-                    (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time).total_seconds(),
+                    (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time)
+                        .total_seconds()*1000,
                     item['timings']['send'],
                     item['timings']['wait'],
                     item['timings']['receive'],
