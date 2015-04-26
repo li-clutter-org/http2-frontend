@@ -152,19 +152,26 @@ def format_json(http1_json, http2_json):
     new_json = {
         'times': []
     }
+
+    # This is for the effectiviness formula
     r1, r2, r1r2 = len(http1_json['har']['entries']), len(http2_json['har']['entries']), 0
-    # computing the moment the first request start
-    all_entries = http1_json['har']['entries']
-    all_entries.extend(http2_json['har']['entries'])
-    all_start_times = [
+
+    http1_entries = http1_json['har']['entries']
+    http2_entries = http2_json['har']['entries']
+    all_entries = http1_entries + http2_entries
+    http1_start_times = [
         dt.strptime(tmp_entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f")
-        for tmp_entry in all_entries
+        for tmp_entry in http1_entries
     ]
-    global_start_time = min(all_start_times)
+    http2_start_times = [
+        dt.strptime(tmp_entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f")
+        for tmp_entry in http2_entries
+    ]
+    http1_global_start_time = min(http1_start_times)
+    http2_global_start_time = min(http2_start_times)
 
     # Add http1 entries
-    entries = http1_json['har']['entries']
-    for entry in entries:
+    for entry in http1_entries:
         item_template = item_template.copy()
         try:
             parsed_url = urlparse(entry['request']['url'])
@@ -174,7 +181,7 @@ def format_json(http1_json, http2_json):
         item_template['domain'] = parsed_url.netloc
         item_template.update({
             'http1': [
-                (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time)
+                (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http1_global_start_time)
                     .total_seconds()*1000.0,
                 entry['timings']['send'],
                 entry['timings']['wait'],
@@ -185,10 +192,9 @@ def format_json(http1_json, http2_json):
         new_json['times'].append(item_template)
 
     # Add http2 entries
-    entries_http2 = http2_json['har']['entries']
     for entry in new_json['times']:
         found = False
-        for item in entries_http2:
+        for item in http2_entries:
             try:
                 parsed_url = urlparse(item['request']['url'])
             except KeyError:
@@ -197,7 +203,7 @@ def format_json(http1_json, http2_json):
                 r1r2 += 1
                 found = True
                 entry['http2'] = [
-                    (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - global_start_time)
+                    (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http2_global_start_time)
                         .total_seconds()*1000,
                     item['timings']['send'],
                     item['timings']['wait'],
@@ -206,9 +212,6 @@ def format_json(http1_json, http2_json):
                 ]
         if not found:
             entry['http2'] = [0, 0, 0, 0, 0]
-
-    def isfake(entry):
-        return [0, 0, 0, 0] == entry[1:]
 
     result = []
     for entry in new_json['times']:
@@ -219,6 +222,10 @@ def format_json(http1_json, http2_json):
     new_json['effectiveness'] = settings.EFFECTIVENESS(r1, r2, r1r2)
 
     return new_json
+
+
+def isfake(entry):
+    return [0, 0, 0, 0] == entry[1:]
 
 
 def fit_times(json_times):
