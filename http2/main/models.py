@@ -43,10 +43,15 @@ class AnalysisInfo(models.Model):
 
     def get_json(self):
         if self.http1_json_data and self.http2_json_data:
-            return fit_times(
-                format_json(
+            # Let's make a try without actually changing the times...
+            # return fit_times(
+            #     format_json(
+            #         ast.literal_eval(str(self.http1_json_data)),
+            #         ast.literal_eval(str(self.http2_json_data))
+            #     )
+            # )
+            return format_json(
                     ast.literal_eval(str(self.http1_json_data)),
                     ast.literal_eval(str(self.http2_json_data))
                 )
-            )
         return {}
