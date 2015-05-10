@@ -10,11 +10,13 @@ class AnalysisInfo(models.Model):
     STATE_FAILED = 'failed'
     STATE_DONE = 'done'
     STATE_PROCESSING = 'processing'
+    STATE_QUEUEFULL = 'queuefull'
     STATE_CHOICES = (
         (STATE_SENT, 'Sent'),
         (STATE_FAILED, 'Failed'),
         (STATE_DONE, 'Done'),
-        (STATE_PROCESSING, 'Processing')
+        (STATE_PROCESSING, 'Processing'),
+        (STATE_QUEUEFULL, 'Queue full')
     )
     analysis_id = models.CharField(max_length=60, editable=False)
     # state of the analysis

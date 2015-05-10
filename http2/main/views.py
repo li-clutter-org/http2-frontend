@@ -3,7 +3,7 @@ import shutil
 import os.path as path
 import logging as lg
 import subprocess as sp
-import tempfile
+from datetime import datetime
 
 from django.conf import settings
 
@@ -12,7 +12,6 @@ from rest_framework.response import Response
 
 from .analyzer import (
     get_har_data_as_json,
-    generate_hash_id,
 )
 from .models import AnalysisInfo
 from .serializers import AnalysisInfoSerializer
@@ -31,9 +30,10 @@ class SendAnalysisViewSet(APIView):
         url_to_analyze = data['url_analyzed']
         logger = lg.getLogger("http2front")
         try:
-            hash_id = sp.check_output(
+            hash_id_status_code = sp.check_output(
                 args=[
                     settings.RECENT_CURL_BINARY_LOCATION,
+                    "-w %{http_code}",
                     "-k", # <-- Insecure
                     "-s", # <-- Silent
                     "--data-binary", url_to_analyze.encode('ascii'),
@@ -42,6 +42,15 @@ class SendAnalysisViewSet(APIView):
                     ],
                 env=getopenssl_env()
             ).decode('ascii')
+            hash_id, status_code = hash_id_status_code.split()
+            # Setting the analysis state accordingly with the response status code.
+            queue_full = status_code == settings.QUEUEFULL_STATUS_CODE
+            if queue_full:
+                analysis_state = AnalysisInfo.STATE_QUEUEFULL
+                http_status_code = status.HTTP_505_HTTP_VERSION_NOT_SUPPORTED
+            else:
+                analysis_state = AnalysisInfo.STATE_SENT
+                http_status_code = status.HTTP_200_OK
         except sp.SubprocessError:
             logger.error("Could not invoke process, Popen raised ... ", exc_info=True)
             return Response({"error": "Internal error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -50,10 +59,10 @@ class SendAnalysisViewSet(APIView):
         analysis_info = AnalysisInfo.objects.create(
             url_analyzed=url_to_analyze,
             analysis_id=hash_id,
-            state=AnalysisInfo.STATE_SENT
+            state=analysis_state
         )
 
-        return Response(AnalysisInfoSerializer(analysis_info).data, status=status.HTTP_200_OK)
+        return Response(AnalysisInfoSerializer(analysis_info).data, status=http_status_code)
 
 
 class AnalyzerMockingViewSet(APIView):
@@ -135,6 +144,7 @@ class GetAnalysisState(APIView):
                     analysis.state = AnalysisInfo.STATE_DONE
                     analysis.http1_json_data = http1_json_data
                     analysis.http2_json_data = http2_json_data
+                    analysis.when_done = datetime.now()
                 elif path.exists(
                         path.join(
                             result_dir,
