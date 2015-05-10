@@ -15,12 +15,12 @@ angular.module('http2').config(['$interpolateProvider', '$httpProvider', '$locat
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
 
-    $httpProvider.interceptors.push(['$q', function($q){
+    $httpProvider.interceptors.push(['$q', function($q) {
         var growl = growlProvider.$get();
 
         return {
             request: function(config){
-                if(config.url.indexOf('partials/') > -1){
+                if(config.url.indexOf('partials/') > -1) {
                     config.url = '/static/' + config.url;
                 };
 
@@ -32,22 +32,25 @@ angular.module('http2').config(['$interpolateProvider', '$httpProvider', '$locat
                 growl.removeAllMessages();
 
                 if(!response.config.silenceGrowl){
-                    if(status === 500){
+                    if(status === 500) {
                         growl.addErrorMessage('Internal server error');
                     }
-                    else if(status === 408){
+                    if(status === 505) {
+                        growl.addErrorMessage('Queue full');
+                    }
+                    else if(status === 408) {
                         growl.addErrorMessage('Request timeout');
                     }
-                    else if(status === 405){
+                    else if(status === 405) {
                         growl.addErrorMessage('Not allowed');
                     }
-                    else if(status === 404){
+                    else if(status === 404) {
                         growl.addErrorMessage('Not found');
                     }
-                    else if(status === 403){
+                    else if(status === 403) {
                         growl.addErrorMessage('Forbidden');
                     }
-                    else{
+                    else {
                         growl.addErrorMessage('Generic error');
                     };
                 };

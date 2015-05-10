@@ -63,6 +63,11 @@
                         </div>
 
                     </div>
+                     <!-- When the state is queuefull -->
+                    <div data-ng-switch-when="queuefull">
+                        <p class="error">The queue is full on the server, please re-try later.</p>
+
+                    </div>
                     <div data-ng-switch-when="failed">
                         <p class="error">The analysis failed, please re-try later.</p>
 
