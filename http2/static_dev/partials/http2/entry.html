@@ -4,6 +4,7 @@
         <div class="span4 text-center">
           <div class="analyze">
             <div class="table analyze-input-group">
+                <p class="error" ng-show="analysis.data.state === 'queuefull'">The queue is full on the server, please re-try later.</p>
                 <form novalidate name="analyze" data-ng-submit="send();">
                     <input
                       type="url"

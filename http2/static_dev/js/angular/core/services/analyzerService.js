@@ -43,17 +43,7 @@ angular.module('http2')
                 var me = service;
 
                 growl.addInfoMessage('Sending analysis', {ttl: 15000});
-
-                return $q(
-                    function(resolve, reject) {
-                        $http.post(me.send_analysis.url, analysis).then(
-                            function (response) {
-                                growl.removeMessage('Sending analysis');
-                                growl.addSuccessMessage('Analysis sent', {ttl: 1000});
-                                resolve(response);
-                            }, reject);
-                    }
-                );
+                return $http.post(me.send_analysis.url, analysis);
             };
 
             service.getAnalysisState = function(analysis_id) {

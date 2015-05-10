@@ -31,16 +31,22 @@ angular.module('http2')
                 **/
 
                 var analysis_data = $scope.analysis.data;
+                // No state at this point.
+                $scope.analysis.data.state = null;
 
-                analyzerService.requestAnalysis(analysis_data).then(function(response) {
-                    $scope.analysis.data = analysis_data = response;
-                    if (analysis_data.data.state === 'sent' || analysis_data.data.state === 'processing') {
-                        //startInterval();
-                        $state.go("analysisStatus", {
-                            "analysis_id": analysis_data.data.analysis_id
-                        });
-                    }
-                });
+                analyzerService.requestAnalysis(analysis_data).
+                    success(function(data, status, headers, config) {
+                        // Updating the scope, and stopping the polling properly if the response is a success.
+                        $scope.analysis.data = data;
+                        if($scope.analysis.data.state === 'sent' || $scope.analysis.data.state === 'processing') {
+                            $state.go("analysisStatus", {
+                                "analysis_id": $scope.analysis.data.analysis_id
+                            });
+                        };
+                    }).
+                    error(function(data, status, headers, config) {
+                        $scope.analysis.data = data;
+                    });
             };
 
             $scope.analysis = {
