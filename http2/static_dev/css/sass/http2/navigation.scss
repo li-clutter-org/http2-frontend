@@ -1,10 +1,19 @@
 
 .navbar {
-  background-color: $nav_background;
-  border-color: $nav_border;
+  margin-bottom: 0px;
+  border-top-width: 3px;
+  border-top-color: $nav_border;
   border-radius: 0;
+  height: 100px;
+  background: url('../img/nav_shadow.png') center bottom no-repeat $nav_background;
   a {
     color: $nav_font_color;
+    .http2 {
+      margin-left: 5px;
+    }
+    .arrow {
+      margin: 10px 0 0 5px;
+    }
   }
 
 }
