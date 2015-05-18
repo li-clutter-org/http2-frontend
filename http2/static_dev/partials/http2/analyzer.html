@@ -14,13 +14,13 @@
         <div class="load-navbar pull-left ">
             <a class="menu-item pull-left">Web, Mobile<br></a>
         </div>
-            <div class="analyzer clear-both">
+            <div class="analyzer clear-both text-left">
                 <div data-ng-switch="analysis.data.state">
 
                     <!-- When the state is done -->
                     <div data-ng-switch-when="done">
                         <div class="analyzer-http http2-push">
-                            <div class="statistics text-center clear-both">
+                            <div class="statistics clear-both">
                                 <div d3-chars id="timechart"></div>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                      <!-- When the state is sent -->
                     <div data-ng-switch-when="sent">
                         <div class="analyzer-http http2-push">
-                            <div class="statistics-resume http2-push-resume text-center clear-both">
+                            <div class="statistics-resume http2-push-resume clear-both">
                                 <div class="statistics-version col-md-3"><span pull-left>Analysis sent</span></div>
                                 <div class="progress">
                                   <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar"
@@ -52,7 +52,7 @@
                      <!-- When the state is processing -->
                     <div data-ng-switch-when="processing">
                         <div class="analyzer-http http2-push">
-                            <div class="statistics-resume http2-push-resume text-center clear-both">
+                            <div class="statistics-resume http2-push-resume  clear-both">
                                 <div class="statistics-version col-md-3"><span pull-left>Analysis in progress</span></div>
                                 <div class="progress">
                                   <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar"

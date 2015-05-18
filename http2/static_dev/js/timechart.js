@@ -67,21 +67,8 @@ d3.timechart = function (data) {
 
     function format_tooltip_text(amount){ return amount.toFixed(2) + 'ms';}
 
-    function draw() {
-        var div = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
-         var x = d3.scale.linear()
-        .domain([0, d3.max(data.times, function (d) {
-                return Math.max(
-                    d.http1[4] + d.http1[0],
-                    d.http2[4] + d.http1[0]);
-            }
-        )])
-        .range([0, width]);
-        /* Legend */
-        this.append("svg").attr("class","legend");
+    function put_legend_in_diagram() {
+        this.append("svg").attr("class", "legend");
         var legend = d3.select(".legend")
             .attr("width", vertical_separator + width)
             .attr("height", legend_height);
@@ -93,37 +80,43 @@ d3.timechart = function (data) {
             }
         );
         legend_series.append("rect")
-            .attr("class", function(d){
+            .attr("class", function (d) {
                 return d.class[0]
             })
             .attr("x", function (d) {
                 return d.x;
             })
-            .attr("y", function(d){ return d.y;})
+            .attr("y", function (d) {
+                return d.y;
+            })
             .attr("width", function (d) {
                 return d.size;
             })
             .attr("height", series_height);
         legend_series.append("rect")
-            .attr("class", function(d){
+            .attr("class", function (d) {
                 return d.class[1]
             })
             .attr("x", function (d) {
                 return d.x + d.size;
             })
-            .attr("y", function(d){ return d.y;})
+            .attr("y", function (d) {
+                return d.y;
+            })
             .attr("width", function (d) {
                 return d.size;
             })
             .attr("height", series_height);
         legend_series.append("rect")
-            .attr("class", function(d){
+            .attr("class", function (d) {
                 return d.class[2]
             })
             .attr("x", function (d) {
                 return d.x + d.size + d.size;
             })
-            .attr("y", function(d){ return d.y;})
+            .attr("y", function (d) {
+                return d.y;
+            })
             .attr("width", function (d) {
                 return d.size;
             })
@@ -133,16 +126,22 @@ d3.timechart = function (data) {
             .attr("x", function (d) {
                 return d.x + d.size + d.size + d.size + 40;
             })
-            .attr("y", function(d){ return d.y + 8;})
+            .attr("y", function (d) {
+                return d.y + 8;
+            })
             .text(function (d) {
-                return d.text ;
+                return d.text;
             });
 
         legend.selectAll("ag").data(legend_data.labels)
             .enter().append("text")
-            .attr("x",function (d){return d.x;})
+            .attr("x", function (d) {
+                return d.x;
+            })
             .attr("y", 10)
-            .text(function(d){return d.label;});
+            .text(function (d) {
+                return d.label;
+            });
 
         legend.append("text")
             .attr("x", vertical_separator)
@@ -164,15 +163,32 @@ d3.timechart = function (data) {
             .attr("y", 100)
             .text("R2: number of HTTP/2 resources");
 
-            legend.append("text")
+        legend.append("text")
             .attr("x", total_width)
             .attr("y", 115)
             .text("R1R2: number of common resources");
+    }
 
+    function draw(selection) {
+        var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        var x = d3.scale.linear()
+            .domain([0, d3.max(data.times, function (d) {
+                    return Math.max(
+                        d.http1[4] + d.http1[0],
+                        d.http2[4] + d.http1[0]);
+                }
+            )])
+            .range([0, width]);
+
+        /* Draw the legend */
+        //put_legend_in_diagram.call(this);
 
         /* Add the SVG object */
-        this.append("svg").attr("class","chart");
-        /* Define the canvas sizes */
+        selection.append("svg").attr("class","chart");
+        /* Define the canva sizes */
         var chart = d3.select(".chart")
             .attr("width", vertical_separator + width)
             .attr("height", bar_height * data.times.length);
@@ -341,33 +357,33 @@ d3.timechart = function (data) {
             });
 
         <!--  URLs - paths -->
-        var url = chart.selectAll("div")
-            .data(data.times)
-            .enter().append("g")
-            .attr("transform", function (d, i) {
-                return "translate(0," + i * bar_height + ")";
-            }
-        );
-        url.append("rect")
-            .attr("class", "url")
-            .attr("x", 0)
-            .attr("y", 0)
-            .attr("width", vertical_separator)
-            .attr("height", bar_height);
-
-        url.append("text")
-            .attr("x", vertical_separator - 20)
-            .attr("y", http1_y + 4)
-            .text(function (d) {
-            return d.domain;
-        });
-
-        url.append("text")
-            .attr("x", vertical_separator - 20)
-            .attr("y", http2_y + 4)
-            .text(function (d) {
-                return d.path;
-            });
+        //var url = chart.selectAll("div")
+        //    .data(data.times)
+        //    .enter().append("g")
+        //    .attr("transform", function (d, i) {
+        //        return "translate(0," + i * bar_height + ")";
+        //    }
+        //);
+        //url.append("rect")
+        //    .attr("class", "url")
+        //    .attr("x", 0)
+        //    .attr("y", 0)
+        //    .attr("width", vertical_separator)
+        //    .attr("height", bar_height);
+        //
+        //url.append("text")
+        //    .attr("x", vertical_separator - 20)
+        //    .attr("y", http1_y + 4)
+        //    .text(function (d) {
+        //    return d.domain;
+        //});
+        //
+        //url.append("text")
+        //    .attr("x", vertical_separator - 20)
+        //    .attr("y", http2_y + 4)
+        //    .text(function (d) {
+        //        return d.path;
+        //    });
 
         <!--  Lines -->
         chart.selectAll("p")
