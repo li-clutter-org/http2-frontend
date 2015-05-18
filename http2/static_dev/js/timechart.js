@@ -166,23 +166,25 @@ d3.timechart = function (data) {
             .text("R1R2: number of common resources");
     }
 
-    function draw() {
+    function draw(selection) {
         var div = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
 
-         var x = d3.scale.linear()
-        .domain([0, d3.max(data.times, function (d) {
-                return Math.max(
-                    d.http1[4] + d.http1[0],
-                    d.http2[4] + d.http1[0]);
-            }
-        )])
-        .range([0, width]);
+        var x = d3.scale.linear()
+            .domain([0, d3.max(data.times, function (d) {
+                    return Math.max(
+                        d.http1[4] + d.http1[0],
+                        d.http2[4] + d.http1[0]);
+                }
+            )])
+            .range([0, width]);
+
         /* Draw the legend */
         put_legend_in_diagram.call(this);
+
         /* Add the SVG object */
-        this.append("svg").attr("class","chart");
+        selection.append("svg").attr("class","chart");
         /* Define the canva sizes */
         var chart = d3.select(".chart")
             .attr("width", vertical_separator + width)
