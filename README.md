@@ -84,4 +84,4 @@ script.
 Running grunt for generating css in the development environment
 ---------------------------------------------------------------
 
-    $ grunt sass:dev
+    $ grunt sass:build

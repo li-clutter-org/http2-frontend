@@ -181,7 +181,7 @@ d3.timechart = function (data) {
             .range([0, width]);
 
         /* Draw the legend */
-        put_legend_in_diagram.call(this);
+        //put_legend_in_diagram.call(this);
 
         /* Add the SVG object */
         selection.append("svg").attr("class","chart");
