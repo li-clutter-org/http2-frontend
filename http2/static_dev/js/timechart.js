@@ -41,7 +41,10 @@
 */
 
 d3.timechart = function (data) {
-    var width = 560, /* With of the series part */
+    function width_value(id){
+        return document.getElementById(id).offsetWidth
+    }
+    var width =  0.618 * width_value('analyzer-http'), /*With of the series part */
         bar_height = 80, /* Height of each line */
         series_height = bar_height * 0.12, /* Height of each time series */
         http1_y = bar_height * 0.33, /* Vertical position of http1 series */
@@ -169,7 +172,7 @@ d3.timechart = function (data) {
 
         /* Add the SVG object */
         this.append("svg").attr("class","chart");
-        /* Define the canva sizes */
+        /* Define the canvas sizes */
         var chart = d3.select(".chart")
             .attr("width", vertical_separator + width)
             .attr("height", bar_height * data.times.length);
