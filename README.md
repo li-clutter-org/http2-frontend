@@ -68,7 +68,7 @@ After you do
 
     $ ln -s setup/environments/my_favourite_environment.sh localenv
 
-if you don't want to set DJANGO_SETTINGS_MODULE by hand all the time, you can 
+if you don't want to set DJANGO\_SETTINGS\_MODULE by hand all the time, you can 
 locally use 
 
     $ ./manage.sh runserver 
@@ -79,3 +79,9 @@ or
 
 The wrapper script takes care of setting an environment for the `manage.py`  Django 
 script.
+
+
+Running grunt for generating css in the development environment
+---------------------------------------------------------------
+
+    $ grunt sass:dev
