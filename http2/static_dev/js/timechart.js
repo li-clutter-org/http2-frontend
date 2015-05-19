@@ -186,50 +186,8 @@ d3.timechart = function (data) {
         ;
     }
 
-    function draw(selection) {
-        var div = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
-        var x = d3.scale.linear()
-            .domain([0, d3.max(data.times, function (d) {
-                    return Math.max(
-                        d.http1[4] + d.http1[0],
-                        d.http2[4] + d.http1[0]);
-                }
-            )])
-            .range([0, 100]);
-
-        /* Draw the legend */
-        //put_legend_in_diagram.call(this);
-
-        /* Add the SVG objects */
-        //selection.append("svg").attr("class","chart");
-
-        put_rulers(selection);
-
-        selection.selectAll(".chart-timing-div")
-            .data(data.times)
-            .enter().append("div")
-                .attr("class", "chart-timing-div timing-width")
-        ;
-
-
-        d3.selectAll(".chart-timing-div")
-            .append("svg")
-            .classed("chart-timing-graphy", true)
-            .attr("width", "100%")
-            .attr("height", bar_height + "px")
-            .attr("viewBox", "0 0 100 " + bar_height )
-            .attr("preserveAspectRatio", "none")
-            ;
-
-
-        /* Create the series lines */
-        var serie = d3.selectAll(".chart-timing-graphy")
-            .data(data.times)
-            ;
-        /*-- Draw HTTP 1 series -- */
+    function draw_series(serie, x){
+                /*-- Draw HTTP 1 series -- */
         serie.append("rect")
             .attr("class", "http1_sending")
             .attr("x", function (d) {
@@ -383,6 +341,58 @@ d3.timechart = function (data) {
                     .duration(500)
                     .style("opacity", 0);
             });
+    }
+
+    function draw(selection) {
+        var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        var x = d3.scale.linear()
+            .domain([0, d3.max(data.times, function (d) {
+                    return Math.max(
+                        d.http1[4] + d.http1[0],
+                        d.http2[4] + d.http1[0]);
+                }
+            )])
+            .range([0, 100]);
+
+        /* Draw the legend */
+        //put_legend_in_diagram.call(this);
+
+        /* Add the SVG objects */
+        //selection.append("svg").attr("class","chart");
+
+        put_rulers(selection);
+
+        selection.selectAll(".chart-timing-div")
+            .data(data.times)
+            .enter().append("div")
+                .classed("horiz-block", true)
+            ;
+
+        d3.selectAll(".horiz-block")
+            .append("div")
+                .attr("class", "chart-timing-div timing-width")
+        ;
+
+
+        d3.selectAll(".chart-timing-div")
+            .append("svg")
+            .classed("chart-timing-graphy", true)
+            .attr("width", "100%")
+            .attr("height", bar_height + "px")
+            .attr("viewBox", "0 0 100 " + bar_height )
+            .attr("preserveAspectRatio", "none")
+            ;
+
+
+        /* Create the series lines */
+        var serie = d3.selectAll(".chart-timing-graphy")
+            .data(data.times)
+            ;
+
+        draw_series(serie, x);
 
         <!--  URLs - paths -->
         //var url = chart.selectAll("div")
@@ -435,6 +445,7 @@ d3.timechart = function (data) {
         //    .attr("x2", vertical_separator - 1)
         //    .attr("y2", bar_height * data.times.length);
     }
+
     // getter / setter for all settings
     draw.width = function (x) {
         if (!arguments.length) return width;
