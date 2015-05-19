@@ -50,6 +50,7 @@ d3.timechart = function (data) {
         vertical_separator = left_align * width / 100, /* Position of vertical separator */
         legend_height = 130, /* Height of the */
         total_width = width + vertical_separator, /* Total width of the chart */
+        visual_height = bar_height * data.times.length,
         legend_data = {
             labels: [
                 {label: 'Sending', x:total_width * 0.810},
@@ -178,7 +179,7 @@ d3.timechart = function (data) {
                         d.http2[4] + d.http1[0]);
                 }
             )])
-            .range([0, width]);
+            .range([0, 100]);
 
         /* Draw the legend */
         //put_legend_in_diagram.call(this);
@@ -187,15 +188,18 @@ d3.timechart = function (data) {
         selection.append("svg").attr("class","chart");
         /* Define the canva sizes */
         var chart = d3.select(".chart")
-            .attr("width", vertical_separator + width)
-            .attr("height", bar_height * data.times.length);
+            .attr("width", "100%")
+            .attr("height", visual_height + "px")
+            .attr("viewBox", "0 0 100 " + String(visual_height))
+            .attr("preserveAspectRatio", "none")
+        ;
 
         /* Create the series lines */
         var serie = chart.selectAll("g")
             .data(data.times)
             .enter().append("g")
             .attr("transform", function (d, i) {
-                return "translate(" + vertical_separator + "," + i * bar_height + ")";
+                return "translate(" + "0" + "," + i * bar_height + ")";
             }
         );
         <!-- Draw HTTP 1 series -->
