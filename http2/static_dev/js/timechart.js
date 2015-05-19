@@ -208,7 +208,7 @@ d3.timechart = function (data) {
         var cv = document.querySelector("canvas.grid-canvas");
         var ctx = cv.getContext("2d");
         ctx.lineWidth = 0.5;
-        ctx.strokeStyle = "#aa01bf";
+        ctx.strokeStyle = "#afafaf";
         five_seconds.forEach(function(value, index, arr){
             var x = Math.round( value * parent_width / 5000 );
             ctx.moveTo(x+0.5, 0);
