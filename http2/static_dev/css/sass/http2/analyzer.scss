@@ -106,6 +106,46 @@
 
 }
 
+
+.h-ruler {
+  display: flex;
+}
+
+.time-point {
+  font-size: 9px;
+  flex-grow: 1;
+  text-align: left;
+
+  &:not(:first-child){
+    margin-left: -10px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .btn-success {
 
   font-family: 'Monserrat';

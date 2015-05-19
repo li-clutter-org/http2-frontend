@@ -23,6 +23,9 @@
             build: {
                 files: {
                     'static_dev/build/css/style.css': 'static_dev/css/sass/config.scss'
+                },
+                options:{
+                    style: 'nested'
                 }
             }
         },
@@ -33,7 +36,7 @@
             },
             css: {
                 files: ['static_dev/css/sass/**/*.sass', 'static_dev/css/lib/**/*.sass',],
-                tasks: ['sass:dev', 'autoprefixer:dev']
+                tasks: ['sass:build', 'autoprefixer:dev']
             },
             js:{
                 files: ['static_dev/js/general.json', 'static_dev/js/**/*.js', 'static_dev/js/angular/**/test/*.js']

@@ -50,7 +50,10 @@ d3.timechart = function (data) {
         vertical_separator = left_align * width / 100, /* Position of vertical separator */
         legend_height = 130, /* Height of the */
         total_width = width + vertical_separator, /* Total width of the chart */
-        visual_height = bar_height * data.times.length,
+        five_seconds = (function (){
+            var result = []; for (var i=0; i < 25; i++) { result.push(i*200);}
+            return result;
+        })(),
         legend_data = {
             labels: [
                 {label: 'Sending', x:total_width * 0.810},
@@ -167,6 +170,22 @@ d3.timechart = function (data) {
             .text("R1R2: number of common resources");
     }
 
+    function put_rulers(selection){
+        selection
+            .append("div")
+            .classed("timing-width h-ruler", true)
+        ;
+        selection
+            .select(".h-ruler")
+            .selectAll(".time-point")
+            .data(five_seconds)
+            .enter()
+                .append("div")
+                .classed("time-point", true)
+                .text(function(d){ return String(d);})
+        ;
+    }
+
     function draw(selection) {
         var div = d3.select("body").append("div")
             .attr("class", "tooltip")
@@ -187,11 +206,14 @@ d3.timechart = function (data) {
         /* Add the SVG objects */
         //selection.append("svg").attr("class","chart");
 
+        put_rulers(selection);
+
         selection.selectAll(".chart-timing-div")
             .data(data.times)
             .enter().append("div")
-                .attr("class", "chart-timing-div")
+                .attr("class", "chart-timing-div timing-width")
         ;
+
 
         d3.selectAll(".chart-timing-div")
             .append("svg")
