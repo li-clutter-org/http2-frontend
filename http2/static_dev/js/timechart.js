@@ -44,6 +44,9 @@ d3.timechart = function (data) {
     function width_value(id){
         return document.getElementById(id).offsetWidth
     }
+    function height_value(id){
+        return document.getElementById(id).offsetHeight
+    }
     var width =  0.618 * width_value('analyzer-http'), /*With of the series part */
         bar_height = 80, /* Height of each line */
         series_height = bar_height * 0.12, /* Height of each time series */
@@ -406,6 +409,16 @@ d3.timechart = function (data) {
             .attr("y1", 0)
             .attr("x2", vertical_separator - 1)
             .attr("y2", bar_height * data.times.length);
+
+        for (var j=vertical_separator - 1; j <= width+vertical_separator; j=j+25) {
+            chart.append("line")
+                .attr("x1", j+25)
+                .attr("y1", 0)
+                .attr("x2", j+25)
+                .attr("y2", height_value('analyzer-http'))
+                .style("stroke", "black")
+                .style("stroke-width", 0.2)
+        };
     }
     // getter / setter for all settings
     draw.width = function (x) {
