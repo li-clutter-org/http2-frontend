@@ -112,6 +112,79 @@
 
 }
 
+
+.h-ruler {
+  display: flex;
+}
+
+.time-point {
+  font-size: 7px;
+  flex-grow: 1;
+  text-align: left;
+  flex-basis: 0;
+
+  //&:not(:first-child){
+  //  margin-left: -10px;
+  //}
+}
+
+// TODO: Choose the proper color
+.horiz-block {
+  &:nth-child(2n+0) {
+    background-color: #f8eef1;
+  }
+
+  &:nth-child(2n+1) {
+    background-color: white;
+  }
+
+  display: flex;
+}
+
+.top-diagram-zone {
+  display: flex;
+}
+
+.label-zone-width{
+  flex-basis: 0;
+  flex-grow: 38.2;
+}
+
+.left-text-block {
+  overflow: hidden;
+}
+
+.timing-width {
+  flex-basis: 0;
+  flex-grow: 61.8;
+  margin-left: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .btn-success {
 
   font-family: 'Monserrat';

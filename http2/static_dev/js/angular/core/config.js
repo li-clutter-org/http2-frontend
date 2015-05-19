@@ -62,9 +62,6 @@ angular.module('http2').config(['$interpolateProvider', '$httpProvider', '$locat
 
 }])
 .run(['$location', '$rootScope', 'modernizr', function($location, $rootScope, modernizr) {
-    if(modernizr.touch){
-        FastClick.attach(document.body);
-    };
 
     if(!$location.$$html5){
         // fixes the router on browsers w/o HTML5 History API
