@@ -186,6 +186,39 @@ d3.timechart = function (data) {
         ;
     }
 
+    function draw_vertical_grid(selection){
+        selection
+            .append("div")
+            .classed("timing-width vertical-grid", true)
+        ;
+        d3.select(".vertical-grid")
+            .append("canvas")
+            .classed("grid-canvas", true)
+        ;
+        var div_vertical_grid = document.querySelector("div.vertical-grid");
+        var parent_width = div_vertical_grid.offsetWidth;
+        d3.select(".grid-canvas")
+            .attr("width", parent_width)
+            .style("width", parent_width + "px")
+            .style("height", "5px")
+            .classed("grid-canvas", true)
+            .attr("height", "5")
+        ;
+
+        var cv = document.querySelector("canvas.grid-canvas");
+        var ctx = cv.getContext("2d");
+        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = "#aa01bf";
+        five_seconds.forEach(function(value, index, arr){
+            var x = Math.round( value * parent_width / 5000 );
+            ctx.moveTo(x+0.5, 0);
+            ctx.lineTo(x+0.5, 5);
+            ctx.stroke();
+        });
+        var png_image = cv.toDataURL();
+        return png_image;
+    }
+
     function draw_series(serie, x){
                 /*-- Draw HTTP 1 series -- */
         serie.append("rect")
@@ -256,91 +289,91 @@ d3.timechart = function (data) {
             .attr("height", series_height);
 
         /* Tooltips */
-       serie.selectAll(".http1_sending")
-            .on("mouseover", function(d) {
-                div.transition()
-                    .duration(200)
-                    .style("opacity", .6);
-                div .html(format_tooltip_text(d.http1[1]))
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
-                })
-            .on("mouseout", function(d) {
-                div.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            });
-        serie.selectAll(".http1_waiting")
-            .on("mouseover", function(d) {
-                div.transition()
-                    .duration(200)
-                    .style("opacity", .6);
-                div .html(format_tooltip_text(d.http1[2]))
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
-                })
-            .on("mouseout", function(d) {
-                div.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            });
-        serie.selectAll(".http1_receiving")
-            .on("mouseover", function(d) {
-                div.transition()
-                    .duration(200)
-                    .style("opacity", .6);
-                div .html(format_tooltip_text(d.http1[3]))
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
-                })
-            .on("mouseout", function(d) {
-                div.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            });
-
-        serie.selectAll(".http2_sending")
-            .on("mouseover", function(d) {
-                div.transition()
-                    .duration(200)
-                    .style("opacity", .6);
-                div .html(format_tooltip_text(d.http2[1]))
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
-                })
-            .on("mouseout", function(d) {
-                div.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            });
-        serie.selectAll(".http2_waiting")
-            .on("mouseover", function(d) {
-                div.transition()
-                    .duration(200)
-                    .style("opacity", .6);
-                div .html(format_tooltip_text(d.http2[2]))
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
-                })
-            .on("mouseout", function(d) {
-                div.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            });
-        serie.selectAll(".http2_receiving")
-            .on("mouseover", function(d) {
-                div.transition()
-                    .duration(200)
-                    .style("opacity", .6);
-                div .html(format_tooltip_text(d.http2[3]))
-                    .style("left", (d3.event.pageX) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
-                })
-            .on("mouseout", function(d) {
-                div.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            });
+       //serie.selectAll(".http1_sending")
+       //     .on("mouseover", function(d) {
+       //         div.transition()
+       //             .duration(200)
+       //             .style("opacity", .6);
+       //         div .html(format_tooltip_text(d.http1[1]))
+       //             .style("left", (d3.event.pageX) + "px")
+       //             .style("top", (d3.event.pageY - 28) + "px");
+       //         })
+       //     .on("mouseout", function(d) {
+       //         div.transition()
+       //             .duration(500)
+       //             .style("opacity", 0);
+       //     });
+       // serie.selectAll(".http1_waiting")
+       //     .on("mouseover", function(d) {
+       //         div.transition()
+       //             .duration(200)
+       //             .style("opacity", .6);
+       //         div .html(format_tooltip_text(d.http1[2]))
+       //             .style("left", (d3.event.pageX) + "px")
+       //             .style("top", (d3.event.pageY - 28) + "px");
+       //         })
+       //     .on("mouseout", function(d) {
+       //         div.transition()
+       //             .duration(500)
+       //             .style("opacity", 0);
+       //     });
+       // serie.selectAll(".http1_receiving")
+       //     .on("mouseover", function(d) {
+       //         div.transition()
+       //             .duration(200)
+       //             .style("opacity", .6);
+       //         div .html(format_tooltip_text(d.http1[3]))
+       //             .style("left", (d3.event.pageX) + "px")
+       //             .style("top", (d3.event.pageY - 28) + "px");
+       //         })
+       //     .on("mouseout", function(d) {
+       //         div.transition()
+       //             .duration(500)
+       //             .style("opacity", 0);
+       //     });
+       //
+       // serie.selectAll(".http2_sending")
+       //     .on("mouseover", function(d) {
+       //         div.transition()
+       //             .duration(200)
+       //             .style("opacity", .6);
+       //         div .html(format_tooltip_text(d.http2[1]))
+       //             .style("left", (d3.event.pageX) + "px")
+       //             .style("top", (d3.event.pageY - 28) + "px");
+       //         })
+       //     .on("mouseout", function(d) {
+       //         div.transition()
+       //             .duration(500)
+       //             .style("opacity", 0);
+       //     });
+       // serie.selectAll(".http2_waiting")
+       //     .on("mouseover", function(d) {
+       //         div.transition()
+       //             .duration(200)
+       //             .style("opacity", .6);
+       //         div .html(format_tooltip_text(d.http2[2]))
+       //             .style("left", (d3.event.pageX) + "px")
+       //             .style("top", (d3.event.pageY - 28) + "px");
+       //         })
+       //     .on("mouseout", function(d) {
+       //         div.transition()
+       //             .duration(500)
+       //             .style("opacity", 0);
+       //     });
+       // serie.selectAll(".http2_receiving")
+       //     .on("mouseover", function(d) {
+       //         div.transition()
+       //             .duration(200)
+       //             .style("opacity", .6);
+       //         div .html(format_tooltip_text(d.http2[3]))
+       //             .style("left", (d3.event.pageX) + "px")
+       //             .style("top", (d3.event.pageY - 28) + "px");
+       //         })
+       //     .on("mouseout", function(d) {
+       //         div.transition()
+       //             .duration(500)
+       //             .style("opacity", 0);
+       //     });
     }
 
     function draw(selection) {
@@ -365,6 +398,8 @@ d3.timechart = function (data) {
 
         put_rulers(selection);
 
+        var bg_img_data = draw_vertical_grid(selection);
+
         selection.selectAll(".chart-timing-div")
             .data(data.times)
             .enter().append("div")
@@ -386,13 +421,19 @@ d3.timechart = function (data) {
             .attr("preserveAspectRatio", "none")
             ;
 
-
         /* Create the series lines */
         var serie = d3.selectAll(".chart-timing-graphy")
             .data(data.times)
             ;
 
         draw_series(serie, x);
+
+        /* Put the grid lines */
+
+        d3.selectAll(".chart-timing-div")
+            .style("background-image", "url(\"" + bg_img_data + "\")")
+            .style("background-repeat", "repeat-y")
+        ;
 
         <!--  URLs - paths -->
         //var url = chart.selectAll("div")

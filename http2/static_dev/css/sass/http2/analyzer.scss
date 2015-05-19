@@ -115,10 +115,11 @@
   font-size: 9px;
   flex-grow: 1;
   text-align: left;
+  flex-basis: 0;
 
-  &:not(:first-child){
-    margin-left: -10px;
-  }
+  //&:not(:first-child){
+  //  margin-left: -10px;
+  //}
 }
 
 // TODO: Choose the proper color
