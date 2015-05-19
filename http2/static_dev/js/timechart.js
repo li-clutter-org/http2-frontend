@@ -171,11 +171,21 @@ d3.timechart = function (data) {
     }
 
     function put_rulers(selection){
-        selection
+        var top_diagram_zone = selection
+            .append("div")
+            .classed("top-diagram-zone", true)
+        ;
+
+        top_diagram_zone
+            .append("div")
+            .classed("label-zone-width", true)
+        ;
+
+        top_diagram_zone
             .append("div")
             .classed("timing-width h-ruler", true)
         ;
-        selection
+        d3
             .select(".h-ruler")
             .selectAll(".time-point")
             .data(five_seconds)
@@ -187,10 +197,22 @@ d3.timechart = function (data) {
     }
 
     function draw_vertical_grid(selection){
-        selection
+
+        var miniruler_div_container = selection
+            .append("div")
+            .classed("top-diagram-zone", true)
+        ;
+
+        miniruler_div_container
+            .append("div")
+            .classed("label-zone-width", true)
+        ;
+
+        miniruler_div_container
             .append("div")
             .classed("timing-width vertical-grid", true)
         ;
+
         d3.select(".vertical-grid")
             .append("canvas")
             .classed("grid-canvas", true)
@@ -376,6 +398,39 @@ d3.timechart = function (data) {
        //     });
     }
 
+    function draw_text()
+    {
+        d3.selectAll(".horiz-block")
+            .data(data.times)
+            .insert("div", ":first-child")
+            .classed("left-text-block label-zone-width", true);
+        var ltb = d3.selectAll(".left-text-block");
+        ltb.append("div")
+            .classed("text-domain", true)
+            .text(function(d){
+               return d.domain;
+            });
+        ltb.append("div")
+            .classed("text-other", true)
+            .text(function(d){
+               return d.path;
+            });
+
+               //url.append("text")
+        //    .attr("x", vertical_separator - 20)
+        //    .attr("y", http1_y + 4)
+        //    .text(function (d) {
+        //    return d.domain;
+        //});
+        //
+        //url.append("text")
+        //    .attr("x", vertical_separator - 20)
+        //    .attr("y", http2_y + 4)
+        //    .text(function (d) {
+        //        return d.path;
+        //    });
+    }
+
     function draw(selection) {
         var div = d3.select("body").append("div")
             .attr("class", "tooltip")
@@ -434,6 +489,8 @@ d3.timechart = function (data) {
             .style("background-image", "url(\"" + bg_img_data + "\")")
             .style("background-repeat", "repeat-y")
         ;
+
+        draw_text();
 
         <!--  URLs - paths -->
         //var url = chart.selectAll("div")
