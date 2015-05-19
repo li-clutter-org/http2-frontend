@@ -62,7 +62,7 @@ angular.module('http2').config(['$interpolateProvider', '$httpProvider', '$locat
 
 }])
 .run(['$location', '$rootScope', 'modernizr', function($location, $rootScope, modernizr) {
-    if(modernizr.touch){
+    if(modernizr.touch && FastClick ){
         FastClick.attach(document.body);
     };
 
