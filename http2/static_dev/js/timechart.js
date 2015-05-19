@@ -184,25 +184,30 @@ d3.timechart = function (data) {
         /* Draw the legend */
         //put_legend_in_diagram.call(this);
 
-        /* Add the SVG object */
-        selection.append("svg").attr("class","chart");
-        /* Define the canva sizes */
-        var chart = d3.select(".chart")
-            .attr("width", "100%")
-            .attr("height", visual_height + "px")
-            .attr("viewBox", "0 0 100 " + String(visual_height))
-            .attr("preserveAspectRatio", "none")
+        /* Add the SVG objects */
+        //selection.append("svg").attr("class","chart");
+
+        selection.selectAll(".chart-timing-div")
+            .data(data.times)
+            .enter().append("div")
+                .attr("class", "chart-timing-div")
         ;
 
+        d3.selectAll(".chart-timing-div")
+            .append("svg")
+            .classed("chart-timing-graphy", true)
+            .attr("width", "100%")
+            .attr("height", bar_height + "px")
+            .attr("viewBox", "0 0 100 " + bar_height )
+            .attr("preserveAspectRatio", "none")
+            ;
+
+
         /* Create the series lines */
-        var serie = chart.selectAll("g")
+        var serie = d3.selectAll(".chart-timing-graphy")
             .data(data.times)
-            .enter().append("g")
-            .attr("transform", function (d, i) {
-                return "translate(" + "0" + "," + i * bar_height + ")";
-            }
-        );
-        <!-- Draw HTTP 1 series -->
+            ;
+        /*-- Draw HTTP 1 series -- */
         serie.append("rect")
             .attr("class", "http1_sending")
             .attr("x", function (d) {
@@ -387,26 +392,26 @@ d3.timechart = function (data) {
         //    });
 
         <!--  Lines -->
-        chart.selectAll("p")
-            .data(data.times).enter()
-            .append("line")
-            .style("stroke", "black")
-            .style("stroke-width", 0.2)
-            .attr("x1", 0)
-            .attr("y1", function (d, i) {
-                return (i + 1) * bar_height;
-            })
-            .attr("x2", total_width)
-            .attr("y2", function (d, i) {
-                return (i + 1) * bar_height;
-            });
-        chart.append("line")
-            .style("stroke", "black")
-            .style("stroke-width", 1)
-            .attr("x1", vertical_separator - 1)
-            .attr("y1", 0)
-            .attr("x2", vertical_separator - 1)
-            .attr("y2", bar_height * data.times.length);
+        //chart.selectAll("p")
+        //    .data(data.times).enter()
+        //    .append("line")
+        //    .style("stroke", "black")
+        //    .style("stroke-width", 0.2)
+        //    .attr("x1", 0)
+        //    .attr("y1", function (d, i) {
+        //        return (i + 1) * bar_height;
+        //    })
+        //    .attr("x2", total_width)
+        //    .attr("y2", function (d, i) {
+        //        return (i + 1) * bar_height;
+        //    });
+        //chart.append("line")
+        //    .style("stroke", "black")
+        //    .style("stroke-width", 1)
+        //    .attr("x1", vertical_separator - 1)
+        //    .attr("y1", 0)
+        //    .attr("x2", vertical_separator - 1)
+        //    .attr("y2", bar_height * data.times.length);
     }
     // getter / setter for all settings
     draw.width = function (x) {
