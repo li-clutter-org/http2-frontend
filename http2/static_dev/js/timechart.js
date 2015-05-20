@@ -207,7 +207,7 @@ d3.timechart = function (data) {
 
         var miniruler_div_container = selection
             .append("div")
-            .classed("top-diagram-zone", true)
+            .classed("top-diagram-zone ruler-container", true)
         ;
 
         miniruler_div_container
@@ -230,9 +230,16 @@ d3.timechart = function (data) {
 
     function draw_grid_using_canvas(parent_width)
     {
-        d3.select(".vertical-grid")
+        var vertical_grid = d3.select(".vertical-grid");
+
+        vertical_grid
             .append("canvas")
             .classed("grid-canvas", true)
+        ;
+
+        var vertical_grid_inner = vertical_grid
+            .append("div")
+            .classed("grid-container", true)
         ;
 
         // The canvas way.
@@ -255,7 +262,10 @@ d3.timechart = function (data) {
             ctx.stroke();
         });
         var png_image = cv.toDataURL();
-        return png_image;
+        vertical_grid_inner
+            .style("background-image", "url(\'" + png_image + "\')")
+            .style("background-repeat", "repeat-y")
+        ;
     }
 
     function draw_grid_using_svg(parent_width)
@@ -494,7 +504,7 @@ d3.timechart = function (data) {
 
         put_rulers(selection);
 
-        var bg_img_data = draw_vertical_grid(selection);
+        draw_vertical_grid(selection);
 
         selection.selectAll(".chart-timing-div")
             .data(data.times)
@@ -523,13 +533,6 @@ d3.timechart = function (data) {
             ;
 
         draw_series(serie, x);
-
-        /* Put the grid lines */
-
-        d3.selectAll(".chart-timing-div")
-            .style("background-image", "url(\'" + bg_img_data + "\')")
-            .style("background-repeat", "repeat-y")
-        ;
 
         draw_text();
 
