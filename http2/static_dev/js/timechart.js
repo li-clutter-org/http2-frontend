@@ -417,47 +417,6 @@ d3.timechart = function (data) {
         draw_text();
 
     }
-
-    // getter / setter for all settings
-    draw.width = function (x) {
-        if (!arguments.length) return width;
-        width = x;
-        return draw;
-    };
-    draw.bar_height = function (x) {
-        if (!arguments.length) return bar_height;
-        bar_height = x;
-        return draw;
-    };
-    draw.series_height = function (x) {
-        if (!arguments.length) return series_height;
-        series_height = x;
-        return draw;
-    };
-    draw.http1_y = function (x) {
-        if (!arguments.length) return http1_y;
-        http1_y = x;
-        return draw;
-    };
-    draw.http2_y = function (x) {
-        if (!arguments.length) return http2_y;
-        http2_y = x
-        return draw;
-    };
-    draw.left_align = function (x) {
-        if (!arguments.length) return left_align;
-        left_align = x;
-        return draw;
-    };
-    draw.vertical_separator = function (x) {
-        if (!arguments.length) return vertical_separator;
-        vertical_separator = x;
-        return draw;
-    };
-    draw.total_width = function (x) {
-        if (!arguments.length) return total_width;
-        total_width = x;
-        return draw;
-    };
+    
     return draw;
 }
