@@ -45,6 +45,7 @@ d3.timechart = function (data) {
     var
         bar_height = 80, /* Height of each line */
         series_height = bar_height * 0.12, /* Height of each time series */
+        major_series = ["http1", "http2"],
         major_serie_y = {"http1": bar_height * 0.33, "http2": bar_height*0.55},
         left_align = 40, /* Position (in percent) of vertical separator */
         legend_height = 130, /* Height of the */
@@ -288,7 +289,7 @@ d3.timechart = function (data) {
         return svg_image;
     }
 
-    function draw_single_serie(serie, base_array, name, x_scale, use_y)
+    function draw_single_serie(container_g, base_array, name, x_scale, use_y)
     {
         if (base_array == null)
         {
@@ -305,7 +306,7 @@ d3.timechart = function (data) {
         var extract_from_d =
             function(d) { return Math.max( d[name[0]][name[1]], 0) ;};
 
-        serie.append("rect")
+        container_g.append("rect")
             .classed(classes, true)
             .attr("x", function(d, i) {
                 var result = x_scale( base_array[i] );
@@ -324,18 +325,27 @@ d3.timechart = function (data) {
         return base_array;
     }
 
-    function draw_series(serie, x){
-        var major_series = ["http1", "http2"];
+    function draw_series(selection, x){
         for (var j=0; j < major_series.length; j++)
         {
             var base_array = null;
             var major = major_series[j];
+            var major_class = major + "-g";
+            // We put each major serie inside its own g element, so that we can
+            // resize things easily.
+            var major_container_selection = selection
+                .append("g")
+                .classed(major_class, true)
+                ;
             for (var i=0; i < timing_variables.length; i++)
             {
                 var minor = timing_variables[i];
                 var name = [major, minor];
-                base_array = draw_single_serie(serie, base_array, name, x, major_serie_y[major]);
+                base_array = draw_single_serie(major_container_selection, base_array, name, x, major_serie_y[major]);
             }
+            data.times.forEach(function(majors, i, arr){
+                majors[major]["end_time"] = base_array[i];
+            });
         }
     }
 
@@ -383,8 +393,7 @@ d3.timechart = function (data) {
                 .attr("class", "chart-timing-div timing-width")
         ;
 
-
-        d3.selectAll(".chart-timing-div")
+        var chart_timing_graphy = d3.selectAll(".chart-timing-div")
             .append("svg")
             .classed("chart-timing-graphy", true)
             .attr("width", "100%")
@@ -393,8 +402,13 @@ d3.timechart = function (data) {
             .attr("preserveAspectRatio", "none")
             ;
 
+        var serie = chart_timing_graphy
+            .append("g")
+            .classed("outer-g", true)
+            ;
+
         /* Create the series lines */
-        var serie = d3.selectAll(".chart-timing-graphy")
+        serie
             .data(data.times)
             ;
 
