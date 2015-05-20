@@ -50,8 +50,7 @@ d3.timechart = function (data) {
     var width =  0.618 * width_value('analyzer-http'), /*With of the series part */
         bar_height = 80, /* Height of each line */
         series_height = bar_height * 0.12, /* Height of each time series */
-        http1_y = bar_height * 0.33, /* Vertical position of http1 series */
-        http2_y = bar_height * 0.55, /* Vertical position of http2 series */
+        major_serie_y = {"http1": bar_height * 0.33, "http2": bar_height*0.55},
         left_align = 40, /* Position (in percent) of vertical separator */
         vertical_separator = left_align * width / 100, /* Position of vertical separator */
         legend_height = 130, /* Height of the */
@@ -60,6 +59,7 @@ d3.timechart = function (data) {
             var result = []; for (var i=0; i < 25; i++) { result.push(i*200);}
             return result;
         })(),
+        timing_variables = ["blocked", "dns", "connect", "ssl", "send", "wait", "receive"],
         legend_data = {
             labels: [
                 {label: 'Sending', x:total_width * 0.810},
@@ -305,161 +305,55 @@ d3.timechart = function (data) {
         return svg_image;
     }
 
+    function draw_single_serie(serie, base_array, name, x_scale, use_y)
+    {
+        if (base_array == null)
+        {
+            var lng = data.times.length;
+
+            base_array = new Array(lng);
+            for (var i=0; i < lng; i++) {
+                base_array[i] = data.times[i][name[0]]["start_time"]
+            }
+        }
+        var classes =
+            "serie-" + name[0] + " " + "variable-" + name[1] ;
+
+        var extract_from_d =
+            function(d) { return Math.max( d[name[0]][name[1]], 0) ;};
+
+        serie.append("rect")
+            .classed(classes, true)
+            .attr("x", function(d, i) {
+                var result = x_scale( base_array[i] );
+                var visual_length = extract_from_d(d);
+                base_array[i] += visual_length;
+                return result;
+            })
+            .attr("y", use_y)
+            .attr("width", function(d) {
+                var visual_length = extract_from_d(d);
+                return x_scale( visual_length );
+            })
+            .attr("height", series_height)
+        ;
+
+        return base_array;
+    }
+
     function draw_series(serie, x){
-                /*-- Draw HTTP 1 series -- */
-        serie.append("rect")
-            .attr("class", "http1_sending")
-            .attr("x", function (d) {
-                return x(d.http1[0]);
-            })
-            .attr("y", http1_y)
-            .attr("width", function (d) {
-                return x(d.http1[1]);
-            })
-            .attr("height", series_height);
-
-        serie.append("rect")
-            .attr("class", "http1_waiting")
-            .attr("x", function (d) {
-                return x(d.http1[0]) + x(d.http1[1]);
-            })
-            .attr("y", http1_y)
-            .attr("width", function (d) {
-                return x(d.http1[2]);
-            })
-            .attr("height", series_height);
-
-        serie.append("rect")
-            .attr("class", "http1_receiving")
-            .attr("x", function (d) {
-                return x(d.http1[0]) + x(d.http1[1]) + x(d.http1[2])
-            })
-            .attr("y", http1_y)
-            .attr("width", function (d) {
-                return x(d.http1[3]);
-            })
-            .attr("height", series_height);
-
-        // -- Draw HTTP 2 series -->
-        serie.append("rect")
-            .attr("class", "http2_sending")
-            .attr("x", function (d) {
-                return x(d.http2[0]);
-            })
-            .attr("y", http2_y)
-            .attr("width", function (d) {
-                return x(d.http2[1]);
-            })
-            .attr("height", series_height);
-
-        serie.append("rect")
-            .attr("class", "http2_waiting")
-            .attr("x", function (d) {
-                return x(d.http2[0]) + x(d.http2[1]);
-            })
-            .attr("y", http2_y)
-            .attr("width", function (d) {
-                return x(d.http2[2]);
-            })
-            .attr("height", series_height);
-
-        serie.append("rect")
-            .attr("class", "http2_receiving")
-            .attr("x", function (d) {
-                return x(d.http2[0]) + x(d.http2[1]) + x(d.http2[2]);
-            })
-            .attr("y", http2_y)
-            .attr("width", function (d) {
-                return x(d.http2[3]);
-            })
-            .attr("height", series_height);
-
-        /* Tooltips */
-       //serie.selectAll(".http1_sending")
-       //     .on("mouseover", function(d) {
-       //         div.transition()
-       //             .duration(200)
-       //             .style("opacity", .6);
-       //         div .html(format_tooltip_text(d.http1[1]))
-       //             .style("left", (d3.event.pageX) + "px")
-       //             .style("top", (d3.event.pageY - 28) + "px");
-       //         })
-       //     .on("mouseout", function(d) {
-       //         div.transition()
-       //             .duration(500)
-       //             .style("opacity", 0);
-       //     });
-       // serie.selectAll(".http1_waiting")
-       //     .on("mouseover", function(d) {
-       //         div.transition()
-       //             .duration(200)
-       //             .style("opacity", .6);
-       //         div .html(format_tooltip_text(d.http1[2]))
-       //             .style("left", (d3.event.pageX) + "px")
-       //             .style("top", (d3.event.pageY - 28) + "px");
-       //         })
-       //     .on("mouseout", function(d) {
-       //         div.transition()
-       //             .duration(500)
-       //             .style("opacity", 0);
-       //     });
-       // serie.selectAll(".http1_receiving")
-       //     .on("mouseover", function(d) {
-       //         div.transition()
-       //             .duration(200)
-       //             .style("opacity", .6);
-       //         div .html(format_tooltip_text(d.http1[3]))
-       //             .style("left", (d3.event.pageX) + "px")
-       //             .style("top", (d3.event.pageY - 28) + "px");
-       //         })
-       //     .on("mouseout", function(d) {
-       //         div.transition()
-       //             .duration(500)
-       //             .style("opacity", 0);
-       //     });
-       //
-       // serie.selectAll(".http2_sending")
-       //     .on("mouseover", function(d) {
-       //         div.transition()
-       //             .duration(200)
-       //             .style("opacity", .6);
-       //         div .html(format_tooltip_text(d.http2[1]))
-       //             .style("left", (d3.event.pageX) + "px")
-       //             .style("top", (d3.event.pageY - 28) + "px");
-       //         })
-       //     .on("mouseout", function(d) {
-       //         div.transition()
-       //             .duration(500)
-       //             .style("opacity", 0);
-       //     });
-       // serie.selectAll(".http2_waiting")
-       //     .on("mouseover", function(d) {
-       //         div.transition()
-       //             .duration(200)
-       //             .style("opacity", .6);
-       //         div .html(format_tooltip_text(d.http2[2]))
-       //             .style("left", (d3.event.pageX) + "px")
-       //             .style("top", (d3.event.pageY - 28) + "px");
-       //         })
-       //     .on("mouseout", function(d) {
-       //         div.transition()
-       //             .duration(500)
-       //             .style("opacity", 0);
-       //     });
-       // serie.selectAll(".http2_receiving")
-       //     .on("mouseover", function(d) {
-       //         div.transition()
-       //             .duration(200)
-       //             .style("opacity", .6);
-       //         div .html(format_tooltip_text(d.http2[3]))
-       //             .style("left", (d3.event.pageX) + "px")
-       //             .style("top", (d3.event.pageY - 28) + "px");
-       //         })
-       //     .on("mouseout", function(d) {
-       //         div.transition()
-       //             .duration(500)
-       //             .style("opacity", 0);
-       //     });
+        var major_series = ["http1", "http2"];
+        for (var j=0; j < major_series.length; j++)
+        {
+            var base_array = null;
+            var major = major_series[j];
+            for (var i=0; i < timing_variables.length; i++)
+            {
+                var minor = timing_variables[i];
+                var name = [major, minor];
+                base_array = draw_single_serie(serie, base_array, name, x, major_serie_y[major]);
+            }
+        }
     }
 
     function draw_text()
@@ -488,12 +382,7 @@ d3.timechart = function (data) {
             .style("opacity", 0);
 
         var x = d3.scale.linear()
-            .domain([0, d3.max(data.times, function (d) {
-                    return Math.max(
-                        d.http1[4] + d.http1[0],
-                        d.http2[4] + d.http1[0]);
-                }
-            )])
+            .domain([0, 5000])
             .range([0, 100]);
 
         /* Draw the legend */

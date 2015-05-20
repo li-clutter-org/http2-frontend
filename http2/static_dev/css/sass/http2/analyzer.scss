@@ -172,11 +172,35 @@
   overflow: hidden;
 }
 
+$color-blocked : #e1e7e7;
+$color-dns:  #e4924c;
+$color-connect: #226583;
+$color-ssl: #57c1e8;
+$color-send: #db6767;
+$color-wait: #db6767;
+$color-receive: #f1b939;
 
-
-
-
-
+.variable-blocked {
+    fill: $color-blocked;
+}    
+.variable-dns {
+    fill: $color-dns;
+}    
+.variable-connect {
+    fill: $color-connect;
+}    
+.variable-ssl {
+    fill: $color-ssl;
+}    
+.variable-send {
+    fill: $color-send;
+}    
+.variable-wait {
+    fill: $color-wait;
+}    
+.variable-receive {
+    fill: $color-receive;
+}    
 
 
 
