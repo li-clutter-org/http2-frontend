@@ -41,35 +41,18 @@
 */
 
 d3.timechart = function (data) {
-    function width_value(id){
-        return document.getElementById(id).offsetWidth
-    }
-    function height_value(id){
-        return document.getElementById(id).offsetHeight
-    }
-    var width =  0.618 * width_value('analyzer-http'), /*With of the series part */
+
+    var
         bar_height = 80, /* Height of each line */
         series_height = bar_height * 0.12, /* Height of each time series */
         major_serie_y = {"http1": bar_height * 0.33, "http2": bar_height*0.55},
         left_align = 40, /* Position (in percent) of vertical separator */
-        vertical_separator = left_align * width / 100, /* Position of vertical separator */
         legend_height = 130, /* Height of the */
-        total_width = width + vertical_separator, /* Total width of the chart */
         five_seconds = (function (){
             var result = []; for (var i=0; i < 25; i++) { result.push(i*200);}
             return result;
         })(),
         timing_variables = ["blocked", "dns", "connect", "ssl", "send", "wait", "receive"],
-        legend_data = {
-            labels: [
-                {label: 'Sending', x:total_width * 0.810},
-                {label: 'Waiting', x:total_width * 0.872 },
-                {label: 'Receiving', x:total_width * 0.948}],
-            series: [
-            {x: total_width * 0.378, y:20, size: 50, text: "http1", class: ['http1_sending','http1_waiting', 'http1_receiving']},
-            {x: total_width * 0.378, y:35, size: 50, text: "http2", class: ['http2_sending','http2_waiting', 'http2_receiving']}
-        ]
-        },
         GRID_LINE_COLOR = "#dfdfdf"
     ;
 
@@ -384,12 +367,6 @@ d3.timechart = function (data) {
         var x = d3.scale.linear()
             .domain([0, 5000])
             .range([0, 100]);
-
-        /* Draw the legend */
-        //put_legend_in_diagram.call(this);
-
-        /* Add the SVG objects */
-        //selection.append("svg").attr("class","chart");
 
         put_rulers(selection);
 
