@@ -172,24 +172,22 @@ def format_json(http1_json, http2_json):
 
     # Add http1 entries
     for entry in http1_entries:
-        item_template = item_template.copy()
+        item = item_template.copy()
         try:
             parsed_url = urlparse(entry['request']['url'])
         except KeyError:
             continue
-        item_template['path'] = parsed_url.path
-        item_template['domain'] = parsed_url.netloc
-        item_template.update({
-            'http1': [
-                (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http1_global_start_time)
-                    .total_seconds()*1000.0,
-                entry['timings']['send'],
-                entry['timings']['wait'],
-                entry['timings']['receive'],
-                entry['time']
-            ]}
-        )
-        new_json['times'].append(item_template)
+        item['path'] = parsed_url.path
+        item['domain'] = parsed_url.netloc
+        http1_dict =  {
+                "start_time": (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http1_global_start_time)
+                    .total_seconds()*1000.0
+            }
+        http1_dict.update(entry['timings'])
+        item.update({
+            'http1': http1_dict
+        })
+        new_json['times'].append(item)
 
     # Add http2 entries
     for entry in new_json['times']:
@@ -202,16 +200,15 @@ def format_json(http1_json, http2_json):
             if entry['path'] == parsed_url.path and entry['domain'] == parsed_url.netloc:
                 r1r2 += 1
                 found = True
-                entry['http2'] = [
-                    (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http2_global_start_time)
+                http2dict = {
+                    "start_time": (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http2_global_start_time)
                         .total_seconds()*1000,
-                    item['timings']['send'],
-                    item['timings']['wait'],
-                    item['timings']['receive'],
-                    item['time']
-                ]
+                    "general_time": item['time']
+                }
+                http2dict.update(item["timings"])
+                entry['http2'] = http2dict
         if not found:
-            entry['http2'] = [0, 0, 0, 0, 0]
+            entry['http2'] = None
 
     result = []
     for entry in new_json['times']:
@@ -225,7 +222,7 @@ def format_json(http1_json, http2_json):
 
 
 def isfake(entry):
-    return [0, 0, 0, 0] == entry[1:]
+    return entry is None
 
 
 def fit_times(json_times):
