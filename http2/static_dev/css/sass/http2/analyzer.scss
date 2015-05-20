@@ -177,31 +177,58 @@ $color-dns:  #e4924c;
 $color-connect: #226583;
 $color-ssl: #57c1e8;
 $color-send: #db6767;
-$color-wait: #db6767;
+$color-wait: #3aab8e;
 $color-receive: #f1b939;
 
 .variable-blocked {
     fill: $color-blocked;
-}    
+}
 .variable-dns {
     fill: $color-dns;
-}    
+}
 .variable-connect {
     fill: $color-connect;
-}    
+}
 .variable-ssl {
     fill: $color-ssl;
-}    
+}
 .variable-send {
     fill: $color-send;
-}    
+}
 .variable-wait {
     fill: $color-wait;
-}    
+}
 .variable-receive {
     fill: $color-receive;
-}    
+}
 
+.ministroke-blocked {
+    stroke: $color-blocked;
+}
+.ministroke-dns {
+    stroke: $color-dns;
+}
+.ministroke-connect {
+    stroke: $color-connect;
+}
+.ministroke-ssl {
+    stroke: $color-ssl;
+}
+.ministroke-send {
+    stroke: $color-send;
+}
+.ministroke-wait {
+    stroke: $color-wait;
+}
+.ministroke-receive {
+    stroke: $color-receive;
+}
+
+
+.ministroke {
+    fill: none;
+    stroke-width: 0.5px;
+}
 
 
 

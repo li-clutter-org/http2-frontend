@@ -47,14 +47,14 @@ d3.timechart = function (data) {
         series_height = bar_height * 0.12, /* Height of each time series */
         major_series = ["http1", "http2"],
         major_serie_y = {"http1": bar_height * 0.33, "http2": bar_height*0.55},
-        left_align = 40, /* Position (in percent) of vertical separator */
         legend_height = 130, /* Height of the */
         five_seconds = (function (){
             var result = []; for (var i=0; i < 25; i++) { result.push(i*200);}
             return result;
         })(),
         timing_variables = ["blocked", "dns", "connect", "ssl", "send", "wait", "receive"],
-        GRID_LINE_COLOR = "#dfdfdf"
+        GRID_LINE_COLOR = "#dfdfdf",
+        x_scale = null /* Populated later */
     ;
 
     function format_tooltip_text(amount){ return amount.toFixed(2) + 'ms';}
@@ -289,7 +289,7 @@ d3.timechart = function (data) {
         return svg_image;
     }
 
-    function draw_single_serie(container_g, base_array, name, x_scale, use_y)
+    function draw_single_serie(container_g, base_array, name, x_scale, use_y, ord)
     {
         if (base_array == null)
         {
@@ -325,6 +325,65 @@ d3.timechart = function (data) {
         return base_array;
     }
 
+    function draw_ministrokes(container_g, base_array, name, x_scale, use_y, ord)
+    {
+        var major = name[0];
+        var variable = name[1];
+        var classes =
+            "ministroke ministroke-" + major + " " + "ministroke-" + variable ;
+
+        var go_up = major == "http1";
+
+
+        container_g.append("path")
+            .classed(classes, true)
+            .attr("d", function(d, i) {
+                var middle_time = (
+                    base_array[i]
+                    +
+                    base_array[i+1]
+                    )/2.;
+                var middle_pos = x_scale( middle_time );
+
+                // Adjust
+                var scaling_parameters = scaling_for_major(d, major);
+
+                var scaling_a = scaling_parameters[0],
+                    scaling_b = scaling_parameters[1];
+
+                var adjusted_middle_pos =
+                    scaling_a * middle_pos + scaling_b;
+
+                if ( ! go_up )
+                {
+                    use_y -= series_height;
+                }
+
+                // Create the path
+                var path_def = "M " + adjusted_middle_pos + " " + use_y;
+                if (go_up)
+                {
+                    path_def += " v -10";
+                } else
+                {
+                    path_def += " v 10"
+                }
+                path_def += " L " + (ord*20);
+                if (go_up)
+                {
+                    path_def += " 5 "
+                } else
+                {
+                    path_def += " 55 ";
+                }
+
+                return path_def;
+            })
+        ;
+
+        return base_array;
+    }
+
     function draw_series(selection, x){
         for (var j=0; j < major_series.length; j++)
         {
@@ -341,11 +400,33 @@ d3.timechart = function (data) {
             {
                 var minor = timing_variables[i];
                 var name = [major, minor];
-                base_array = draw_single_serie(major_container_selection, base_array, name, x, major_serie_y[major]);
+                base_array = draw_single_serie(
+                    major_container_selection,
+                    base_array,
+                    name,
+                    x,
+                    major_serie_y[major],
+                    i
+                );
             }
             data.times.forEach(function(majors, i, arr){
                 majors[major]["end_time"] = base_array[i];
             });
+
+            // Now we draw the point-outs
+            for (var i=0; i < timing_variables.length; i++)
+            {
+                var minor = timing_variables[i];
+                var name = [major, minor];
+                base_array = draw_ministrokes(
+                    selection,
+                    base_array,
+                    name,
+                    x,
+                    major_serie_y[major],
+                    i
+                );
+            }
         }
     }
 
@@ -378,6 +459,9 @@ d3.timechart = function (data) {
             .domain([0, 5000])
             .range([0, 100]);
 
+        /* Save it for later */
+        x_scale = x;
+
         put_rulers(selection);
 
         draw_vertical_grid(selection);
@@ -393,6 +477,7 @@ d3.timechart = function (data) {
                 .attr("class", "chart-timing-div timing-width")
         ;
 
+        // Create a div that fills entirely the parent div
         var chart_timing_graphy = d3.selectAll(".chart-timing-div")
             .append("svg")
             .classed("chart-timing-graphy", true)
@@ -416,7 +501,79 @@ d3.timechart = function (data) {
 
         draw_text();
 
+        install_event_handlers();
+
     }
-    
+
+    /* This is a simple object that contains a reference
+    *  to the highlighted element */
+    var interactions_register = {
+        highlighted_element: null,
+        highlighted_element_timeout: null
+    };
+
+    function install_event_handlers()
+    {
+        d3  .selectAll(".chart-timing-div")
+            .on("mouseout", function(datum, i){
+                maybe_smoothly_reset_size(datum, i);
+            })
+            .on("mousemove", function(datum,i){
+                mouse_hovers_at_element(datum,i);
+            })
+            ;
+
+        d3.selectAll(".http1-g rect")
+            .on("mouseover", function(datum,i){
+                smoothly_expand_element(datum,i, "http1", this);
+            });
+
+        d3.selectAll(".http2-g rect")
+            .on("mouseover", function(datum,i){
+                smoothly_expand_element(datum,i, "http2", this);
+            });
+    }
+
+    /* The goal of this function is to act as an indirection
+       layer when locating the element to transform
+     */
+    function scaling_target(el)
+    {
+        return el.parentElement;
+    }
+
+    function maybe_smoothly_reset_size(datum, i)
+    {
+        console.log("maybe_smoothly_reset_size called " + i);
+    }
+
+    function mouse_hovers_at_element(datum, i)
+    {
+        console.log("mouse_hovers_at_element " + i)
+    }
+
+    function scaling_for_major(datum, major) {
+        var t0 = x_scale(datum[major]["start_time"]);
+        var t1 = x_scale(datum[major]["end_time"]);
+        var time_span = t1 - t0;
+        var percent_span = 80; // <-- So let the scaled-up version
+                               //     to use 80 percent of the horizontal space
+        var scaling_a = percent_span / time_span;
+        var scaling_b = (t1 * 10 - t0 * 90) / time_span;
+        return [scaling_a, scaling_b];
+    }
+
+    function smoothly_expand_element(datum, i, major, el)
+    {
+        var t = scaling_target(el);
+        var scaling_parameters = scaling_for_major(datum, major);
+        var scaling_a=scaling_parameters[0], scaling_b=scaling_parameters[1];
+        d3
+            .select(t)
+            .attr("transform", "matrix(" + scaling_a + ", 0, 0, 1, " + scaling_b + ", 0)");
+    }
+
+    // Here we return the draw object to the d3 framework, so that it can be instanced with
+    // whatever data is needed.
     return draw;
 }
