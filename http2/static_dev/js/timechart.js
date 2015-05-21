@@ -285,9 +285,9 @@ zunzun.timechart = function (data) {
         var extract_from_d =
             function(d) {
                 var v = d[name[0]][name[1]];
-                if ( v > 0)
+                if ( v >= 0)
                     return Math.max( v, minimum_measurement_width);
-                else if ( v <= 0)
+                else if ( v < 0)
                     return 0;
                 else
                     return v;
@@ -359,9 +359,16 @@ zunzun.timechart = function (data) {
             ;
         for (var i=0; i < timing_variables.length; i++) {
             var varname = timing_variables[i];
-            top_row_div
+            var inner_div = top_row_div
                 .append("div")
+                ;
+            inner_div
+                .append("span")
+                .text("•")
+                ;
+            inner_div
                 .classed("backdrop-timing timing-"+varname, true)
+                .append("span")
                 .text(function(d){
                     var v = d[major][varname];
                     if (v>=0)
@@ -369,6 +376,7 @@ zunzun.timechart = function (data) {
                     else
                         return sprintf("%s: n/a", varname);
                 })
+                ;
         }
         var anti_row_div = at_divs
             .append("div")
@@ -503,6 +511,8 @@ zunzun.timechart = function (data) {
         return el.parentElement;
     }
 
+    var anims_out_there = {};
+
     /* Who do you need to hide */
     function scaling_cotarget_d3(el, major)
     {
@@ -566,14 +576,14 @@ zunzun.timechart = function (data) {
                 target.attr("transform", "matrix(" + (1.0+f*(scale_a-1)) + ", 0, 0, 1, " + (f*scale_b) + ", 0)");
                 cotarget.attr("opacity", String(1.0-f));
                 backdrop.style("background-color",
-                    "rgba(240,240,255," + f +")"
+                    "rgba(250,250,255," + f +")"
                 );
                 backdrop_to_focus.style("opacity",
                     f
                 );
             });
 
-            var time_to_hide = 80000;
+            var time_to_hide = 30000;
 
             anim.set_cos_transform();
             datum["expanding"] = true;
@@ -594,6 +604,17 @@ zunzun.timechart = function (data) {
             anim.start().then(function(){
                 anim.wait(time_to_hide).then(f);
             });
+
+            // If you happen to activate another object,
+            // hide others out there
+            for (var p in anims_out_there) {
+                if (anims_out_there.hasOwnProperty(p) && p != i) {
+                    var another_anim = anims_out_there[p];
+                    another_anim.revert().catch(function(){});
+                    delete anims_out_there[p];
+                }
+            }
+            anims_out_there[i] = anim;
         }
 
     }

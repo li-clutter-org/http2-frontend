@@ -177,7 +177,7 @@
   overflow: hidden;
 }
 
-$color-blocked : #e1e7e7;
+$color-blocked : #bec3c3;
 $color-dns:  #e4924c;
 $color-connect: #226583;
 $color-ssl: #57c1e8;
@@ -205,6 +205,42 @@ $color-receive: #f1b939;
 }
 .variable-receive {
     fill: $color-receive;
+}
+
+.timing-blocked {
+    & span:first-child{
+        color: $color-blocked;
+    }
+}
+.timing-dns {
+    & span:first-child{
+        color: $color-dns;
+    }
+}
+.timing-connect {
+    & span:first-child{
+        color: $color-connect;
+    }
+}
+.timing-ssl {
+    & span:first-child{
+        color: $color-ssl;
+    }
+}
+.timing-send {
+    & span:first-child{
+        color: $color-send;
+    }
+}
+.timing-wait {
+    & span:first-child{
+        color: $color-wait;
+    }
+}
+.timing-receive {
+    & span:first-child{
+        color: $color-receive;
+    }
 }
 
 .chart-timing-graphy{
@@ -287,7 +323,7 @@ $padding-for-timing: 5px;
   display: flex;
   flex-direction: row;
 
-  font-size: 10px;
+  font-size: $tip-elements-font-size;
   justify-content: space-around;
 
 
@@ -297,6 +333,15 @@ $padding-for-timing: 5px;
     color: $bg-timing-color;
   }
 
+}
+
+.backdrop-timing {
+  & span:first-child{
+    font-size: $tip-elements-font-size + 5px;
+    padding-right: 5px;
+    position: relative;
+    bottom: 4px;
+  }
 }
 
 
