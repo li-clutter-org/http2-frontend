@@ -307,7 +307,9 @@ zunzun.timechart = function (data) {
             var major_container_selection = selection
                 .append("g")
                 .classed(major_class, true)
+                .attr("transform", "scale(1,1)")
                 ;
+
             for (var i=0; i < timing_variables.length; i++)
             {
                 var minor = timing_variables[i];
@@ -403,12 +405,6 @@ zunzun.timechart = function (data) {
 
     }
 
-    /* This is a simple object that contains a reference
-    *  to the highlighted element */
-    var interactions_register = {
-        highlighted_element: null,
-        highlighted_element_timeout: null
-    };
 
     function install_event_handlers()
     {
@@ -442,12 +438,12 @@ zunzun.timechart = function (data) {
 
     function maybe_smoothly_reset_size(datum, i)
     {
-        console.log("maybe_smoothly_reset_size called " + i);
+        //console.log("maybe_smoothly_reset_size called " + i);
     }
 
     function mouse_hovers_at_element(datum, i)
     {
-        console.log("mouse_hovers_at_element " + i)
+        datum["visited"] = true;
     }
 
     function scaling_for_major(datum, major) {
@@ -463,12 +459,149 @@ zunzun.timechart = function (data) {
 
     function smoothly_expand_element(datum, i, major, el)
     {
-        var t = scaling_target(el);
-        var scaling_parameters = scaling_for_major(datum, major);
-        var scaling_a=scaling_parameters[0], scaling_b=scaling_parameters[1];
-        d3
-            .select(t)
-            .attr("transform", "matrix(" + scaling_a + ", 0, 0, 1, " + scaling_b + ", 0)");
+        if ( ! datum["expanding"]) {
+            //console.log("smooethly expand");
+            var scaling_params = scaling_for_major(datum, major);
+            var scale_a = scaling_params[0];
+            var scale_b = scaling_params[1];
+            console.log(scaling_params);
+            var target = d3.select( scaling_target(el) );
+            var total_time = 1000;
+
+            var anim = new Anim(total_time, function(t){
+                var f = t / total_time;
+                target.attr("transform", "matrix(" + (1.0+f*(scale_a-1)) + ", 0, 0, 1, " + (f*scale_b) + ", 0)");
+            });
+            anim.set_cos_transform();
+            datum["expanding"] = true;
+            datum["anim"] = anim;
+            var f = function() {
+                if (datum["visited"])
+                {
+                    delete datum["visited"];
+                    anim.wait(1000).then(f);
+                } else {
+                    delete datum["expanding"];
+                    // REMOVE
+                    anim.revert().then(function(){
+                        delete datum["anim"];
+                    });
+                }
+            }
+            anim.start().then(function(){
+                anim.wait(1000).then(f);
+            });
+        }
+
+    }
+
+    // Guerrilla animation class, since SMIL and all the others are not
+    // really good fits for this case.
+    function Anim(time_span, what_to_do)
+    {
+        var start_t = null;
+        var stopped = true;
+        var reverting = false;
+        var finished_resolve;
+        var reversion_point = null;
+        var last_visited = 0;
+        var transform = function(x){ return x; };
+
+        var cb = function(high_res_time)
+        {
+            if (start_t == null)
+            {
+                start_t = high_res_time;
+            }
+            if (! stopped && !reverting) {
+                if (high_res_time < start_t + time_span) {
+                    var d = high_res_time - start_t;
+                    var f = time_span* transform( d / time_span );
+                    last_visited = d;
+                    what_to_do(f);
+                    window.requestAnimationFrame(cb);
+                } else {
+                    start_t = null;
+                    stopped = true;
+                    finished_resolve("ended");
+                }
+            }else if (reverting)
+            {
+                var d = high_res_time - start_t;
+                if ( d > reversion_point )
+                {
+                    // Finished already
+                    start_t = null;
+                    reverting = false;
+                    finished_resolve("reverted");
+                } else
+                {
+                    d = reversion_point - d;
+                    var f = time_span* transform( d / time_span );
+                    what_to_do(f);
+                    window.requestAnimationFrame(cb);
+                }
+            }
+        };
+        this.start = function(){
+            var fail;
+            var done_promise  = new Promise(function(success, pfail){
+                finished_resolve = success;
+                fail = pfail;
+                if (!stopped)
+                {
+                    fail("AlreadyMoving");
+                    return ;
+                }
+                stopped = false;
+                window.requestAnimationFrame(cb);
+                });
+            return done_promise;
+        };
+        this.stop = function(){
+            stopped = true;
+            start_t = null;
+            finished_resolve("stopped")
+        };
+        this.revert = function(){
+            var done_promise  = new Promise(function(success, pfail){
+                finished_resolve = success;
+                if (reverting)
+                {
+                    // Don't care
+                    pfail("AlreadyReverting");
+                    return ;
+                }
+
+                reversion_point = last_visited;
+                // Recapture it
+                start_t = null;
+                reverting = true;
+                if ( stopped ) {
+                    stopped = false;
+                    window.requestAnimationFrame(cb);
+                }
+            });
+
+            return done_promise;
+        };
+        this.set_cos_transform = function(){
+            transform = function(f) {
+                var y = f*Math.PI;
+                return (1.0/Math.PI)*(y-Math.cos(y)*Math.sin(y));
+            }
+        };
+
+        this.wait = function(wait_time){
+            if (typeof wait_time == "number") {
+                var p = new Promise(function (success, failure) {
+                    setTimeout(success, wait_time);
+                });
+                return p;
+            } else if (Promise.prototype.isPrototypeOf(wait_time)) {
+                // Wait, this doesn't make sense.
+            };
+        }
     }
 
     // Here we return the draw object to the d3 framework, so that it can be instanced with
