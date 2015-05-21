@@ -314,7 +314,7 @@ zunzun.timechart = function (data) {
                     +
                     base_array[i+1]
                     )/2.;
-                var middle_pos = x_scale( middle_time );
+                var middle_pos =  x_scale(middle_time) ;
 
                 // Adjust
                 var scaling_parameters = scaling_for_major(d, major);
@@ -323,7 +323,7 @@ zunzun.timechart = function (data) {
                     scaling_b = scaling_parameters[1];
 
                 var adjusted_middle_pos =
-                    scaling_a * middle_pos + scaling_b;
+                     scaling_a * middle_pos + scaling_b;
 
                 if ( ! go_up )
                 {
