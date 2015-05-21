@@ -213,6 +213,8 @@ $color-receive: #f1b939;
   z-index: 10;
 }
 
+$data-backgrop-border: #0e1327 3px solid;
+
 .data-backdrop {
     position: absolute;
     width: 100%;
@@ -221,33 +223,80 @@ $color-receive: #f1b939;
     left: 0;
     z-index: 1;
     display: flex;
-    flex-direction: column;
+    box-sizing: border-box;
+    flex-direction: column-reverse;
     justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.0);
 }
 
 
-$padding-for-backdrop: 7px;
+$padding-for-backdrop: 4px;
+
+$tip-elements-font-size: 11px;
+
+$bg-timing-color: #351818;
+
+$padding-for-timing: 5px;
+
 
 .data-backdrop-http1 {
-   padding-top: $padding-for-backdrop;
+   flex-direction: column-reverse;
+   border-bottom: $data-backgrop-border;
 }
 
 .data-backdrop-http2 {
-  padding-bottom: $padding-for-backdrop;
+   flex-direction: column;
+   border-top: $data-backgrop-border;
 }
 
 .data-backdrop-major {
-    font-size: 10px;
+    font-size: $tip-elements-font-size;
+    display: flex;
+    opacity: 0;
+    /* Limit the height, so that we can get
+       some overlap */
+    //height: 60px;
+    overflow: visible;
+}
+
+
+.timings-row {
+    font-size: $tip-elements-font-size;
     flex-direction: row;
     justify-content: space-around;
     display: flex;
+    /* Limit the height, so that we can get
+       some overlap */
 
     &>.backdrop-timing{
-      flex-basis: 0;
+      flex-basis: main-size;
       flex-grow: 1;
-      color: #929292;
+      color: $bg-timing-color;
       text-align: right;
+      padding-right: $padding-for-timing;
+      padding-left: $padding-for-timing;
     }
+}
+
+.backdrop-row {
+  margin-top: $padding-for-backdrop;
+  margin-bottom: $padding-for-backdrop;
+}
+
+.others-row {
+  display: flex;
+  flex-direction: row;
+
+  font-size: 10px;
+  justify-content: space-around;
+
+
+  &>div {
+    width: 100px;
+    text-align: right;
+    color: $bg-timing-color;
+  }
+
 }
 
 
