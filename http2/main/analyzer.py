@@ -205,7 +205,7 @@ def format_json(http1_json, http2_json):
                         .total_seconds()*1000,
                     "general_time": item['time']
                 }
-                http2dict.update(item["timings"])
+                http2dict.update({k:norm(v) for (k,v) in item["timings"].items()})
                 entry['http2'] = http2dict
         if not found:
             entry['http2'] = None
@@ -220,6 +220,12 @@ def format_json(http1_json, http2_json):
 
     return new_json
 
+
+def norm(v):
+    if 0.0 <= v < 0.5:
+        return 1.0
+    else:
+        return v
 
 def isfake(entry):
     return entry is None
