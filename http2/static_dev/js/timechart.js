@@ -296,65 +296,6 @@ zunzun.timechart = function (data) {
         return base_array;
     }
 
-    function draw_ministrokes(container_g, base_array, name, x_scale, use_y, ord)
-    {
-        var major = name[0];
-        var variable = name[1];
-        var classes =
-            "ministroke ministroke-" + major + " " + "ministroke-" + variable ;
-
-        var go_up = major == "http1";
-
-
-        container_g.append("path")
-            .classed(classes, true)
-            .attr("d", function(d, i) {
-                var middle_time = (
-                    base_array[i]
-                    +
-                    base_array[i+1]
-                    )/2.;
-                var middle_pos =  x_scale(middle_time) ;
-
-                // Adjust
-                var scaling_parameters = scaling_for_major(d, major);
-
-                var scaling_a = scaling_parameters[0],
-                    scaling_b = scaling_parameters[1];
-
-                var adjusted_middle_pos =
-                     scaling_a * middle_pos + scaling_b;
-
-                if ( ! go_up )
-                {
-                    use_y -= series_height;
-                }
-
-                // Create the path
-                var path_def = "M " + adjusted_middle_pos + " " + use_y;
-                if (go_up)
-                {
-                    path_def += " v -10";
-                } else
-                {
-                    path_def += " v 10"
-                }
-                path_def += " L " + (ord*20);
-                if (go_up)
-                {
-                    path_def += " 5 "
-                } else
-                {
-                    path_def += " 55 ";
-                }
-
-                return path_def;
-            })
-        ;
-
-        return base_array;
-    }
-
     function draw_series(selection, x){
         for (var j=0; j < major_series.length; j++)
         {
@@ -384,20 +325,6 @@ zunzun.timechart = function (data) {
                 majors[major]["end_time"] = base_array[i];
             });
 
-            // Now we draw the point-outs
-            for (var i=0; i < timing_variables.length; i++)
-            {
-                var minor = timing_variables[i];
-                var name = [major, minor];
-                base_array = draw_ministrokes(
-                    selection,
-                    base_array,
-                    name,
-                    x,
-                    major_serie_y[major],
-                    i
-                );
-            }
         }
     }
 
