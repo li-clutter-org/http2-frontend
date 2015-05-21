@@ -160,6 +160,11 @@
   margin-left: 10px;
 }
 
+.chart-timing-div{
+  // Make it a container block
+  position: relative;
+}
+
 .ruler-container {
   height: 20px ;
 }
@@ -202,32 +207,47 @@ $color-receive: #f1b939;
     fill: $color-receive;
 }
 
-.ministroke-blocked {
-    stroke: $color-blocked;
+.chart-timing-graphy{
+  // v-- Save the space
+  position: relative;
+  z-index: 10;
 }
-.ministroke-dns {
-    stroke: $color-dns;
-}
-.ministroke-connect {
-    stroke: $color-connect;
-}
-.ministroke-ssl {
-    stroke: $color-ssl;
-}
-.ministroke-send {
-    stroke: $color-send;
-}
-.ministroke-wait {
-    stroke: $color-wait;
-}
-.ministroke-receive {
-    stroke: $color-receive;
+
+.data-backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 
-.ministroke {
-    fill: none;
-    stroke-width: 0.5px;
+$padding-for-backdrop: 7px;
+
+.data-backdrop-http1 {
+   padding-top: $padding-for-backdrop;
+}
+
+.data-backdrop-http2 {
+  padding-bottom: $padding-for-backdrop;
+}
+
+.data-backdrop-major {
+    font-size: 10px;
+    flex-direction: row;
+    justify-content: space-around;
+    display: flex;
+
+    &>.backdrop-timing{
+      flex-basis: 0;
+      flex-grow: 1;
+      color: #929292;
+      text-align: right;
+    }
 }
 
 

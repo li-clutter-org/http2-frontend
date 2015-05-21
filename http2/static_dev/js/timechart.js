@@ -330,6 +330,24 @@ zunzun.timechart = function (data) {
         }
     }
 
+    function put_series_data(selection, major)
+    {
+        var classes = "data-backdrop-major data-backdrop-" + major;
+        var at_divs = selection
+            .append("div")
+            .classed(classes, true)
+            ;
+        for (var i=0; i < timing_variables.length; i++) {
+            var varname = timing_variables[i];
+            at_divs
+                .append("div")
+                .classed("backdrop-timing timing-"+varname, true)
+                .text(function(d){
+                    return sprintf("%0.1f", d[major][varname]);
+                })
+        }
+    }
+
     function draw_text()
     {
         d3.selectAll(".horiz-block")
@@ -399,6 +417,13 @@ zunzun.timechart = function (data) {
 
         draw_series(serie, x);
 
+        var selection_for_data = d3.selectAll(".chart-timing-div")
+            .append("div")
+            .classed("data-backdrop", true)
+            ;
+        put_series_data(selection_for_data, "http1");
+        put_series_data(selection_for_data, "http2");
+
         draw_text();
 
         install_event_handlers();
@@ -436,6 +461,13 @@ zunzun.timechart = function (data) {
         return el.parentElement;
     }
 
+    /* Who do you need to hide */
+    function scaling_cotarget_d3(el, major)
+    {
+        var the_other_major = major == "http1" ? ".http2-g" : ".http1-g";
+        return d3.select(el.parentElement.parentElement).select(the_other_major);
+    }
+
     function maybe_smoothly_reset_size(datum, i)
     {
         //console.log("maybe_smoothly_reset_size called " + i);
@@ -466,12 +498,15 @@ zunzun.timechart = function (data) {
             var scale_b = scaling_params[1];
             console.log(scaling_params);
             var target = d3.select( scaling_target(el) );
+            var cotarget = scaling_cotarget_d3(el, major);
             var total_time = 1000;
 
             var anim = new Anim(total_time, function(t){
                 var f = t / total_time;
                 target.attr("transform", "matrix(" + (1.0+f*(scale_a-1)) + ", 0, 0, 1, " + (f*scale_b) + ", 0)");
+                cotarget.attr("opacity", String(1.0-f));
             });
+
             anim.set_cos_transform();
             datum["expanding"] = true;
             datum["anim"] = anim;
@@ -487,7 +522,7 @@ zunzun.timechart = function (data) {
                         delete datum["anim"];
                     });
                 }
-            }
+            };
             anim.start().then(function(){
                 anim.wait(1000).then(f);
             });
