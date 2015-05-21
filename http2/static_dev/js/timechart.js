@@ -1,46 +1,17 @@
 /*
 * timechart - simple plugin to create time charts.
 *
-*  Usage:
 *
-*   d3.select("#chart")
-*     .call(d3.timechart(data)));
 *
-*  where data should look like:
+* authors: Zunzun AB - http://zunzun.se/
 *
-* var data = {
-*     times:[
-*         {
-*             domain:'https :// www.zunzun.se',
-*             path:'/main.css',
-*             http1: [0,1,6,7,14],  // [moment the request starts, sending, waiting, receiving, Total elapsed time of the request]
-*             http2: [0,1,3,5,9]
-*         },
-*         {
-*             domain:'https :// www.zunzun.se',
-*             path:'/styles.css',
-*             http1: [3,4,8,9,21],
-*             http2: [5,4,5,6,15]
-*         },
-*         {
-*             domain:'https :// www.zunzun.se',
-*             path:'/scripts',
-*             http1: [2,3,6,7,16],
-*             http2: [1,3,5,9,17]
-*         },
-*         {
-*             domain:'https :// www.zunzun.se',
-*             path:'/routings.js',
-*             http1: [6,1,1,2,4],
-*             http2: [7,2,1,1,4]
-*         }
-*     ]
-* };
-*
-* author: Zunzun AB - http://zunzun.se/
+* Dannier Trinchet Almaguer, 2015
+* Alcides Viamontes Esquivel, 2015
+* Neyvis Remón Martínez, 2015
 */
 
-d3.timechart = function (data) {
+window.zunzun = window.zunzun || {};
+zunzun.timechart = function (data) {
 
     var
         bar_height = 80, /* Height of each line */
