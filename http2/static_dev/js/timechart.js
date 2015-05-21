@@ -559,11 +559,9 @@ zunzun.timechart = function (data) {
     function smoothly_expand_element(datum, i, major, el)
     {
         if ( ! datum["expanding"]) {
-            //console.log("smooethly expand");
             var scaling_params = scaling_for_major(datum, major);
             var scale_a = scaling_params[0];
             var scale_b = scaling_params[1];
-            console.log(scaling_params);
             var target = d3.select( scaling_target(el) );
             var cotarget = scaling_cotarget_d3(el, major);
             var backdrop = datapoint_backdrop_target(el, major);
