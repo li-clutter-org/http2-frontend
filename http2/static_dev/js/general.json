@@ -20,6 +20,7 @@
         "js/lib/angular-touch.js",
         "js/lib/angular-messages.js",
         "js/lib/Promise.js",
+        "js/lib/sprintf.js",
 
         "js/angular/core/app.js",
         "js/angular/core/config.js",
