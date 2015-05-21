@@ -27,6 +27,7 @@ zunzun.timechart = function (data) {
         })(),
         timing_variables = ["blocked", "dns", "connect", "ssl", "send", "wait", "receive"],
         GRID_LINE_COLOR = "#dfdfdf",
+        minimum_measurement_width=10,
         x_scale = null /* Populated later */
     ;
 
@@ -282,7 +283,15 @@ zunzun.timechart = function (data) {
             "serie-" + name[0] + " " + "variable-" + name[1] ;
 
         var extract_from_d =
-            function(d) { return Math.max( d[name[0]][name[1]], 0) ;};
+            function(d) {
+                var v = d[name[0]][name[1]];
+                if ( v > 0)
+                    return Math.max( v, minimum_measurement_width);
+                else if ( v <= 0)
+                    return 0;
+                else
+                    return v;
+            };
 
         container_g.append("rect")
             .classed(classes, true)
