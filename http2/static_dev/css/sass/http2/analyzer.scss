@@ -5,8 +5,11 @@
 }
 
 .analyze {
+
   .analyze-input-group {
+
     .analyze-button {
+
       background-color: $analyzer_border;
       height: 50px;
       display: table-cell;
@@ -14,7 +17,9 @@
       -webkit-border-radius: 0 10px 10px 0;
       -moz-border-radius: 0 10px 10px 0;
     }
+
     .analyze-input {
+
       height: 50px;
       display: table-cell;
       border-radius: 10px 0 0 10px;
@@ -66,15 +71,11 @@
 
 .analyzer {
   border: 3px solid $analyzer_border;
-  background: url('../img/timeline.png') repeat-y 250px 25px;
   clear: both;
   padding: 25px 0;
-
   .analyzer-http {
     width: 100%;
-    // padding: 15px 50px 20px 50px;
   }
-
   .http2-push {
     width: 100%;
     margin: 0 auto;
@@ -131,11 +132,15 @@
 // TODO: Choose the proper color
 .horiz-block {
   &:nth-child(2n+0) {
-    background-color: #f8eef1;
+    background: #f5f5f5;
+    .chart-timing-div{
+    }
   }
 
   &:nth-child(2n+1) {
-    background-color: white;
+    background: white;
+    .chart-timing-div{
+    }
   }
 
   display: flex;
