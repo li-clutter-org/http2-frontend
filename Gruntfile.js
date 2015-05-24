@@ -1,4 +1,4 @@
-﻿module.exports = function(grunt) {
+module.exports = function(grunt) {
     var base = './http2/';
     var generalJS = prepare(grunt.file.readJSON(base + 'static_dev/js/general.json'));
     var d3JS = prepare(grunt.file.readJSON(base+'static_dev/js/d3.json'));
@@ -14,7 +14,7 @@
             },
             dev: {
                 files: {
-                    'static_dev/css/style.css': 'static_dev/css/sass/config.scss'
+                    'static_dev/build/css/style.css': 'static_dev/css/sass/config.scss'
                 },
                 options:{
                     style: 'nested'
@@ -35,8 +35,8 @@
                 debounceDelay: 250
             },
             css: {
-                files: ['static_dev/css/sass/**/*.sass', 'static_dev/css/lib/**/*.sass',],
-                tasks: ['sass:build', 'autoprefixer:dev']
+                files: ['static_dev/css/sass/**/*.scss', 'static_dev/css/lib/**/*.scss',],
+                tasks: ['sass:dev', 'autoprefixer:dev']
             },
             js:{
                 files: ['static_dev/js/general.json', 'static_dev/js/**/*.js', 'static_dev/js/angular/**/test/*.js']
