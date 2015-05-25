@@ -335,6 +335,12 @@ $padding-for-timing: 5px;
 
 }
 
+rect.handle {
+  stroke: #304333;
+  stroke-width: 0.2px;
+  fill: white;
+}
+
 .backdrop-timing {
   & span:first-child{
     font-size: $tip-elements-font-size + 5px;

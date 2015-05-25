@@ -269,6 +269,7 @@ zunzun.timechart = function (data) {
         return svg_image;
     }
 
+    // The two functions coming below are redundant
     function extract_true_length_from_datum(d, major, variable) {
         var v = d[major][variable];
         if (v < 0)
@@ -277,18 +278,16 @@ zunzun.timechart = function (data) {
             return v;
     }
 
-
     function extract_visual_length_from_datum(d, major, variable) {
         var v = d[major][variable];
-        if (v >= DISCOVER_THRESHOLD)
-            return Math.max(v, minimum_measurement_width);
-        else if (v < DISCOVER_THRESHOLD)
+        if (v < 0)
             return 0;
         else
             return v;
     }
 
-    function draw_single_serie(container_g, visual_base_array, true_base_array, name, x_scale, use_y, ord)
+    function draw_single_serie(container_g, visual_base_array, true_base_array, name, x_scale, use_y,
+        ordinal_of_timing_variable)
     {
         if (visual_base_array == null)
         {
@@ -297,8 +296,8 @@ zunzun.timechart = function (data) {
             visual_base_array = new Array(lng);
             true_base_array = new Array(lng);
             for (var i=0; i < lng; i++) {
-                visual_base_array[i] = data.times[i][name[0]]["start_time"]
-                true_base_array[i] = data.times[i][name[0]]["start_time"]
+                visual_base_array[i] = data.times[i][name[0]]["start_time"];
+                true_base_array[i] = data.times[i][name[0]]["start_time"];
             }
         }
 
@@ -326,6 +325,45 @@ zunzun.timechart = function (data) {
         ;
 
         return [visual_base_array,true_base_array];
+    }
+
+    function draw_handles_if_needed(container_g, major, visual_base_array, x_scale, use_y)
+    {
+        var variable_name = name[1];
+
+        var classes =
+            "handle" + " handle-serie-" + major + " " + "handle-variable-" + variable_name ;
+
+        var d = series_height / 3.;
+        var visual_width = x_scale(30.0);
+
+        container_g.insert("rect", ":first-child")
+            .classed(classes, true)
+            .attr("x", function(datum, i) {
+                var t_start = datum[major]["start_time"];
+                var t_end = datum[major]["end_time"];
+                var middle_point =
+                    (t_start + t_end)/2. ;
+                var span =
+                    t_end - t_start;
+                var result = x_scale(middle_point ) - visual_width/2.;
+                return result;
+            })
+            .attr("y", use_y+(series_height - d)/2. )
+            .attr("width", visual_width )
+            .attr("height", function(datum, i) {
+                var t_start = datum[major]["start_time"];
+                var t_end = datum[major]["end_time"];
+                var middle_point =
+                    (t_start + t_end)/2. ;
+                var span =
+                    t_end - t_start;
+                if (span < 35)
+                    return d;
+                else
+                    return 0;
+            })
+            ;
     }
 
     function draw_series(selection, x){
@@ -362,7 +400,9 @@ zunzun.timechart = function (data) {
                 majors[major]["end_time"] = true_base_array[i];
                 majors[major]["visual_end_time"] = visual_base_array[i];
             });
-
+            draw_handles_if_needed(major_container_selection, major, visual_base_array, x_scale,
+                major_serie_y[major]
+                );
         }
     }
 
@@ -517,7 +557,18 @@ zunzun.timechart = function (data) {
                 smoothly_expand_element(datum,i, "http1", this);
             });
 
+        d3.selectAll(".handle-serie-http1")
+            .on("mouseover", function(datum,i){
+                var target_el = d3.select(this).select("")
+                smoothly_expand_element(datum,i, "http1", this);
+            });
+
+
         d3.selectAll(".http2-g rect")
+            .on("mouseover", function(datum,i){
+                smoothly_expand_element(datum,i, "http2", this);
+            });
+        d3.selectAll(".handle-serie-http2")
             .on("mouseover", function(datum,i){
                 smoothly_expand_element(datum,i, "http2", this);
             });
@@ -605,6 +656,17 @@ zunzun.timechart = function (data) {
             var anim = new Anim(total_time, function(t){
                 var f = t / total_time;
                 var uf = 1.0 - f;
+                var op_threshold = 0.05;
+                if (t > op_threshold )
+                {
+                    target.select(".handle")
+                        .style("opacity", 0.0 );
+                } else
+                {
+                    target.select(".handle")
+                        .style("opacity", 1.0 - (t/op_threshold) );
+                }
+
                 target.attr("transform", "matrix(" + (1.0+f*(scale_a-1)) + ", 0, 0, 1, " + (f*scale_b) + ", 0)");
                 cotarget.attr("opacity", String(1.0-f));
                 backdrop.style("background-color",
