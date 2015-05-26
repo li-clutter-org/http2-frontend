@@ -27,6 +27,7 @@ zunzun.timechart = function (data) {
         })(),
         timing_variables = ["blocked", "dns", "connect", "ssl", "send", "wait", "receive"],
         GRID_LINE_COLOR = "#dfdfdf",
+        DISCOVER_THRESHOLD = 0.5,
         minimum_measurement_width=10,
         x_scale = null /* Populated later */
     ;
@@ -268,54 +269,108 @@ zunzun.timechart = function (data) {
         return svg_image;
     }
 
-    function draw_single_serie(container_g, base_array, name, x_scale, use_y, ord)
+    // The two functions coming below are redundant
+    function extract_true_length_from_datum(d, major, variable) {
+        var v = d[major][variable];
+        if (v < 0)
+            return 0;
+        else
+            return v;
+    }
+
+    function extract_visual_length_from_datum(d, major, variable) {
+        var v = d[major][variable];
+        if (v < 0)
+            return 0;
+        else
+            return v;
+    }
+
+    function draw_single_serie(container_g, visual_base_array, true_base_array, name, x_scale, use_y,
+        ordinal_of_timing_variable)
     {
-        if (base_array == null)
+        if (visual_base_array == null)
         {
             var lng = data.times.length;
 
-            base_array = new Array(lng);
+            visual_base_array = new Array(lng);
+            true_base_array = new Array(lng);
             for (var i=0; i < lng; i++) {
-                base_array[i] = data.times[i][name[0]]["start_time"]
+                visual_base_array[i] = data.times[i][name[0]]["start_time"];
+                true_base_array[i] = data.times[i][name[0]]["start_time"];
             }
         }
-        var classes =
-            "serie-" + name[0] + " " + "variable-" + name[1] ;
 
-        var extract_from_d =
-            function(d) {
-                var v = d[name[0]][name[1]];
-                if ( v >= 0)
-                    return Math.max( v, minimum_measurement_width);
-                else if ( v < 0)
-                    return 0;
-                else
-                    return v;
-            };
+        var major = name[0];
+        var variable_name = name[1];
+
+        var classes =
+            "serie-" + major + " " + "variable-" + variable_name ;
 
         container_g.append("rect")
             .classed(classes, true)
-            .attr("x", function(d, i) {
-                var result = x_scale( base_array[i] );
-                var visual_length = extract_from_d(d);
-                base_array[i] += visual_length;
+            .attr("x", function(datum, i) {
+                var result = x_scale( visual_base_array[i] );
+                var visual_length = extract_visual_length_from_datum(datum, major, variable_name);
+                visual_base_array[i] += visual_length;
+                true_base_array[i] += extract_true_length_from_datum(datum, major, variable_name);
                 return result;
             })
             .attr("y", use_y)
-            .attr("width", function(d) {
-                var visual_length = extract_from_d(d);
+            .attr("width", function(datum) {
+                var visual_length = extract_visual_length_from_datum(datum, major, variable_name);
                 return x_scale( visual_length );
             })
             .attr("height", series_height)
         ;
 
-        return base_array;
+        return [visual_base_array,true_base_array];
+    }
+
+    function draw_handles_if_needed(container_g, major, visual_base_array, x_scale, use_y)
+    {
+        var variable_name = name[1];
+
+        var classes =
+            "handle" + " handle-serie-" + major + " " + "handle-variable-" + variable_name ;
+
+        var d = series_height / 3.;
+        var visual_width = x_scale(30.0);
+
+        container_g.insert("rect", ":first-child")
+            .classed(classes, true)
+            .attr("x", function(datum, i) {
+                var t_start = datum[major]["start_time"];
+                var t_end = datum[major]["end_time"];
+                var middle_point =
+                    (t_start + t_end)/2. ;
+                var span =
+                    t_end - t_start;
+                var result = x_scale(middle_point ) - visual_width/2.;
+                return result;
+            })
+            .attr("y", use_y+(series_height - d)/2. )
+            .attr("width", visual_width )
+            .attr("height", function(datum, i) {
+                var t_start = datum[major]["start_time"];
+                var t_end = datum[major]["end_time"];
+                var middle_point =
+                    (t_start + t_end)/2. ;
+                var span =
+                    t_end - t_start;
+                if (span < 35)
+                    return d;
+                else
+                    return 0;
+            })
+            ;
     }
 
     function draw_series(selection, x){
         for (var j=0; j < major_series.length; j++)
         {
-            var base_array = null;
+            var visual_base_array = null;
+            var true_base_array = null;
             var major = major_series[j];
             var major_class = major + "-g";
             // We put each major serie inside its own g element, so that we can
@@ -330,19 +385,24 @@ zunzun.timechart = function (data) {
             {
                 var minor = timing_variables[i];
                 var name = [major, minor];
-                base_array = draw_single_serie(
+                var arrs = draw_single_serie(
                     major_container_selection,
-                    base_array,
+                    visual_base_array, true_base_array,
                     name,
                     x,
                     major_serie_y[major],
                     i
                 );
+                visual_base_array = arrs[0];
+                true_base_array = arrs[1];
             }
             data.times.forEach(function(majors, i, arr){
-                majors[major]["end_time"] = base_array[i];
+                majors[major]["end_time"] = true_base_array[i];
+                majors[major]["visual_end_time"] = visual_base_array[i];
             });
-
+            draw_handles_if_needed(major_container_selection, major, visual_base_array, x_scale,
+                major_serie_y[major]
+                );
         }
     }
 
@@ -497,7 +557,18 @@ zunzun.timechart = function (data) {
                 smoothly_expand_element(datum,i, "http1", this);
             });
 
+        d3.selectAll(".handle-serie-http1")
+            .on("mouseover", function(datum,i){
+                var target_el = d3.select(this).select("")
+                smoothly_expand_element(datum,i, "http1", this);
+            });
+
+
         d3.selectAll(".http2-g rect")
+            .on("mouseover", function(datum,i){
+                smoothly_expand_element(datum,i, "http2", this);
+            });
+        d3.selectAll(".handle-serie-http2")
             .on("mouseover", function(datum,i){
                 smoothly_expand_element(datum,i, "http2", this);
             });
@@ -569,8 +640,33 @@ zunzun.timechart = function (data) {
 
             var total_time = 1000;
 
+            var initial_length_array = [];
+            var final_length_array = [];
+            for (var ii=0; ii < timing_variables.length; ii++)
+            {
+                var variable_name = timing_variables[ii];
+                initial_length_array.push(
+                    extract_visual_length_from_datum(datum, major, variable_name)
+                );
+                final_length_array.push(
+                    extract_true_length_from_datum(datum, major, variable_name)
+                );
+            }
+
             var anim = new Anim(total_time, function(t){
                 var f = t / total_time;
+                var uf = 1.0 - f;
+                var op_threshold = 0.05;
+                if (t > op_threshold )
+                {
+                    target.select(".handle")
+                        .style("opacity", 0.0 );
+                } else
+                {
+                    target.select(".handle")
+                        .style("opacity", 1.0 - (t/op_threshold) );
+                }
+
                 target.attr("transform", "matrix(" + (1.0+f*(scale_a-1)) + ", 0, 0, 1, " + (f*scale_b) + ", 0)");
                 cotarget.attr("opacity", String(1.0-f));
                 backdrop.style("background-color",
@@ -579,6 +675,40 @@ zunzun.timechart = function (data) {
                 backdrop_to_focus.style("opacity",
                     f
                 );
+
+                // We also need to change the size of the bars from their fictitius, always
+                // visible size to their true size.
+                var true_start = datum[major]["start_time"];
+                var visible_start = datum[major]["start_time"];
+
+                // Change the sizes of the elements faster than the rest of
+                // the stuff
+                var ff = Math.pow(f, 0.1);
+                var uff = 1.0 - ff;
+
+                for (var ii=0; ii < timing_variables.length; ii++)
+                {
+                    var variable_name = timing_variables[ii];
+                    var width_0 = initial_length_array[ii];
+
+                    var width_1 = final_length_array[ii];
+
+                    var width = width_0 * uff + width_1 * ff;
+                    var apparent_width = x_scale(width);
+
+                    var x = true_start * ff + visible_start*uff;
+                    var apparent_x = x_scale(x);
+
+                    var xxl = target
+                        .select("rect.serie-" + major +".variable-" + variable_name)
+                        ;
+                    xxl
+                        .attr("x", apparent_x)
+                        .attr("width", apparent_width);
+
+                    visible_start += width_0;
+                    true_start += width_1;
+                }
             });
 
             var time_to_hide = 30000;
