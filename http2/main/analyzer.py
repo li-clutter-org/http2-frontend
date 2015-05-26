@@ -174,11 +174,11 @@ def format_json(http1_json, http2_json):
     for entry in http1_entries:
         item = item_template.copy()
         try:
-            parsed_url = urlparse(entry['request']['url'])
+            got_url = entry['request']['url']
         except KeyError:
             continue
-        item['path'] = parsed_url.path
-        item['domain'] = parsed_url.netloc
+        show_form = url2showform(got_url)
+        item.update(show_form)
         http1_dict =  {
                 "start_time": (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http1_global_start_time)
                     .total_seconds()*1000.0
@@ -194,10 +194,11 @@ def format_json(http1_json, http2_json):
         found = False
         for item in http2_entries:
             try:
-                parsed_url = urlparse(item['request']['url'])
+                got_url = item['request']['url']
             except KeyError:
                 continue
-            if entry['path'] == parsed_url.path and entry['domain'] == parsed_url.netloc:
+            show_form = url2showform(got_url)
+            if entry['begin'] == show_form['begin'] and entry['end'] == show_form['end']:
                 r1r2 += 1
                 found = True
                 http2dict = {
@@ -229,6 +230,46 @@ def norm(v):
 
 def isfake(entry):
     return entry is None
+
+
+def url2showform(url):
+    """Transforms a url to a hash ready to show at the client.
+
+    For example:
+
+    url2showform("https://zunzun.slack.com/messages/@slackbot/sucker?al=1#excel-=1")
+
+    should give
+
+    { "begin": "zunzun.slack.com/messages/@slackbot/", "end": "sucker?al=1#excel-=1" }
+
+    """
+    import urllib.parse as u
+    parsed_form = u.urlparse(url)
+    pth = parsed_form.path
+    splitted_pth = pth.split("/")
+    first_names = "/".join(splitted_pth[:-1])
+    last_name = splitted_pth[-1]
+    if last_name == "":
+        first_names = "/".join(splitted_pth[:-2])
+        last_name = "/" + splitted_pth[-2] + "/"
+
+    return {
+        "begin":
+            parsed_form.netloc + first_names,
+
+        "end": #
+            last_name
+            + (
+                ("?" + parsed_form.query)
+                if parsed_form.query != "" else ""
+              )
+            + (
+                ("#" + parsed_form.fragment)
+                if parsed_form.fragment != "" else ""
+              )
+
+    }
 
 
 def fit_times(json_times):

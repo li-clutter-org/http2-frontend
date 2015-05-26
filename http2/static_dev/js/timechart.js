@@ -468,12 +468,12 @@ zunzun.timechart = function (data) {
         ltb.append("div")
             .classed("text-domain", true)
             .text(function(d){
-               return d.domain;
+               return d.end;
             });
         ltb.append("div")
             .classed("text-other", true)
             .text(function(d){
-               return d.path;
+               return d.begin;
             });
 
     }
