@@ -236,6 +236,7 @@ def refresh_running_state():
         findout_instance_ips()["serversInstance"]
     ]
     fo.local("rm -rf http2/media/*")
+    run("rm -rf /home/ubuntu/http2_loadimpact/http2/static_dev/build")
     print( "Proceeding with hosts_list: {0}".format(hosts_list) )
     with settings(hosts=hosts_list):
         rsync_subdirs()

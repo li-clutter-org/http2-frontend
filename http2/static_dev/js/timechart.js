@@ -559,7 +559,6 @@ zunzun.timechart = function (data) {
 
         d3.selectAll(".handle-serie-http1")
             .on("mouseover", function(datum,i){
-                var target_el = d3.select(this).select("")
                 smoothly_expand_element(datum,i, "http1", this);
             });
 
