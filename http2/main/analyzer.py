@@ -37,8 +37,8 @@ def process_har_file(harfile_path):
         del entry['request']['cookies']
         del entry['request']['headers']
         del entry['request']['queryString']
-        del entry['request']['headersSize']
-        del entry['request']['bodySize']
+        # del entry['request']['headersSize']
+        # del entry['request']['bodySize']
 
         # Removing weird URLs, for now allowing just the ones that start with http
         if not str(entry['request']['url']).startswith('http'):
