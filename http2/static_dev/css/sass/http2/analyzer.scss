@@ -310,7 +310,7 @@ $padding-for-timing: 5px;
        some overlap */
 
     &>.backdrop-timing{
-      flex-basis: main-size;
+      flex-basis: auto;
       flex-grow: 1;
       color: $bg-timing-color;
       text-align: right;
@@ -355,63 +355,3 @@ rect.handle {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.btn-success {
-
-  font-family: 'Monserrat';
-  border: #292929 2px solid;
-  border-radius: 7px;
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
-  border: #444444 2px solid;
-  background: #e77000;
-  background: linear-gradient(top, #ffc36e, #eb7e16 50%, #e77000, #e77000 50%, #b85600);
-  background: -webkit-gradient(linear, left top, left bottom, from(#ffc36e), color-stop(0.50, #eb7e16), color-stop(0.50, #e77000), to(#b85600));
-  background: -webkit-linear-gradient(top, #ffc36e, #eb7e16 50%, #e77000, #e77000 50%, #b85600);
-  background: -moz-linear-gradient(top, #ffc36e, #eb7e16 50%, #e77000, #e77000 50%, #b85600);
-  background: -ms-linear-gradient(top, #ffc36e, #eb7e16 50%, #e77000, #e77000 50%, #b85600);
-  background: -o-linear-gradient(top, #ffc36e, #eb7e16 50%, #e77000, #e77000 50%, #b85600);
-  color: #fff;
-  text-shadow: rgba(129, 70, 17, 1) 0 1px 1px;
-
-}
-
-.btn-success:hover,.btn-success:focus,.btn-success.focus,.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle
-{
-
-  text-shadow: rgba(129, 70, 17, 1) 0 -1px 1px;
-  /*-moz-transition: all 0.2s ease-in-out 0s;*/
-  background: -webkit-gradient(linear, left top, left bottom, from(#ffc36e), color-stop(0.50, #eb7e16), color-stop(0.50, #e77000), to(#b85600));
-  background: -webkit-linear-gradient(top, #b85600, #e77000 50%, #e77000, #eb7e16 50%, #ffc36e);
-  background: -moz-linear-gradient(top, #b85600, #e77000 50%, #e77000, #eb7e16 50%, #ffc36e);
-  background: -ms-linear-gradient(top, #b85600, #e77000 50%, #e77000, #eb7e16 50%, #ffc36e);
-  background: -o-linear-gradient(top, #b85600, #e77000 50%, #e77000, #eb7e16 50%, #ffc36e);
-
-}
-
-.btn-success.disabled,.btn-success.disabled:hover,.btn-success.disabled:focus,.btn-success.disabled.focus,.btn-success.disabled:active,.btn-success.disabled.active,.btn-success[disabled],.btn-success[disabled]:hover,.btn-success[disabled]:focus,.btn-success[disabled].focus,.btn-success[disabled]:active,.btn-success[disabled].active,fieldset[disabled] .btn-success,fieldset[disabled] .btn-success:hover,fieldset[disabled] .btn-success:focus,fieldset[disabled] .btn-success.focus,fieldset[disabled] .btn-success:active,fieldset[disabled] .btn-success.active
-{
-
-  text-shadow: rgba(129, 70, 17, 1) 0 -1px 1px;
-  /*-moz-transition: all 0.2s ease-in-out 0s;*/
-  background: -webkit-gradient(linear, left top, left bottom, from(#ffc36e), color-stop(0.50, #eb7e16), color-stop(0.50, #e77000), to(#b85600));
-  background: -webkit-linear-gradient(top, #b85600, #e77000 50%, #e77000, #eb7e16 50%, #ffc36e);
-  background: -moz-linear-gradient(top, #b85600, #e77000 50%, #e77000, #eb7e16 50%, #ffc36e);
-  background: -ms-linear-gradient(top, #b85600, #e77000 50%, #e77000, #eb7e16 50%, #ffc36e);
-  background: -o-linear-gradient(top, #b85600, #e77000 50%, #e77000, #eb7e16 50%, #ffc36e);
-
-}
