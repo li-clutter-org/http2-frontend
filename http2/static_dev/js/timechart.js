@@ -483,6 +483,7 @@ zunzun.timechart = function (data) {
 
     function draw_text()
     {
+        console.log("draw function called");
         d3.selectAll(".horiz-block")
             .data(data.times)
             .insert("div", ":first-child")
