@@ -4,6 +4,7 @@ from .models import AnalysisInfo
 
 
 class AnalysisInfoAdmin(admin.ModelAdmin):
-    list_display = AnalysisInfo._meta.get_all_field_names()
+    model = AnalysisInfo
+    list_display = ('analysis_id', 'state', 'url_analyzed', 'created_at', 'when_done')
 
 admin.site.register(AnalysisInfo, AnalysisInfoAdmin)
