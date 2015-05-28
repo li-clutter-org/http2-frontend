@@ -1,15 +1,59 @@
-<div class="top-content"></div>
+<section class="visual">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="holder">
+					<header class="head">
+						<h1><strong>HTTP/1</strong> <span>vs</span> <strong>HTTP/2</strong></h1>
+					</header>
+					<p>URL tested: www.stockholm.se/superlong/extralong/</p>
+					<div class="block">
+						<div class="col">
+							<div class="wrap">
+								<div class="text">
+									<strong class="time">14.54 sec</strong>
+									<span class="txt">Collecting</span>
+								</div>
+								<div class="circle">
+									<span class="arrow">&nbsp;</span>
+									<span class="bar">&nbsp;</span>
+								</div>
+							</div>
+						</div>
+						<div class="progress-box">
+							<strong>28%</strong> more efficient*
+						</div>
+						<div class="col">
+							<div class="wrap">
+								<div class="circle add">
+									<span class="arrow">&nbsp;</span>
+									<span class="medal">&nbsp;</span>
+								</div>
+								<div class="text">
+									<strong class="time">9.32 sec</strong>
+									<span class="txt">Done</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="social-networks">
+					<h2 class="title">Share your result</h2>
+					<ul class="list-inline">
+
+						<li><a href="#"><img src="{% static 'images/ico-fb.svg' %}" alt="img description"></a></li>
+						<li><a href="#"><img src="{% static 'images/ico-twitter.svg' %}" alt="img description"></a></li>
+						<li><a href="#"><img src="{% static 'images/ico-linkedin.svg' %}" alt="img description"></a></li>
+						<li><a class="icon" href="#"><img src="{% static 'images/ico-icon.png' %}" alt="img description"></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 <div class="container main-container text-center">
     <i class="icon-house hero"></i>
     <div class="row-fluid">
-        <div class="span4 text-center">
-            <p class="nav-btn"><b>URL analyzed:</b> <span class="url-analyzed">{[{ analysis.data.url_analyzed }]}</span></p>
-            <p class=""><span><a class="btn btn-success btn-lg" data-ui-sref="entry" role="button">Clear and do a new analysis</a></span></p>
-        </div>
-        <p data-ng-show="analysis.data.analysis_id" class=""><b>You can check your analysis results later through this URL:</b>
-          <a href="{[{ analysis.base_url }]}/analysis/status/{[{analysis.data.analysis_id}]}"><span class="url-analyzed">{[{ analysis.base_url }]}/analysis/status/{[{analysis.data.analysis_id}]}</span></span></a>
-        </p>
-
         <div class="span4 text-center">
         <div class="load-navbar pull-left ">
             <a class="menu-item pull-left">Web, Mobile<br></a>

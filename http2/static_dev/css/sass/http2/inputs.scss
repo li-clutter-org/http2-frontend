@@ -20,7 +20,7 @@ input, textarea{
 }
 
 input, textarea, %generic_input{
-    @extend %card;
+    //@extend %card;
     @include box-sizing(border-box);
     color:$light_grey;
     padding:8px 10px;
