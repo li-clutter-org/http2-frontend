@@ -27,22 +27,20 @@ zunzun.timechart = function (data) {
         })(),
         timing_variables = ["blocked", "dns", "connect", "ssl", "send", "wait", "receive"],
         GRID_LINE_COLOR = "#dfdfdf",
-        DISCOVER_THRESHOLD = 0.5,
-        minimum_measurement_width=10,
-        x_scale = null /* Populated later */
-        time_values = [100, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000];
+        x_scale = null, /* Populated later */
+        max_time_tentative = [100, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000];
     ;
 
     function resizing_timechart(max_time)
     {
         var value;
         var i = 0;
-        for (value in time_values) {
-            if (time_values[value] <= max_time) {
+        for (value in max_time_tentative) {
+            if (max_time_tentative[value] <= max_time) {
                 i++;
             }
         }
-        var domain = time_values[i];
+        var domain = max_time_tentative[i];
         return domain;
     }
 
