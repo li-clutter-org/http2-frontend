@@ -115,6 +115,7 @@ $mq-media-type: all !default;
     } @else {
         @warn "Breakpoint #{$name} wasn't found in $breakpoints.";
     }
+    @return name;
 }
 
 /// Media Query mixin
