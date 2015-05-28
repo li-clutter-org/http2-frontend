@@ -18,6 +18,10 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
             url: '/entry/',
             title: "HTTP/2 Goody!",
             views: {
+                'visualTop': {
+                    templateUrl: 'partials/http2/visual_top_standing_by.html',
+                    controller: 'visualTopController'
+                },
                 'mainView': {
                     templateUrl: 'partials/http2/entry.html',
                     controller: 'entryController'
@@ -31,6 +35,10 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
             url: '/analysis/status/:analysis_id',
             title: 'Analysis status',
             views: {
+                'visualTop': {
+                    templateUrl: 'partials/http2/visual_top_working.html',
+                    controller: 'visualTopController'
+                },
                 'mainView':{
                     templateUrl: 'partials/http2/analyzer.html',
                     controller: 'analyzerController'

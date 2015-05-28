@@ -32,6 +32,8 @@ $mq-breakpoints: (
 @import "layout/_main";
 @import "layout/_footer";
 
+@import "http2/ui_elements/analyzer.scss";
+
 @import 'components/_custom-forms';
 
 
