@@ -7,7 +7,7 @@
 *
 * Dannier Trinchet Almaguer, 2015
 * Alcides Viamontes Esquivel, 2015
-* Neyvis Remón Martínez, 2015
+* Neyvis Remón González, 2015
 */
 
 window.zunzun = window.zunzun || {};
@@ -30,7 +30,21 @@ zunzun.timechart = function (data) {
         DISCOVER_THRESHOLD = 0.5,
         minimum_measurement_width=10,
         x_scale = null /* Populated later */
+        time_values = [100, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000];
     ;
+
+    function resizing_timechart(max_time)
+    {
+        var value;
+        var i = 0;
+        for (value in time_values) {
+            if (time_values[value] <= max_time) {
+                i++;
+            }
+        }
+        var domain = time_values[i];
+        return domain;
+    }
 
     function format_tooltip_text(amount){ return amount.toFixed(2) + 'ms';}
 
@@ -483,8 +497,10 @@ zunzun.timechart = function (data) {
             .attr("class", "tooltip")
             .style("opacity", 0);
 
+        var domain = resizing_timechart(data.max_time);
+
         var x = d3.scale.linear()
-            .domain([0, 5000])
+            .domain([0, domain])
             .range([0, 100]);
 
         /* Save it for later */

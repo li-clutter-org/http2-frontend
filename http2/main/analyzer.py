@@ -170,6 +170,9 @@ def format_json(http1_json, http2_json):
     http1_global_start_time = min(http1_start_times)
     http2_global_start_time = min(http2_start_times)
 
+    general_times = []
+    start_times = []
+
     # Add http1 entries
     for entry in http1_entries:
         item = item_template.copy()
@@ -179,15 +182,16 @@ def format_json(http1_json, http2_json):
             continue
         show_form = url2showform(got_url)
         item.update(show_form)
+        start_time = (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http1_global_start_time).total_seconds()*1000.0
         http1_dict =  {
-                "start_time": (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http1_global_start_time)
-                    .total_seconds()*1000.0
+                "start_time": start_time,
             }
         http1_dict.update(entry['timings'])
         item.update({
             'http1': http1_dict
         })
         new_json['times'].append(item)
+        general_times.append(entry['time'])
 
     # Add http2 entries
     for entry in new_json['times']:
@@ -201,13 +205,15 @@ def format_json(http1_json, http2_json):
             if entry['begin'] == show_form['begin'] and entry['end'] == show_form['end']:
                 r1r2 += 1
                 found = True
+                start_time = (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http2_global_start_time).total_seconds()*1000
+                start_times.append(start_time)
                 http2dict = {
-                    "start_time": (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http2_global_start_time)
-                        .total_seconds()*1000,
+                    "start_time": start_time,
                     "general_time": item['time']
                 }
                 http2dict.update({k:norm(v) for (k,v) in item["timings"].items()})
                 entry['http2'] = http2dict
+            general_times.append(item['time'])
         if not found:
             entry['http2'] = None
 
@@ -218,6 +224,8 @@ def format_json(http1_json, http2_json):
 
     new_json['times'] = result
     new_json['effectiveness'] = settings.EFFECTIVENESS(r1, r2, r1r2)
+
+    new_json['max_time'] = max(general_times) + max(start_times)
 
     return new_json
 
