@@ -1,27 +1,56 @@
-<div class="container main-container text-center">
-    <i class="icon-house hero"></i>
-    <div class="row-fluid">
-        <div class="span4 text-center">
-          <div class="analyze">
-            <div class="table analyze-input-group">
-                <p class="error" ng-show="analysis.data.state === 'queuefull'">The queue is full on the server, please re-try later.</p>
-                <form novalidate name="analyze" data-ng-submit="send();">
-                    <input
-                      type="url"
-                      class="col-md-11 analyze-input input-block-level text-center invis-valid"
-                      placeholder="Type your url here"
-                      data-ng-maxlength="200"
-                      data-ng-autofocus
-                      data-ng-model="analysis.data.url_analyzed"
-                      data-ng-required="true"
-                      name="url"
-                  />
-                  <span class="pull-left">
-                    <button type="submit" class="btn analyze-button btn btn-primary" data-ng-disabled="analyze.$invalid || analyze.$pristine"><bold>Go</bold></button>
-                  </span>
-                </form>
-            </div>
-          </div>
-        </div>
-    </div>
-</div>
+<main id="main" role="main">
+			<section class="search-block">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<form novalidate name="analyze" data-ng-submit="send();">
+								<div class="field-row">
+									<div class="field">
+										<label for="url"> </label>
+										<input id="url"
+                                               type="url"
+                                               class="invis-valid"
+                                               placeholder="http://"
+                                               data-ng-maxlength="200"
+                                               data-ng-autofocus
+                                               data-ng-model="analysis.data.url_analyzed"
+                                               data-ng-required="true"
+                                               name="url"
+										>
+									</div>
+									<input class="btn btn-default analyze-button" type="submit" value="Start test" data-ng-disabled="analyze.$invalid || analyze.$pristine">
+								</div>
+								<strong class="title">Enter your website URL and start the free test!</strong>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="info-block">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<h2>Here’s what happens when the test starts</h2>
+							<div class="row holder">
+								<div class="col-sm-4 col-xs-12">
+									<span class="num">1</span>
+									<h3>Collect</h3>
+									<p>First we gather all resources from your URL (html, css, js, images, fonts, etc.)</p>
+								</div>
+								<div class="col-sm-4 col-xs-12">
+									<span class="num">2</span>
+									<h3>Emulate</h3>
+									<p>Then we emulate fetching those resources using HTTP/2.</p>
+								</div>
+								<div class="col-sm-4 col-xs-12">
+									<span class="num">3</span>
+									<h3>Analyze</h3>
+									<p>Analyze Finally, we review the data and give you some neat stats on how load times would differ between the two protocols.</p>
+								</div>
+							</div>
+							<p class="error" ng-show="analysis.data.state === 'queuefull'">The queue is full on the server, please re-try later.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>

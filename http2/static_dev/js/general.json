@@ -8,8 +8,15 @@
         "Modernizr: http://modernizr.com/"
     ],
     "files": [
+
         "js/lib/modernizr.js",
         "js/lib/underscore-min.js",
+        "js/lib/Promise.js",
+        "js/lib/sprintf.js",
+        "js/lib/jquery-1.11.3.js",
+        "js/lib/jquery.main.js",
+        "js/lib/bootstrap.js",
+
         "js/lib/angular.js",
         "js/lib/angular-ui-router.js",
         "js/lib/angular-animate.js",
@@ -19,8 +26,7 @@
         "js/lib/angular-route.js",
         "js/lib/angular-touch.js",
         "js/lib/angular-messages.js",
-        "js/lib/Promise.js",
-        "js/lib/sprintf.js",
+
 
         "js/angular/core/app.js",
         "js/angular/core/config.js",
@@ -38,6 +44,7 @@
         "js/angular/core/directives/monkey-patches/growlAddons.js",
         "js/angular/core/directives/fallbacks/svgFallback.js",
         "js/angular/core/directives/d3_chars.js",
+
         "js/timechart.js"
     ]
 }

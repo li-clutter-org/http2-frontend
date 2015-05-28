@@ -12,17 +12,10 @@ module.exports = function(grunt) {
                 style: 'compressed',
                 sourcemap: true
             },
-            dev: {
-                files: {
-                    'static_dev/build/css/style.css': 'static_dev/css/sass/config.scss'
-                },
-                options:{
-                    style: 'nested'
-                }
-            },
             build: {
                 files: {
-                    'static_dev/build/css/style.css': 'static_dev/css/sass/config.scss'
+                    'static_dev/build/css/style.css': 'static_dev/css/sass/all.scss',
+                    'static_dev/build/css/bootstrap.css': 'static_dev/css/sass/bootstrap.scss'
                 },
                 options:{
                     style: 'nested'
@@ -97,6 +90,12 @@ module.exports = function(grunt) {
                             flatten: true,
                             src: 'static_dev/img/*',
                             dest: 'static_dev/build/img'
+                        },
+                        {
+                            expand: true,
+                            flatten: true,
+                            src: 'static_dev/img/*',
+                            dest: 'static_dev/build/images'
                         }
                     ]
                 },

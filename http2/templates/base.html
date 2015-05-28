@@ -12,32 +12,108 @@
     <link rel="shortcut icon" href='{% static "img/favicon.ico?v=1" %}' />
     <base href="/">
     <link href='{% static "build/css/style.css" %}' rel="stylesheet" type="text/css">
-
+    <link href='{% static "build/css/bootstrap.css" %}' rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Permanent+Marker' rel='stylesheet' type='text/css'>
 </head>
 
 <body data-ng-class="[bodyClass]">
-    <div class="navigation">
-        <div class="navbar input-block-level no-select row-fluid">
-            <div class="container clearfix middle">
-                <div class="pull-left">
-                    <a data-ui-sref="entry" class="nav-btn"><br>
-                        <img class="pull-left" src="{% static 'img/logohttp2.png' %}">
-                        <span class="http2 pull-left"><bold><h4>LOAD IMPACT</h4></bold> </span>
-                    </a>
-                </div>
-                <div class="pull-right">
-                    <a data-ui-sref="entry" class="nav-btn"><br>
-                        <span class="pull-left"><h6>Do another test</h6> </span>
-                        <img class="arrow pull-left" src="{% static 'img/arrow.png' %}">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div data-ui-view="mainView" class="main-view"></div>
 
-    <div class="footer">Copyright 2014 Load Impact AB. All rights reserved. Terms.</div>
+    <div id="wrapper">
+		<div class="w1">
+			<header id="header">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-6">
+							<strong class="logo">
+								<a href="#">
+									<img src="{% static "build/images/logo.svg" %}" alt="LoadImpact">
+								</a>
+							</strong>
+						</div>
+						<div class="col-xs-6">
+							<a class="link" href="#">Do another test </a>
+						</div>
+					</div>
+				</div>
+			</header>
+			<section class="visual">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="holder">
+								<header class="head">
+									<h1><strong>HTTP/1</strong> <span>vs</span> <strong>HTTP/2</strong></h1>
+								</header>
+								<p class="green">Will HTTP/2 make your website, app or API faster? <a href="#">Read more</a></p>
+								<div class="block">
+									<div class="col">
+										<div class="wrap">
+											<div class="text">
+												<strong class="time">0.00 sec</strong>
+												<span class="txt">Standing by</span>
+											</div>
+											<div class="circle">
+												<span class="arrow">&nbsp;</span>
+											</div>
+										</div>
+									</div>
+									<div class="col">
+										<div class="wrap">
+											<div class="circle">
+												<span class="arrow">&nbsp;</span>
+											</div>
+											<div class="text">
+												<strong class="time">0.00 sec</strong>
+												<span class="txt">Standing by</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<div data-ui-view="mainView" class="main-view"></div>
+		</div>
+		<footer id="footer">
+		<div class="footer-holder">
+			<div class="footer-frame">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-6">
+							<nav class="footer-nav">
+								<h3>About us</h3>
+								<ul class="list-unstyled">
+									<li><a href="#">The Team</a></li>
+									<li><a href="#">The Board</a></li>
+									<li><a href="#">Press</a></li>
+								</ul>
+							</nav>
+						</div>
+						<div class="col-xs-6">
+							<div class="social-networks">
+								<h3><span>Follow us</span></h3>
+								<ul class="list-inline">
+									<li><a href="#"><img src="{% static "build/images/ico1.png" %}" alt="Img Description"></a></li>
+									<li><a href="#"><img src="{% static "build/images/ico2.png" %}" alt="Img Description"></a></li>
+									<li><a href="#"><img src="{% static "build/images/ico3.png" %}" alt="Img Description"></a></li>
+									<li><a href="#"><img src="{% static "build/images/ico4.png" %}" alt="Img Description"></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<p>© 2015 <a href="#">Load Impact AB</a>. <a class="link" href="#">Terms.</a> </p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	</div>
 
     <div data-growl></div>
 
@@ -49,6 +125,20 @@
         <script src='{% static "build/js/d3.js" %}'></script>
         <script src='{% static "build/js/general.js" %}'></script>
     {% endif %}
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript">window.jQuery || document.write('<script src="{% static "build/js/jquery-1.11.2.min.js" %}"><\/script>')</script>
+        <script type="text/javascript">
+            if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+                var msViewportStyle = document.createElement('style')
+                msViewportStyle.appendChild(
+                document.createTextNode(
+                  '@-ms-viewport{width:auto!important}'
+                )
+                )
+                document.querySelector('head').appendChild(msViewportStyle)
+            }
+</script>
 </body>
 
 </html>
