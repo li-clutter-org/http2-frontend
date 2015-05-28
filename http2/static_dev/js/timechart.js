@@ -43,7 +43,6 @@ zunzun.timechart = function (data) {
             }
         }
         var domain = time_values[i];
-        console.log(domain);
         return domain;
     }
 
