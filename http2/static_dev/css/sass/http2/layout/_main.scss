@@ -641,6 +641,7 @@ body{
             height: 100%;
             width: 100%;
             margin-bottom: 0;
+            @include font-size(27px, 30px);
 		}
 	}
 	.btn{
