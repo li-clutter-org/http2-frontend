@@ -1,0 +1,12 @@
+.footer{
+    @include posBottomLeft(absolute,0,0);
+    //@extend .transLeft;
+    background: $footer_background_color;
+    width:100%;
+    padding:15px 0;
+    font:300 0.857142857143em $sansFontFamily; /* 12/14 */
+    text-align:center;
+    color:$light_grey;
+    z-index:3;
+    border-top:solid 1px #e5e5e5;
+}

@@ -1,0 +1,1093 @@
+/* ---------------------------------------------------------
+   1. General reset
+   ---------------------------------------------------------*/
+
+@-webkit-viewport   { width: device-width; }
+@-moz-viewport      { width: device-width; }
+@-ms-viewport       { width: device-width; }
+@-o-viewport        { width: device-width; }
+@viewport           { width: device-width; }
+
+*{
+	max-height: 1000000px;
+}
+
+html,
+body {
+	height:100%;
+}
+
+body{
+	min-width: 320px;
+}
+
+.btn{
+	border: 0;
+	border-radius: 0;
+}
+
+/* ---------------------------------------------------------
+   3. Сommon site styles
+   ---------------------------------------------------------*/
+
+/* main container styles */
+
+#wrapper{
+	@include square(100%); 
+	display:table;
+	table-layout: fixed;
+	.w1 {
+		width:100%;
+		display:table-row;
+	}
+}
+
+/* visual styles */
+
+.visual{
+	position: relative;
+	overflow: hidden;
+	background: $green;
+	padding: 42px 0 38px;
+	color: $white;
+
+	@include mq($until: mobile) {
+		padding: 20px 0;
+	}
+
+	&:before {
+		background: rgba(0, 0, 0, 0.5);
+		border-radius: 100%;
+		bottom: 100%;
+		content: "";
+		height: 50px;
+		left: 0;
+		position: absolute;
+		right: 0;
+		z-index: 5;
+		@include box-shadow(0 2px 17px 0 rgba(0, 0, 0, 0.10));
+	}
+	.holder{
+		position: relative;
+		text-align: center;
+		@extend %clearfix;
+
+		@include mq($until: mobile) {
+			padding: 5px 0;
+		}
+
+		&:after{
+			position: absolute;
+			left: 50%;
+			top: -6px;
+			bottom: 0;
+			width: 1px;
+			margin: 0 0 0 -2px;
+			background: $lt-green;
+			content: '';
+				
+			@include mq($until: mobile) {
+				margin: 0;
+				top: 0;
+			}
+
+		}
+	}
+	.head{
+		overflow: hidden;
+		position: relative;
+		z-index: 1;
+	}
+	h1{
+		@include font-size(80px, 85px);
+		color: $white;
+		font-weight: 700;
+		margin: 0 0 12px;
+		letter-spacing: -1px;
+
+		strong{
+			width: 270px;
+			@include alignment(inline-block, top);
+
+			@include mq($until: tablet) {
+				width: 180px;
+			}
+
+			@include mq($until: mobile) {
+				width: 110px;
+			}
+
+		}
+
+		@include mq($until: tablet) {
+			@include font-size(50px, 55px);
+			letter-spacing: normal;
+		}
+
+		@include mq($until: mobile) {
+			@include font-size(30px, 35px);
+		}
+
+		span{
+			@include font-size(40px, 63px);
+			font-style: italic;
+			@include square(67px);
+			background: $dk-green1;
+			font-weight: 400;
+			border-radius: 100%;
+			@include alignment(inline-block, top);
+			margin: 8px 15px 0;
+
+			@include mq($until: tablet) {
+				@include font-size(26px, 43px);
+				@include square(45px);
+				margin: 5px 15px 0;
+			}
+
+			@include mq($until: mobile) {
+				@include font-size(18px, 28px);
+				@include square(30px);
+				margin: 3px 7px 0;
+			}
+
+		}
+	}
+	p{
+		font-size: 16px;
+		background: $green;
+		position: relative;
+		z-index: 2;
+		padding: 3px 0;
+		margin: 0 0 26px;
+
+		@include mq($until: tablet) {
+			font-size: 14px;
+		}
+
+		@include mq($until: mobile) {
+			font-size: 12px;
+		}
+
+		&.green{
+			color: $dk-green1;
+			a{
+				color: $dk-green1;
+				text-decoration: underline;
+				&:hover{
+					text-decoration: none;
+				}
+			}
+		}
+	}
+	.block{
+		@extend %clearfix;
+		padding: 0 35px 24px;
+		position: relative;
+
+		@include mq($until: tablet) {
+			padding: 0 0 24px;
+		}
+
+		@include mq($until: mobile) {
+			padding: 0 0 10px;
+		}
+
+		.col{
+			width: 330px;
+			float: right;
+			text-align: left;
+
+			@include mq($until: tablet) {
+				width: 280px;
+			}
+
+			@include mq($until: mobile) {
+				width: 43%;
+				text-align: center;
+			}
+
+			.wrap{
+
+				@include mq($until: mobile) {
+					width: 100%;
+					display: table;
+				}
+
+			}
+
+			&:first-child{
+				float: left;
+				text-align: right;
+
+				@include mq($until: mobile) {
+					text-align: center;
+				}
+
+				.text{
+					margin: 0 33px 0 0;
+
+					@include mq($until: tablet) {
+						margin: 0 15px 0 0;
+					}
+
+					@include mq($until: mobile) {
+						margin: 0;
+					}
+
+				}
+			}
+			.text{
+				width: 130px;
+				margin: 0 0 0 30px;
+				position: relative;
+				top: -3px;
+				@include alignment(inline-block, middle);
+
+				@include mq($until: tablet) {
+					margin: 0 0 0 15px;
+					width: 115px;
+				}
+
+				@include mq($until: mobile) {
+					width: 100%;
+					display: table-header-group;
+					margin: 0;
+				}
+
+			}
+			.circle{
+				background: url(../../images/img-circle.png) no-repeat;
+				background-size: 100% 100%;
+				@include square(152px);
+				@include alignment(inline-block, middle);
+				position: relative;
+				z-index: 1;
+
+				@include mq($until: tablet) {
+					@include square(120px);
+				}
+
+				&:after{
+					@include size(143px, 11px);
+					background: url(../../images/bg-shade.png) no-repeat;
+					content: '';
+					position: absolute;
+					top: 100%;
+					left: 50%;
+					margin: -5px 0 0 -72px;
+					z-index: -1;
+				}
+
+				.arrow{
+					position: absolute;
+					left: 50%;
+					top: 19px;
+					margin: 0 0 0 -16px;
+					@include size(31px, 57px);
+					background: url(../../images/ico-arrow2.png) no-repeat;
+					background-size: 100% 100%;
+					transform-origin: bottom;
+
+					@include mq($until: tablet) {
+						@include size(20px, 42px);
+						margin: 0 0 0 -10px;
+					}
+
+					@include mq($until: mobile) {
+						@include size(14px, 34px);
+						margin: 0 0 0 -7px;
+						top: 26px;
+					}
+
+				}
+
+				&.add{
+					.arrow{
+						@include rotate (63deg);
+					}
+				}
+
+				.medal{
+					background: url(../../images/ico-medal.png) no-repeat;
+					background-size: 100% 100%;
+					@include size(59px, 91px);
+					position: absolute;
+					right: 5px;
+					top: -17px;
+
+					@include mq($until: tablet) {
+						@include size(45px, 72px);
+					}
+				}
+
+				.bar{
+					position: absolute;
+					left: 19px;
+					top: 19px;
+					background: url(../../images/img-bar.png) no-repeat;
+					background-size: 100% 100%;
+					@include size(58px, 78px);
+
+					@include mq($until: tablet) {
+						@include size(40px, 60px);
+					}
+
+				}
+
+			}
+		}
+		.time{
+			display: block;
+			@include font-size(27px, 30px);
+			font-style: italic;
+			font-weight: normal;
+
+			@include mq($until: tablet) {
+				@include font-size(22px, 25px);
+			}
+
+		}
+		.txt{
+			@include font-size(17px, 20px);
+			color: $dk-green1;
+
+			@include mq($until: tablet) {
+				@include font-size(14px, 18px);
+			}
+
+			@include mq($until: mobile) {
+				margin: 0 0 10px;
+				display: block;
+			}
+
+		}
+	}
+
+	.progress-box{
+		position: absolute;
+		left: 50%;
+		top: 35px;
+		z-index: 5;
+		margin: 0 0 0 -77px;
+		padding: 10px 0 10px 10px;
+		background: $green1;
+		@include size(132px, 80px);
+		text-align: center;
+		font-weight: 700;
+		border-radius: 4px 0 0 4px;
+		@include font-size(17px, 20px);
+
+		@include mq($until: tablet) {
+			@include size(100px, 70px);
+			@include font-size(12px, 17px);
+			padding: 12px 0 12px 10px;
+			margin: 0 0 0 -58px;
+			top: 25px;
+		}
+
+		@include mq($until: mobile) {
+			@include size(80px, 60px);
+			@include font-size(10px, 15px);
+			padding: 10px 0 10px 5px;
+			margin: 0 0 0 -48px;
+			top: 80px;
+		}
+
+		@include mq($until: sm-mobile) {
+			@include size(50px, 60px);
+			@include font-size(10px, 14px);
+			padding: 5px 0 5px 5px;
+			margin: 0 0 0 -30px;
+			top: 80px;
+		}
+
+		strong{
+			@include font-size(32px, 35px);
+			display: block;
+
+			@include mq($until: tablet) {
+				@include font-size(24px, 28px);
+			}
+
+			@include mq($until: mobile) {
+				@include font-size(20px, 24px);
+			}
+
+			@include mq($until: sm-mobile) {
+				@include font-size(16px, 20px);
+			}
+
+		}
+		&:after{
+			position: absolute;
+			left: 100%;
+			top: 0;
+			@include square(0);
+			content: '';
+			border-style: solid;
+			border-width: 40px 0 40px 20px;
+			border-color: transparent transparent transparent $green1;
+
+			@include mq($until: tablet) {
+				border-width: 35px 0 35px 20px;
+			}
+
+			@include mq($until: mobile) {
+				border-width: 30px 0 30px 15px;
+			}
+
+			@include mq($until: mobile) {
+				border-width: 30px 0 30px 10px;
+			}
+
+		}
+	}
+
+	.social-networks{
+		width: 165px;
+		margin: 0 auto;
+		float: none;
+		position: relative;
+		padding: 38px 0 12px;
+		overflow: visible;
+		@extend %clearfix;
+
+		@include mq($until: mobile) {
+			padding: 20px 0 12px;
+		}
+
+		.title{
+			font: 20px/21px $permanent-marker;
+			color: $black1;
+			width: 150px;
+			position: absolute;
+			right: 100%;
+			text-align: left;
+			width: 242px;
+			padding: 7px 50px 0 0;
+			margin: 0;
+			@include rotate (-2deg);
+
+			@include mq($until: mobile) {
+				position: static;
+				@include rotate (0deg);
+				@include font-size(15px, 17px);
+				padding: 0;
+				margin: 0 0 15px;
+				display: block;
+				text-align: center;
+				width: inherit;
+			}
+
+			&:before{
+				background: url(../../images/ico-arow6.png) no-repeat;
+				@include size(35px, 18px);
+				content: '';
+				position: absolute;
+				right: 20px;
+				top: 11px;
+
+				@include mq($until: mobile) {
+					display: none;
+				}
+
+			}
+		}
+		ul{
+			margin: 0;
+			li{
+				float: left;
+				border-radius: 4px;
+				padding: 0;
+				overflow: hidden;
+				margin: 0 5px;
+				@include square(31px);
+			}
+			a{
+				margin: -1px;
+				display: block;
+				@include square(33px);
+				&.icon{
+					background: $dk-green4;
+					padding: 8px;
+					img{
+						background: $dk-green4;
+						border-radius: 0;
+						width: auto;
+						margin: 0 auto;
+					}
+				}
+				&:hover{
+					opacity: 0.9;
+				}
+			}
+			img{
+				background: $white;
+				border-radius: 4px;
+				@include img-responsive;
+			}
+		}
+	}
+
+}
+
+/* main informative part styles */
+
+#main{
+	width: 100%;
+	overflow: hidden;
+	padding: 0 0 50px;
+
+	@include mq($until: mobile) {
+		padding: 0;
+	}
+
+}
+
+/* search block styles */
+
+.search-block{
+	background: $lt-grey1;
+	overflow: hidden;
+	position: relative;
+	padding:  61px 0 40px;
+
+	@include mq($until: mobile) {
+		padding: 50px 0 30px;
+	}
+
+	&:before{
+		@include square(0);
+		border-style: solid;
+		border-width: 26px 26.5px 0 26.5px;
+		border-color: $green transparent transparent transparent;
+		position: absolute;
+		left: 50%;
+		margin: 0 0 0 -26px;
+		top: 0;
+		content: '';
+	}
+	.field-row{
+		overflow: hidden;
+		margin: 0 0 34px;
+		text-align: center;
+	}
+	.field{
+		@include alignment(inline-block, middle);
+		border: 2px solid $lt-grey2;
+		background: $white;
+		width: 484px;
+		text-align: left;
+		padding: 20px 30px;
+		margin: 0 10px 0 0;
+		@include box-shadow(inset 0 0 10px rgba(0,0,0,0.1));
+
+		@include mq($until: tablet) {
+			width: 412px;
+			padding: 10px 20px;
+		}
+
+		@include mq($until: mobile) {
+			display: block;
+			margin: 0 auto 20px;
+		}
+
+		@include mq($until: sm-mobile) {
+			width: 290px;
+			padding: 10px;
+		}
+
+		label{
+			@include font-size(27px, 31px);
+			color: $lt-grey;
+			font-weight: normal;
+			margin: 0;
+
+			@include mq($until: tablet) {
+				@include font-size(24px, 31px);
+			}
+
+			@include mq($until: mobile) {
+				@include font-size(18px, 24px);
+			}
+
+		}
+		input[type="text"]{
+			@include size(345px, 30px);
+			border: 0;
+			color: $lt-grey;
+			@include font-size(27px, 30px);
+			padding: 0;
+			outline: none;
+			background: $white;
+
+			@include mq($until: tablet) {
+				width: 300px;
+				@include font-size(24px, 30px);
+			}
+
+			@include mq($until: mobile) {
+				@include size(300px, 24px);
+				@include font-size(18px, 24px);
+			}
+
+			@include mq($until: sm-mobile) {
+				width: 215px;
+			}
+
+		}
+	}
+	.btn{
+		@include size(233px, 75px);
+		text-align: center;
+		@include font-size(25px, 30px);
+		color: $white;
+		@include gradient-vertical(#fa9222, #ef7c01);
+		
+		@include mq($until: tablet) {
+			@include size(200px, 55px);
+			@include font-size(22px, 30px);
+		}
+
+		@include mq($until: mobile) {
+			@include size(200px, 50px);
+			@include font-size(18px, 30px);
+		}
+
+		&:hover{
+			opacity: 0.9;
+		}
+	}
+	.title{
+		width: 300px;
+		margin:  0 auto;
+		color: $black1;
+		display: block;
+		text-align: center;
+		font: 20px/21px $permanent-marker;
+		@include rotate (-2deg);
+		position: relative;
+		left: 9px;
+
+		@include mq($until: sm-mobile) {
+			width: 225px;
+			@include font-size(14px, 16px);
+		}
+
+		&:before{
+			background: url(../../images/ico-arrow3.png) no-repeat;
+			@include size(38px, 24px);
+			content: '';
+			position: absolute;
+			left: -35px;
+			top:-9px;
+		}
+	}
+}
+
+/* info block styles */
+
+.info-block{
+	overflow: hidden;
+	text-align: center;
+	padding: 57px 0;
+	@include font-size(16px, 1.563em);
+
+	@include mq($until: mobile) {
+		padding: 30px 0;
+		@include font-size(13px, 1.463em);
+	}
+
+	h2{
+		color: $grey;
+		margin: 0 0 70px;
+		@include font-size(28px, 32px);
+		font-weight: 400;
+
+		@include mq($until: mobile) {
+			@include font-size(22px, 26px);
+			margin: 0 0 30px;
+		}
+
+	}
+	.holder{
+		padding: 0 65px;
+
+		@include mq($until: tablet) {
+			padding: 0;
+		}
+
+	}
+	.num{
+		@include square(40px);
+		background: $green;
+		@include font-size(28px, 38px);
+		color: $white;
+		display: block;
+		margin:  0 auto 12px;
+		border-radius: 100%;
+		position: relative;
+
+		@include mq($until: mobile) {
+			@include square(30px);
+			@include font-size(18px, 29px);
+		}
+
+		&:after{
+			background: url(../../images/ico-arrow4.png) no-repeat;
+			@include size(135px, 21px);
+			position: absolute;
+			content: '';
+			left: 99px;
+			top: 9px;
+		
+			@include mq($until: tablet) {
+				left: 76px;
+			}
+
+			@include mq($until: mobile) {
+				display: none;
+			}
+
+		}
+	}
+	.col-sm-4,
+	.col-xs12{
+		&:last-child{
+			.num{
+				&:after{
+					display: none;
+				}
+			}
+		}
+	}
+	h3{
+		color: $black2;
+		@include font-size(27px, 32px);
+		margin: 0 0 10px;
+		font-weight: 700;
+
+		@include mq($until: mobile) {
+			@include font-size(22px, 26px);
+		}
+
+	}
+	p{
+		margin: 0 0 15px;
+		@include mq($until: mobile) {
+			margin: 0 0 25px;
+		}
+	}
+}
+
+/* graphs block styles */
+
+.graphs-block{
+	overflow: hidden;
+	.add-nav{
+		text-align: center;
+		margin: 0;
+		background: $green;
+		position: relative;
+		&:after{
+			position: absolute;
+			height: 54px;
+			padding: 0 9999px;
+			margin: 0 -9999px;
+			content: '';
+			background: $green;
+
+			@include mq($until: mobile) {
+				height: 50px;
+			}
+
+		}
+		li{
+			margin: 0 3px;
+			position: relative;
+			z-index: 5;
+			padding: 0;
+			a{
+				color: $black1;
+				background: $lt-green1;
+				display: block;
+				padding: 14px;
+				@include font-size(18px, 26px);
+				min-width: 200px;
+				text-align: center;
+				
+				@include mq($until: mobile) {
+					min-width: 130px;
+					@include font-size(16px, 22px);
+				}
+
+				&:hover{
+					background: $white;
+					text-decoration: none;
+				}
+			}
+			&.active{
+				a{
+					background: $white;
+				}
+			}
+		}
+	}
+}
+
+/* sorting row styles */
+
+.sorting-row{
+	overflow: hidden;
+	padding: 27px 0 20px;
+	ul{
+		@include font-size(13px, 18px);
+		color: $grey;
+		margin: 0;
+		float: left;
+		max-width: 500px;
+		padding: 11px 0 0;
+
+		@include mq($until: mobile) {
+			width: 100%;
+			max-width: inherit;
+			float: none;
+			overflow: hidden;
+			margin: 0 0 20px;
+			text-align: center;
+		}
+
+		li{
+			padding: 0 0 0 23px;
+			vertical-align: top;
+			position: relative;
+			margin: 0 7px 0 2px;
+			
+			@include mq($until: mobile) {
+				padding: 0 0 0 18px;
+				margin: 0 4px 0 0;
+			}
+
+			&:after{
+				@include square(16px);
+				border-radius: 100%;
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 0;
+				background: $orange;
+
+				@include mq($until: mobile) {
+					@include square(12px);
+					top: 2px;
+				}
+
+			}
+			&.clr2{
+				&:after{
+					background: $blue;
+				}
+			}
+			&.clr3{
+				&:after{
+					background: $red;
+				}
+			}
+			&.clr4{
+				&:after{
+					background: $green2;
+				}
+			}
+			&.clr5{
+				&:after{
+					background: $yellow;
+				}
+			}
+		}
+	}
+	.select{
+		float: right;
+		width: 168px;
+
+		@include mq($until: mobile) {
+			float: none;
+			margin: 0 auto;
+			width: 200px;
+		}
+	}
+}
+
+/* table holder styles */
+
+.table-holder{
+	padding: 0 0 4px;
+	.table-scroll{
+		margin: 0 0 39px;
+		@include mq($until: mobile) {
+			overflow: auto;
+		}
+	}
+	.table-wrap{
+		@include mq($until: mobile) {
+			width: 768px;
+		}
+	}
+	.table{
+		margin: 0;
+		@include mq($until: mobile) {
+			width: 768px;
+		}
+
+		tr{
+			&:nth-child(even){
+				background: $lt-grey4;
+			}
+		}
+		> tbody{
+			> tr{
+				th{
+					@include font-size(10px, 22px);
+					color: $grey1;
+					width: 100px;
+					
+					@include mq($until: tablet) {
+						width: 90px;
+					}
+
+					&:last-child{
+						width: 60px;
+					}
+				}
+			}
+		}
+		> thead,
+		> tbody{
+			> tr{
+				th,
+				td{
+					border: 0;
+					padding: 0;
+					&:first-child{
+						width: 405px;
+						background: none;
+
+						@include mq($until: desktop) {
+							width: 385px;
+						}
+
+						@include mq($until: tablet) {
+							width: 405px;
+						}
+
+					}
+				}
+				td{
+					background: url(../../images/bg-pattern.png);
+					@include font-size(13px, 17px);
+					padding: 13px 0;
+					&:first-child{
+						padding: 22px 8px 20px 17px;
+
+						@include mq($until: tablet) {
+							padding: 22px 8px 20px 10px;
+							@include font-size(10px, 14px);
+						}
+
+					}
+				}
+			}
+		}
+		.img-holder,
+		.title-box,
+		.size,
+		.difference{
+			@include alignment(inline-block, middle);
+			color: $lt-grey5;
+			.title{
+				display: block;
+				margin: 0 0 3px;
+				a{
+					color: $blue1;
+					text-decoration: underline;
+					&:hover{
+						text-decoration: none;
+					}
+				}
+			}
+		}
+		.img-holder{
+			width: 41px;
+
+			@include mq($until: desktop) {
+				width: 37px;
+			}
+
+			@include mq($until: tablet) {
+				width: 35px;
+			}
+
+		}
+		.title-box{
+			width: 205px;
+			padding: 0 5px 0 0;
+
+			@include mq($until: desktop) {
+				width: 195px;
+			}
+
+			@include mq($until: tablet) {
+				width: 155px;
+			}
+
+		}
+		.size{
+			color: $dk-grey;
+			width: 72px;
+			padding: 4px 0 0;
+
+			@include mq($until: desktop) {
+				width: 68px;
+			}
+
+			@include mq($until: tablet) {
+				width: 55px;
+			}
+
+		}
+		.difference{
+			@include font-size(10px, 15px);
+			color: $grey1;
+			width: 45px;
+			margin: -8px 0;
+
+			@include mq($until: tablet) {
+				width: 42px;
+			}
+
+			.text{
+				display: block;
+				text-align: right;
+				padding: 5px 0;
+			}
+		}
+		.bars{
+			overflow: hidden;
+			.bar{
+				overflow: hidden;
+				padding: 4px 0;
+			}
+		}
+	}
+	p{
+		@include font-size(13px, 17px);
+		color: $lt-grey5;
+		margin: 0 17px 15px;
+		position: relative;
+		padding: 0 0 0 10px;
+		.star{
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	}
+}

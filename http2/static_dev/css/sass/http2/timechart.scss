@@ -1,0 +1,45 @@
+.http2_sending {
+  fill: #666ac2;
+}
+.http2_waiting{
+	fill: #bec1fc;
+}
+.http2_receiving{
+	fill: #666ac2;
+}
+
+.http1_sending {
+  fill: #69b628;
+}
+.http1_waiting{
+	fill: #9dde67;
+}
+.http1_receiving{
+	fill: #69b628;
+}
+
+.chart text, .legend text {
+  fill: black;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+.chart .url {
+    fill: white;
+}
+text.footer{
+    font: 14px sans-serif;
+    font-weight: bold;
+}
+.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 18px;
+  padding: 2px;
+  font: 10px sans-serif;
+  background: #004811;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  color:#ffffff;
+}

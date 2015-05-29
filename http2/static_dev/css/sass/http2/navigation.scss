@@ -1,0 +1,19 @@
+
+.navbar {
+  margin-bottom: 0px;
+  border-top-width: 3px;
+  border-top-color: $nav_border;
+  border-radius: 0;
+  height: 100px;
+  background: #6bad2c;
+  a {
+    color: $nav_font_color;
+    .http2 {
+      margin-left: 5px;
+    }
+    .arrow {
+      margin: 10px 0 0 5px;
+    }
+  }
+
+}

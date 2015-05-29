@@ -1,0 +1,71 @@
+@include breakpoint(phone_landscape){
+    .nav-btn.active .dropdown-nav{
+        transform: translateY(0%) rotateX(0deg);
+        visibility:visible;
+        opacity: 1;
+    }
+
+    .navigation .navbar{
+        @include translateHack();
+        @include posTopLeft(fixed, 0, 0);
+        font-size: 14px;
+        z-index: 10;
+        padding:0;
+
+        .pull-right, .pull-left{
+            float:none;
+        }
+    }
+
+    html.svg.backgroundsize .navigation .navbar{
+        background-image: url($logo_location + 'logo.svg');
+        background-size: 150px 25px;
+    }
+
+    html.no-svg .navigation .navbar{
+        background-image: url($logo_location + 'logo_small.png');
+    }
+
+    .nav-btn.main-dropdown{
+        display: inline-block !important;
+        float:left;
+        margin:0;
+        border:none !important;
+
+        &:before{
+            content: $menu;
+            position: static;
+            margin:0;
+            background: $primary;
+            display: block;
+            padding:10px;
+            width: auto;
+        }
+
+        > span{
+            display: none;
+        }
+
+        &.active:before{
+            content: $close;
+        }
+    }
+
+    .dropdown-nav{
+        @include posTopLeft(fixed,50px,0 !important);
+        transform-style: preserve-3d;
+        transform: translateY(100%) rotateX(90deg);
+        transform-origin: 0 100%;
+        transition: all 0.5s ease-out;
+        width:100% !important;
+        height:100%;
+        -webkit-overflow-scrolling: touch;
+        overflow:auto;
+        display:block;
+        z-index:2;
+        visibility:hidden;
+        opacity: 0;
+        border:none;
+        margin:0;
+    }
+}
