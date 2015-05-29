@@ -578,7 +578,7 @@ body{
 		background: $white;
 		width: 484px;
 		text-align: left;
-		padding: 20px 30px;
+		padding: 7px 30px;
 		margin: 0 10px 0 0;
 		@include box-shadow(inset 0 0 10px rgba(0,0,0,0.1));
 
@@ -635,6 +635,11 @@ body{
 				width: 215px;
 			}
 
+		}
+	    input[type="url"]{
+		    border: medium none;
+            height: 100%;
+            width: 100%;
 		}
 	}
 	.btn{
