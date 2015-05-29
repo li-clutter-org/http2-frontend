@@ -14,6 +14,10 @@ window.zunzun = window.zunzun || {};
 zunzun.timechart = function (data) {
 
     var
+        img_dicc = { "icon1/png": "/static/images/icon1.png", "icon2/png": "/static/images/icon2.png" ,
+            "icon3/png": "/static/images/icon3.png", "icon4/png": "/static/images/icon4.png" ,
+            "icon5/png": "/static/images/icon5.png", "icon6/png": "/static/images/icon6.png" ,
+            "icon7/png": "/static/images/icon7.png", },
         bar_height = 120, /* Height of each line */
         serie_bar_factor = 0.2,
         series_height = bar_height * serie_bar_factor, /* Height of each time series */
@@ -483,7 +487,6 @@ zunzun.timechart = function (data) {
 
     function draw_text()
     {
-        console.log("draw function called");
         d3.selectAll(".horiz-block")
             .data(data.times)
             .insert("div", ":first-child")
