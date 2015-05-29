@@ -35,52 +35,7 @@
 				</div>
 			</div>
 		</header>
-		<main data-ui-view="mainView" id="main" role="main">
-			<section class="search-block">
-				<div class="container">
-					<div class="row">
-						<div class="col-xs-12">
-							<form action="#">
-								<div class="field-row">
-									<div class="field">
-										<label for="url">www.</label>
-										<input id="url" type="text">
-									</div>
-									<input class="btn btn-default" type="submit" value="Start test">
-								</div>
-								<strong class="title">Enter your website URL and start the free test!</strong>
-							</form>
-						</div>
-					</div>
-				</div>
-			</section>
-			<section class="info-block">
-				<div class="container">
-					<div class="row">
-						<div class="col-xs-12">
-							<h2>Here’s what happens when the test starts</h2>
-							<div class="row holder">
-								<div class="col-sm-4 col-xs-12">
-									<span class="num">1</span>
-									<h3>Collect</h3>
-									<p>First we gather all resources from your URL (html, css, js, images, fonts, etc.)</p>
-								</div>
-								<div class="col-sm-4 col-xs-12">
-									<span class="num">2</span>
-									<h3>Emulate</h3>
-									<p>Then we emulate fetching those resources using HTTP/2.</p>
-								</div>
-								<div class="col-sm-4 col-xs-12">
-									<span class="num">3</span>
-									<h3>Analyze</h3>
-									<p>Analyze Finally, we review the data and give you some neat stats on how load times would differ between the two protocols.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		</main>
+        <div data-ui-view="mainView" class="main-view"></div>
 	</div>
 	<footer id="footer">
 		<div class="footer-holder">
