@@ -95,8 +95,8 @@ module.exports = function(grunt) {
                         {
                             expand: true,
                             flatten: true,
-                            src: 'static_dev/img/*',
-                            dest: 'static_dev/build/img'
+                            src: 'static_dev/images/*',
+                            dest: 'static_dev/build/images'
                         }
                     ]
                 },
