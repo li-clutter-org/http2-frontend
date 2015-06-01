@@ -77,7 +77,6 @@ zunzun.timechart = function (data) {
             "application/font-sfnt": "/static/images/icon5.png",
             "image/svg+xml": "/static/images/icon5.png",
             "application/vnd.ms-fontobject": "/static/images/icon5.png",
-            "application/font-woff": "/static/images/icon5.png",
             "image/x-font-opentype": "/static/images/icon5.png",
             "application/octet-stream": "/static/images/icon5.png",
 
