@@ -1,11 +1,20 @@
 import os
 import json
+import re
 from urllib.parse import *
 import hashlib
 from datetime import datetime as dt
 
 from django.conf import settings
 
+
+_extra_re = re.compile(r";[a-z ]*$")
+def trim_content_type(content_type):
+    extra = re.search( _extra_re,  content_type)
+    if extra:
+        return content_type[:extra.start(0)]
+    else:
+        return content_type
 
 def process_har_file(harfile_path):
     """
@@ -24,6 +33,14 @@ def process_har_file(harfile_path):
     entries = json_data['har']['entries']
     clean_entries = []
     for entry in entries:
+        try:
+            response_headers=normalize_headers(entry['response']['headers'])
+            content_type = response_headers['content-type']
+        except KeyError:
+            content_type = "application/octet-stream"
+
+        content_type = trim_content_type( content_type )
+
         del entry['response']
         del entry['cache']
         try:
@@ -43,6 +60,8 @@ def process_har_file(harfile_path):
         # Removing weird URLs, for now allowing just the ones that start with http
         if not str(entry['request']['url']).startswith('http'):
             del entry['request']['url']
+
+        entry['content_type'] = content_type
 
         clean_entries.append(entry)
 
@@ -158,7 +177,6 @@ def format_json(http1_json, http2_json):
 
     http1_entries = http1_json['har']['entries']
     http2_entries = http2_json['har']['entries']
-    all_entries = http1_entries + http2_entries
     http1_start_times = [
         dt.strptime(tmp_entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f")
         for tmp_entry in http1_entries
@@ -182,11 +200,14 @@ def format_json(http1_json, http2_json):
             continue
         show_form = url2showform(got_url)
         item.update(show_form)
-        start_time = (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http1_global_start_time).total_seconds()*1000.0
+        start_time = (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f")
+            - http1_global_start_time).total_seconds()*1000.0
         http1_dict =  {
                 "start_time": start_time,
             }
         http1_dict.update(entry['timings'])
+        # Calling this twice, but once should suffice...
+        item['content_type'] = trim_content_type(entry['content_type'])
         item.update({
             'http1': http1_dict
         })
@@ -296,3 +317,13 @@ def fit_times(json_times):
     json_times['times'] = sorted(new_list, key=lambda i: i['http1'][0])
     return json_times
 
+
+def normalize_headers(headers_as_in_har):
+    # Headers in  a .har file are a list of name/value pairs,
+    # Let's convert them to a simple dictionary
+    result = dict()
+    for small_d in headers_as_in_har:
+        header_name = small_d['name'].lower()
+        result[header_name] = small_d['value']
+
+    return result
