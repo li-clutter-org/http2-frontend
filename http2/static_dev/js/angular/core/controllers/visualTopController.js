@@ -17,6 +17,7 @@ angular.module('http2')
         , '$stateParams'
 
         , function($scope, $state, $location, $stateParams) {
+
             $scope.base_url = $location.protocol() + '://' + $location.host();
             $scope.analysis_id = $stateParams.analysis_id;
 
