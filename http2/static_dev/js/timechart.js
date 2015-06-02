@@ -91,7 +91,7 @@ zunzun.timechart = function (data) {
         major_serie_y = {"http1": distribute_space, "http2": 2*distribute_space+series_height},
         legend_height = 130, /* Height of the */
         timing_variables = ["blocked", "dns", "connect", "ssl", "send", "wait", "receive"],
-        MAJOR_GRID_LINE_COLOR = "#000000",
+        MAJOR_GRID_LINE_COLOR = "#c0c0c0",
         MINOR_GRID_LINE_COLOR = "#dfdfdf",
         x_scale = null, /* Populated later */
         /* How much the grid extends ... */
@@ -128,7 +128,7 @@ zunzun.timechart = function (data) {
         var c = 0;
         while ( c <= top_time )
         {
-            major_grid.push( c + major_separation);
+            major_grid.push( c );
             var cc = c;
             for ( var i=0; i < minor_grid_spacing; i++)
             {
@@ -140,6 +140,7 @@ zunzun.timechart = function (data) {
             }
             c += major_separation;
         }
+        major_grid.pop();
     }
 
     function format_tooltip_text(amount){ return amount.toFixed(2) + 'ms';}
@@ -270,7 +271,7 @@ zunzun.timechart = function (data) {
                 .classed("time-point", true)
                 .text(function(d,i){
                     if ( i % 2 == 0)
-                        return String(d);
+                        return String(d)+ " ms";
                     else
                         return "";
             })
@@ -552,22 +553,42 @@ zunzun.timechart = function (data) {
 
     function draw_text()
     {
-        d3.selectAll(".horiz-block")
+        var hz_blocks = d3.selectAll(".horiz-block");
+        hz_blocks
             .data(data.times)
             .insert("div", ":first-child")
             .classed("left-text-block label-zone-width", true);
         var ltb = d3.selectAll(".left-text-block");
-        ltb.append("div")
+        var img_container = ltb.insert("div", ":first-child");
+        img_container
+            .classed("hb-img-container", true)
+            .insert("img", ":first-child")
+            .attr("src", function(d){
+                var mime_type = d["content_type"] || "application/octet-stream";
+                return img_dicc[mime_type];
+            });
+        var text_column = ltb.append("div");
+        text_column.classed("hb-text-column", true);
+        text_column.append("div")
             .classed("text-domain", true)
             .text(function(d){
                return d.end;
             });
-        ltb.append("div")
+        text_column.append("div")
             .classed("text-other", true)
             .text(function(d){
                return d.begin;
             });
-
+        var prot_column = ltb.append("div");
+        prot_column.classed("hb-prot-column", true);
+        prot_column
+            .append("div")
+            .text("HTTP/1")
+            ;
+        prot_column
+            .append("div")
+            .text("HTTP/2")
+            ;
     }
 
     function draw(selection) {

@@ -8,7 +8,7 @@ from datetime import datetime as dt
 from django.conf import settings
 
 
-_extra_re = re.compile(r";[a-z ]*$")
+_extra_re = re.compile(r";.*$")
 def trim_content_type(content_type):
     extra = re.search( _extra_re,  content_type)
     if extra:

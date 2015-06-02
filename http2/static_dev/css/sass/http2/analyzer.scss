@@ -119,25 +119,24 @@
 }
 
 .time-point {
-  font-size: 7px;
+  font-size: 11px;
   flex-grow: 1;
   text-align: left;
   flex-basis: 0;
+  font-weight: bold;
+  padding-bottom: 5px;
 
-  //&:not(:first-child){
-  //  margin-left: -10px;
-  //}
 }
 
 // TODO: Choose the proper color
 .horiz-block {
-  &:nth-child(2n+0) {
+  &:nth-child(2n+1) {
     background: #f5f5f5;
     .chart-timing-div{
     }
   }
 
-  &:nth-child(2n+1) {
+  &:nth-child(2n+0) {
     background: white;
     .chart-timing-div{
     }
@@ -148,6 +147,14 @@
 
 .top-diagram-zone {
   display: flex;
+}
+
+.top-diagram-zone.ruler-container {
+  height: 0px;
+  & canvas {
+    visibility: hidden;
+    display: none;
+  }
 }
 
 .label-zone-width{
@@ -168,6 +175,7 @@
 .chart-timing-div{
   // Make it a container block
   position: relative;
+  height: 120px;
 }
 
 .ruler-container {
@@ -273,7 +281,7 @@ $data-backgrop-border: #0e1327 3px solid;
 
 $padding-for-backdrop: 4px;
 
-$tip-elements-font-size: 11px;
+$tip-elements-font-size: 12px;
 
 $bg-timing-color: #351818;
 
@@ -306,11 +314,13 @@ $padding-for-timing: 5px;
     flex-direction: row;
     justify-content: space-around;
     display: flex;
+    // Check this
+    height: 120px;
     /* Limit the height, so that we can get
        some overlap */
 
     &>.backdrop-timing{
-      flex-basis: main-size;
+      flex-basis: 0;
       flex-grow: 1;
       color: $bg-timing-color;
       text-align: right;
@@ -352,6 +362,71 @@ rect.handle {
     padding-right: 5px;
     position: relative;
     bottom: 4px;
+  }
+}
+
+$aligning-padding: 10px;
+
+.left-text-block {
+  display: flex;
+
+  & .hb-img-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    padding: 15px;
+
+
+    & img {
+      width: 28px;
+      height: 32px;
+      flex-grow: 0;
+    }
+  }
+
+  & .hb-text-column {
+    flex-basis: 80px;
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    & .text-domain {
+      color: #008ab0;
+      font-weight: bold;
+      font-size: 17px;
+    }
+
+    & .text-other  {
+      font-size: $tip-elements-font-size;
+    }
+  }
+
+  & .hb-prot-column {
+    flex-basis: auto;
+    flex-grow: 0;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: $tip-elements-font-size;
+
+    & div {
+      flex-basis: auto;
+      flex-grow: 0;
+    }
+
+
+
+    & div:first-child{
+      padding-top: $aligning-padding;
+    }
+
+    & div:last-child{
+      padding-bottom: $aligning-padding;
+    }
   }
 }
 
