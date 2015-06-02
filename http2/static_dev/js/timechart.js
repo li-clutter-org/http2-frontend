@@ -519,20 +519,33 @@ zunzun.timechart = function (data) {
                 ;
             inner_div
                 .append("span")
-                .text("•")
+                .classed("bt-bullet timing-"+varname, true)
+                .text("• ")
                 ;
             inner_div
-                .classed("backdrop-timing timing-"+varname, true)
                 .append("span")
+                .classed("bt-caption", true)
                 .text(function(d){
                     var v = d[major][varname];
                     if (v>=0)
-                        return sprintf("%s: %0.1f", varname, v);
+                        return sprintf("%s: ", varname);
                     else
-                        return sprintf("%s: n/a", varname);
+                        return sprintf("%s: ", varname);
+                })
+                ;
+            inner_div
+                .append("span")
+                .classed("bt-data", true)
+                .text(function(d){
+                    var v = d[major][varname];
+                    if (v>=0)
+                        return sprintf("%0.1f", v);
+                    else
+                        return sprintf("none");
                 })
                 ;
         }
+
         var anti_row_div = at_divs
             .append("div")
             .classed("others-row backdrop-row", true)
