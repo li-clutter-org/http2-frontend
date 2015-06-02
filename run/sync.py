@@ -55,6 +55,7 @@ class SyncWorker(object):
 
         # Finishing?
         self._finishing = False
+        self._trigger()
 
     def _wait_for_remote_changes(self):
         client = self._client
