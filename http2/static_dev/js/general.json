@@ -25,6 +25,7 @@
         "js/lib/angular-route.js",
         "js/lib/angular-touch.js",
         "js/lib/angular-messages.js",
+        "js/lib/angular-social-links.js",
 
         "js/angular/core/app.js",
         "js/angular/core/config.js",
