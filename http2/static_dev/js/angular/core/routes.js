@@ -28,7 +28,8 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
                 }
             },
             extras: {
-                bodyClass: 'index'
+                bodyClass: 'index',
+                showDoAnotherTest: false
             }
         })
         .state('analysisStatus', {
@@ -45,7 +46,8 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
                 }
             },
             extras: {
-                bodyClass: 'index'
+                bodyClass: 'index',
+                showDoAnotherTest: true
             }
         })
         .state('404', {
@@ -73,6 +75,7 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
 
         $rootScope.title = currentState.title;
         $rootScope.bodyClass = currentState.extras.bodyClass;
+        $rootScope.showDoAnotherTest = currentState.extras.showDoAnotherTest;
 
         if(currentState.name !== '404'){
             sessionStorage.setItem('prevRoute', JSON.stringify({

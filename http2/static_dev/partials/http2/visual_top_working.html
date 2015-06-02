@@ -40,12 +40,13 @@
             <div class="social-networks">
                 <h2 class="title">Share your result</h2>
                 <ul class="list-inline">
-                    <li><a href="#"><img data-svg-fallback="/static/images/ico-fb.svg" src="/static/images/ico-fb.svg" alt="img description"></a></li>
-                    <li><a href="#"><img data-svg-fallback="/static/images/ico-twitter.svg" src="/static/images/ico-twitter.svg" alt="img description"></a></li>
-                    <li><a href="#"><img data-svg-fallback="/static/images/ico-linkedin.svg" src="/static/images/ico-linkedin.svg" alt="img description"></a></li>
-                    <li><a class="icon" href="#"><img data-svg-fallback="/static/images/icon.png" src="/static/images/icon.png" alt="img description"></a></li>
+                    <li><a title="Share on Facebook..." href="#" social-facebook><img data-svg-fallback="/static/images/ico-fb.svg" src="/static/images/ico-fb.svg" alt="img description"></a></li>
+                    <li><a title="Share on Twitter..." href="#" social-twitter><img data-svg-fallback="/static/images/ico-twitter.svg" src="/static/images/ico-twitter.svg" alt="img description"></a></li>
+                    <li><a title="Share on LinkedIn..." href="#" social-linkedin><img data-svg-fallback="/static/images/ico-linkedin.svg" src="/static/images/ico-linkedin.svg" alt="img description"></a></li>
+                    <li><a ng-click="show_hide_url()" class="icon" href="#"><img data-svg-fallback="/static/images/icon.png" src="/static/images/icon.png" alt="img description"></a></li>
                 </ul>
             </div>
+            <span class="url" data-ng-show="url_visible" data-ng-model="url_visible" ng-init="url_visible=false">{[{ base_url }]}/analysis/status/{[{ analysis_id }]}</span>
         </div>
     </div>
 </div>
