@@ -270,8 +270,8 @@ zunzun.timechart = function (data) {
                 .append("div")
                 .classed("time-point", true)
                 .text(function(d,i){
-                    if ( i % 2 == 0)
-                        return String(d)+ " ms";
+                    if ( i % 4 == 0)
+                        return String(d)+ " ms";
                     else
                         return "";
             })
@@ -329,6 +329,8 @@ zunzun.timechart = function (data) {
         // Let's draw the ruler for the major grid first...
         var cv = document.querySelector("canvas.grid-canvas");
         var ctx = cv.getContext("2d");
+        // Translate one pixel right
+        ctx.translate(1,0);
         ctx.lineWidth = 0.5;
 
         var used_width_milliseconds = max_time_tentative[grid_size_idx];
