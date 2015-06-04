@@ -201,6 +201,7 @@ def format_json(http1_json, http2_json):
             continue
         show_form = url2showform(got_url)
         item.update(show_form)
+        print("** ", entry)
         start_time = (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f")
             - http1_global_start_time).total_seconds()*1000.0
         http1_dict =  {
@@ -249,6 +250,8 @@ def format_json(http1_json, http2_json):
             timings_1.append(entry['http1'])
             timings_2.append(entry['http2'])
             result.append(entry)
+        else:
+            print("Discarded entry for url ", entry)
 
     # Use the timings 'http2' list to derive a dependency tree for
     # resource loads. The list below will contain pairs (predecessor_cause, triggered)
@@ -271,9 +274,18 @@ def format_json(http1_json, http2_json):
         _idx, new_start, new_end = fold(i)
         ntm = tm.copy()
         ntm['start_time'] = new_start
-        ntm['ssl'] = -1
-        ntm['dns'] = -1
-        ntm['connect'] = -1
+
+        # There is not much we can do to get a precise simulation of
+        # what the sll times would be, but the others we can borrow
+        # from the HTTP/1.1 fetch.
+        if ( i > 0):
+            ntm['ssl'] = -1
+            ntm['dns'] = -1
+            ntm['connect'] = -1
+        else:
+            ntm['ssl'] =  10
+            ntm['dns'] = timings_1[0]['dns']
+            ntm['connect'] = timings_1[0]['connect']
         ntm['blocked'] = timings_2[i]['blocked']
         new_timings_2[i] = ntm
 
@@ -358,11 +370,15 @@ def calc_new_begin_ends(timings_1, timings_2,
     # timings_1
     (predecessor_idx, predecessor_begins, predecessor_tail) = prev
 
+    pred_timings_1_ends = timings_1[predecessor_idx]['ends'] if predecessor_idx is not None else 0
     pred_timings_2_ends = timings_2[predecessor_idx]['ends'] if predecessor_idx is not None else 0
     succ_timings_1 = timings_1[successor_idx]
     succ_timings_2 = timings_2[successor_idx]
     # Take the gap from the timings of HTTP/2
-    gap_to_predecessor = succ_timings_2['starts_sending'] - pred_timings_2_ends
+    gap_to_predecessor_1 = succ_timings_1['starts_sending'] - pred_timings_1_ends
+    gap_to_predecessor_2 = succ_timings_2['starts_sending'] - pred_timings_2_ends
+    gap_to_predecessor = min(gap_to_predecessor_1, gap_to_predecessor_2)
+    print("fsfs ", predecessor_idx, successor_idx, gap_to_predecessor )
     # This is where the simulated request will start
     successor_begins = gap_to_predecessor + predecessor_tail
 
