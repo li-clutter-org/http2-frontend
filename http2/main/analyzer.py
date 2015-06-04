@@ -4,6 +4,7 @@ import re
 from urllib.parse import *
 import hashlib
 from datetime import datetime as dt
+from functools import partial
 
 from django.conf import settings
 
@@ -256,9 +257,37 @@ def format_json(http1_json, http2_json):
     for (i,_) in enumerate(timings_2):
         dependency_tree_as_list.append( search_gaps(i,timings_2) )
 
+    print("HORROR: ", dependency_tree_as_list)
+
+    # Let's create a fold object
+    fold = PropagateF(
+        partial(calc_new_begin_ends, timings_1, timings_2),
+        (None, 0, 0),
+        dependency_tree_as_list
+    )
+    # and use it
+    new_timings_2 = timings_1.copy()
+    for (i,tm) in enumerate( new_timings_2 ):
+        _idx, new_start, new_end = fold(i)
+        ntm = tm.copy()
+        ntm['start_time'] = new_start
+        ntm['ssl'] = -1
+        ntm['dns'] = -1
+        ntm['connect'] = -1
+        ntm['blocked'] = timings_2[i]['blocked']
+        new_timings_2[i] = ntm
+
+        # send, wait and recv times were already copied
+        # from timings_1. Now it is just a matter of enhancing
+        # with the absolute points
+        calc_absolute_points(new_start, ntm)
+
+    for (i,entry) in enumerate(result):
+        entry['http2'] = new_timings_2[i]
+
+
     new_json['times'] = result
     new_json['effectiveness'] = settings.EFFECTIVENESS(r1, r2, r1r2)
-
     new_json['max_time'] = max(general_times) + max(start_times)
 
     return new_json
@@ -283,6 +312,7 @@ def calc_absolute_points(starts, t):
     if t['ssl'] != -1:
         start_receiving += t['ssl']
 
+    t['starts_sending'] = start_receiving
     start_receiving += t['send']
     start_receiving += t['wait']
     t['starts_receiving'] = start_receiving
@@ -295,7 +325,7 @@ def search_gaps(i, others_list):
     best_candidate_idx = None
     best_candidate_d = 1e9
     for (j,o) in enumerate(others_list):
-        d = e['starts'] - o['ends']
+        d = e['start_time'] - o['ends']
         if o['ends'] > e['start_time'] > o['starts_receiving']:
             assert( d < 0 )
             if best_candidate_d < 0:
@@ -308,7 +338,7 @@ def search_gaps(i, others_list):
                     best_candidate_idx = j
             # if old_d is > 0, do not replace it, unless...
             # ... we need to further refine this....
-            elif -d < ( o['ends'] - o['starts'] )/4. :
+            elif -d < ( o['ends'] - o['start_time'] )/4. :
                 best_candidate_d = d
                 best_candidate_idx = j
             continue
@@ -318,6 +348,32 @@ def search_gaps(i, others_list):
                 best_candidate_idx = j
             continue
     return (best_candidate_idx, i)
+
+
+def calc_new_begin_ends(timings_1, timings_2,
+            prev,
+            successor_idx):
+    # Gaps will be taken from timings2, since they don't include probably
+    # confusing blocked times, but absolute durations will  be taken from
+    # timings_1
+    (predecessor_idx, predecessor_begins, predecessor_tail) = prev
+
+    pred_timings_2_ends = timings_2[predecessor_idx]['ends'] if predecessor_idx is not None else 0
+    succ_timings_1 = timings_1[successor_idx]
+    succ_timings_2 = timings_2[successor_idx]
+    # Take the gap from the timings of HTTP/2
+    gap_to_predecessor = succ_timings_2['starts_sending'] - pred_timings_2_ends
+    # This is where the simulated request will start
+    successor_begins = gap_to_predecessor + predecessor_tail
+
+    # Now we use the very timings from 1 for the 'send', 'wait' and 'receive'
+    # parts
+    succ_tail = successor_begins + \
+        succ_timings_1['send'] \
+        + succ_timings_1['wait'] \
+        + succ_timings_1['receive']
+
+    return (successor_idx, successor_begins, succ_tail)
 
 
 def url2showform(url):
@@ -358,6 +414,34 @@ def url2showform(url):
               )
 
     }
+
+
+class PropagateF(object):
+    def __init__(self, f, unit, tree_list):
+        self.f = f
+        self.trigger2origin = {}
+        for (origin,trigger) in tree_list:
+            self.trigger2origin[trigger] = origin
+        self.node2f = {}
+        self.unit = unit
+
+    def __call__(self, node):
+        # Like an OOP fold
+        if node is None:
+            return self.unit
+        else:
+            x = self.node2f.get(node)
+            if x is not None:
+                return x
+            else:
+                predecessor = self.trigger2origin[node]
+                v_for_predecessor = self(predecessor)
+                v = self.f(v_for_predecessor, node)
+                self.node2f[node] = v
+                return v
+
+    def data_for_node(self, node):
+        return self.node2f[node]
 
 
 def fit_times(json_times):
