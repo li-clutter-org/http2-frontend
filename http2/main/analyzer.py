@@ -43,21 +43,27 @@ def process_har_file(harfile_path):
 
         content_type = trim_content_type( content_type )
 
-        del entry['response']
-        del entry['cache']
-        try:
-            del entry['connection']
-        except KeyError:
-            pass
-        del entry['pageref']
+        del_entries_if_possible(
+            entry,
+            [
+                'response',
+                'cache',
+                'connection',
+                'pageref',
+            ]
+        )
 
-        del entry['request']['method']
-        del entry['request']['httpVersion']
-        del entry['request']['cookies']
-        del entry['request']['headers']
-        del entry['request']['queryString']
-        # del entry['request']['headersSize']
-        # del entry['request']['bodySize']
+        del_entries_if_possible(
+            entry['request'],
+            [
+                'method',
+                'httpVersion',
+                'cookies',
+                'headers',
+                'queryString'
+            ]
+        )
+
 
         # Removing weird URLs, for now allowing just the ones that start with http
         if not str(entry['request']['url']).startswith('http'):
@@ -70,6 +76,12 @@ def process_har_file(harfile_path):
     json_data['har']['entries'] = clean_entries
 
     return json_data
+
+
+def del_entries_if_possible(entry, titles):
+    for t in titles:
+        if t in entry:
+            del entry[t]
 
 
 def generate_hash_id(url):
@@ -211,6 +223,9 @@ def format_json(http1_json, http2_json):
                 "start_time": start_time,
             }
         http1_dict.update(entry['timings'])
+
+        # print("BBhttp-1", http1_dict['blocked'])
+
         calc_absolute_points(start_time, http1_dict)
         # Calling this twice, but once should suffice...
         item['content_type'] = trim_content_type(entry['content_type'])
