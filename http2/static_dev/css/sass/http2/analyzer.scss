@@ -125,7 +125,7 @@
   flex-basis: 0;
   font-weight: bold;
   padding-bottom: 5px;
-
+  color: #9B9B9B;
 }
 
 // TODO: Choose the proper color
@@ -346,7 +346,12 @@ rect.handle {
   fill: white;
 }
 
-
+@mixin truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 $aligning-padding: 10px;
 
@@ -380,10 +385,13 @@ $aligning-padding: 10px;
       color: #008ab0;
       font-weight: bold;
       font-size: 17px;
+
+      @include truncate;
     }
 
     & .text-other  {
       font-size: $tip-elements-font-size;
+      @include truncate;
     }
   }
 
