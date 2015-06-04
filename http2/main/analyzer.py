@@ -179,11 +179,11 @@ def format_json(http1_json, http2_json):
     http1_entries = http1_json['har']['entries']
     http2_entries = http2_json['har']['entries']
     http1_start_times = [
-        dt.strptime(tmp_entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f")
+        parse_started_date_time(tmp_entry)
         for tmp_entry in http1_entries
     ]
     http2_start_times = [
-        dt.strptime(tmp_entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f")
+        parse_started_date_time(tmp_entry)
         for tmp_entry in http2_entries
     ]
     http1_global_start_time = min(http1_start_times)
@@ -201,9 +201,11 @@ def format_json(http1_json, http2_json):
             continue
         show_form = url2showform(got_url)
         item.update(show_form)
-        print("** ", entry)
-        start_time = (dt.strptime(entry['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f")
-            - http1_global_start_time).total_seconds()*1000.0
+        start_time = (
+            parse_started_date_time(entry)
+            -
+            http1_global_start_time
+            ).total_seconds()*1000.0
         http1_dict =  {
                 "start_time": start_time,
             }
@@ -229,7 +231,7 @@ def format_json(http1_json, http2_json):
             if entry['begin'] == show_form['begin'] and entry['end'] == show_form['end']:
                 r1r2 += 1
                 found = True
-                start_time = (dt.strptime(item['startedDateTime'][:-1], "%Y-%m-%dT%H:%M:%S.%f") - http2_global_start_time).total_seconds()*1000
+                start_time = ( parse_started_date_time(item) - http2_global_start_time).total_seconds()*1000
                 start_times.append(start_time)
                 http2dict = {
                     "start_time": start_time,
@@ -249,6 +251,7 @@ def format_json(http1_json, http2_json):
         if not isfake(entry['http1']) and not isfake(entry['http2']):
             timings_1.append(entry['http1'])
             timings_2.append(entry['http2'])
+            print("timings-1 to add: ", entry['http1'])
             result.append(entry)
         else:
             print("Discarded entry for url ", entry)
@@ -311,8 +314,16 @@ def norm(v):
     else:
         return v
 
+
 def isfake(entry):
     return entry is None
+
+
+def parse_started_date_time(at_entry):
+    s = at_entry['startedDateTime']
+    if s.endswith('Z'):
+        s = s[:-1]
+    return dt.strptime(s, "%Y-%m-%dT%H:%M:%S.%f")
 
 
 def calc_absolute_points(starts, t):
