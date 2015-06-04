@@ -44,7 +44,7 @@
                     success(function(data, status, headers, config) {
                         // Updating the scope, and stopping the polling properly if the response is a success.
                         $scope.analysis.data = data;
-                        $rootScope.analysis = $scope.analysis
+                        //$rootScope.analysis = $scope.analysis
                         if($scope.analysis.data.state === 'done' || $scope.analysis.data.state === 'failed' || $scope.analysis.data.state === 'queuefull'){
                             stopInterval();
                         };
@@ -79,7 +79,7 @@
                             'base_url': base_url
                         }
                     }
-                    // We just arrived here, so let's be sure we 
+                    // We just arrived here, so let's be sure we
                     // fetch the rest of the data from somewhere.
                     getAnalysisState(analysis_id);
 
