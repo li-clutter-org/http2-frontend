@@ -206,6 +206,7 @@ def format_json(http1_json, http2_json):
                 "start_time": start_time,
             }
         http1_dict.update(entry['timings'])
+        calc_absolute_points(start_time, http1_dict)
         # Calling this twice, but once should suffice...
         item['content_type'] = trim_content_type(entry['content_type'])
         item.update({
@@ -233,15 +234,27 @@ def format_json(http1_json, http2_json):
                     "general_time": item['time']
                 }
                 http2dict.update({k:norm(v) for (k,v) in item["timings"].items()})
+                calc_absolute_points(start_time, http2dict)
                 entry['http2'] = http2dict
             general_times.append(item['time'])
         if not found:
             entry['http2'] = None
 
     result = []
+    timings_1 = []
+    timings_2 = []
     for entry in new_json['times']:
         if not isfake(entry['http1']) and not isfake(entry['http2']):
+            timings_1.append(entry['http1'])
+            timings_2.append(entry['http2'])
             result.append(entry)
+
+    # Use the timings 'http2' list to derive a dependency tree for
+    # resource loads. The list below will contain pairs (predecessor_cause, triggered)
+    # pairs.
+    dependency_tree_as_list = []
+    for (i,_) in enumerate(timings_2):
+        dependency_tree_as_list.append( search_gaps(i,timings_2) )
 
     new_json['times'] = result
     new_json['effectiveness'] = settings.EFFECTIVENESS(r1, r2, r1r2)
@@ -259,6 +272,52 @@ def norm(v):
 
 def isfake(entry):
     return entry is None
+
+
+def calc_absolute_points(starts, t):
+    start_receiving = starts
+    if t['dns'] != -1:
+        start_receiving += t['dns']
+    if t['connect'] != -1:
+        start_receiving += t['connect']
+    if t['ssl'] != -1:
+        start_receiving += t['ssl']
+
+    start_receiving += t['send']
+    start_receiving += t['wait']
+    t['starts_receiving'] = start_receiving
+    t['ends'] = start_receiving + t['receive']
+
+
+def search_gaps(i, others_list):
+    """ Returns a pair (predecessor,i)"""
+    e = others_list[i]
+    best_candidate_idx = None
+    best_candidate_d = 1e9
+    for (j,o) in enumerate(others_list):
+        d = e['starts'] - o['ends']
+        if o['ends'] > e['start_time'] > o['starts_receiving']:
+            assert( d < 0 )
+            if best_candidate_d < 0:
+                # The one closer to the tail wins, in this situation
+                # where both are overlapping d's
+                if d > best_candidate_d:
+                    # ^-- for the comparison above, we are talking about negative
+                    #     numbers
+                    best_candidate_d = d
+                    best_candidate_idx = j
+            # if old_d is > 0, do not replace it, unless...
+            # ... we need to further refine this....
+            elif -d < ( o['ends'] - o['starts'] )/4. :
+                best_candidate_d = d
+                best_candidate_idx = j
+            continue
+        if d > 0 :
+            if d < best_candidate_d :
+                best_candidate_d = d
+                best_candidate_idx = j
+            continue
+    return (best_candidate_idx, i)
 
 
 def url2showform(url):
