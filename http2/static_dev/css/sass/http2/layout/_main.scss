@@ -539,8 +539,16 @@ body{
     -moz-box-shadow: 1px 1px 3px 3px darkgreen;
     -webkit-box-shadow: 1px 1px 3px 3px darkgreen;
     box-shadow: 1px 1px 3px 3px darkgreen;
-    -webkit-transition: all linear 2s;
-    transition: all linear 2s;
+    opacity: 1;
+    max-height: auto;
+    overflow: hidden;
+    -webkit-transition: all linear 1s;
+    transition: all linear 1s;
+    }
+    span.url.ng-hide {
+    opacity: 0;
+    max-height: 0px !important;
+    display: block !important;
     }
 }
 
