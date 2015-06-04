@@ -166,7 +166,7 @@ def configure_postgresql_newrelic_plugin():
 def grunt():
     "Executes Grunt"
     with cd(EC2_REMOTE_DIR):
-        run("grunt build")
+        run("grunt default")
 
 
 def install_grunt():

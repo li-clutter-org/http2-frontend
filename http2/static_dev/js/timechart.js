@@ -115,6 +115,9 @@ zunzun.timechart = function (data) {
                 i++;
             }
         }
+        var last_index = max_time_tentative.length - 1;
+        if ( i > last_index)
+            i = last_index;
         return i;
     }
 
