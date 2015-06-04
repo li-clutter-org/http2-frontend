@@ -3,7 +3,8 @@ import json
 import re
 from urllib.parse import *
 import hashlib
-from datetime import datetime as dt
+import datetime as dt
+from datetime import datetime as datetime
 from functools import partial
 
 from django.conf import settings
@@ -217,6 +218,8 @@ def format_json(http1_json, http2_json):
             'http1': http1_dict
         })
         new_json['times'].append(item)
+
+        start_times.append(start_time)
         general_times.append(entry['time'])
 
     # Add http2 entries
@@ -232,7 +235,10 @@ def format_json(http1_json, http2_json):
                 r1r2 += 1
                 found = True
                 start_time = ( parse_started_date_time(item) - http2_global_start_time).total_seconds()*1000
+
                 start_times.append(start_time)
+                general_times.append(item['time'])
+
                 http2dict = {
                     "start_time": start_time,
                     "general_time": item['time']
@@ -240,7 +246,7 @@ def format_json(http1_json, http2_json):
                 http2dict.update({k:norm(v) for (k,v) in item["timings"].items()})
                 calc_absolute_points(start_time, http2dict)
                 entry['http2'] = http2dict
-            general_times.append(item['time'])
+
         if not found:
             entry['http2'] = None
 
@@ -276,7 +282,8 @@ def format_json(http1_json, http2_json):
     for (i,tm) in enumerate( new_timings_2 ):
         _idx, new_start, new_end = fold(i)
         ntm = tm.copy()
-        ntm['start_time'] = new_start
+        if i > 0:
+            ntm['start_time'] = new_start
 
         # There is not much we can do to get a precise simulation of
         # what the sll times would be, but the others we can borrow
@@ -303,7 +310,7 @@ def format_json(http1_json, http2_json):
 
     new_json['times'] = result
     new_json['effectiveness'] = settings.EFFECTIVENESS(r1, r2, r1r2)
-    new_json['max_time'] = max(general_times) + max(start_times)
+    new_json['max_time'] = max( gi + si for (gi,si) in zip(general_times,start_times) )
 
     return new_json
 
@@ -323,8 +330,16 @@ def parse_started_date_time(at_entry):
     s = at_entry['startedDateTime']
     if s.endswith('Z'):
         s = s[:-1]
-    return dt.strptime(s, "%Y-%m-%dT%H:%M:%S.%f")
-
+    exact_stamp = datetime.strptime(s, "%Y-%m-%dT%H:%M:%S.%f")
+    timings = at_entry['timings']
+    # Now, if necessary, substract connect, ssl and dns times
+    if timings['connect'] != -1:
+        exact_stamp -= dt.timedelta(milliseconds=timings['connect'])
+    if timings['ssl'] != -1:
+        exact_stamp -= dt.timedelta(milliseconds=timings['ssl'])
+    if timings['dns'] != -1:
+        exact_stamp -= dt.timedelta(milliseconds=timings['dns'])
+    return exact_stamp
 
 def calc_absolute_points(starts, t):
     start_receiving = starts
@@ -386,10 +401,10 @@ def calc_new_begin_ends(timings_1, timings_2,
     succ_timings_1 = timings_1[successor_idx]
     succ_timings_2 = timings_2[successor_idx]
     # Take the gap from the timings of HTTP/2
-    gap_to_predecessor_1 = succ_timings_1['starts_sending'] - pred_timings_1_ends
+    # gap_to_predecessor_1 = succ_timings_1['starts_sending'] - pred_timings_1_ends
     gap_to_predecessor_2 = succ_timings_2['starts_sending'] - pred_timings_2_ends
-    gap_to_predecessor = min(gap_to_predecessor_1, gap_to_predecessor_2)
-    print("fsfs ", predecessor_idx, successor_idx, gap_to_predecessor )
+    gap_to_predecessor = gap_to_predecessor_2
+    print("fsfs ", predecessor_idx, successor_idx, predecessor_tail, gap_to_predecessor )
     # This is where the simulated request will start
     successor_begins = gap_to_predecessor + predecessor_tail
 
@@ -398,7 +413,10 @@ def calc_new_begin_ends(timings_1, timings_2,
     succ_tail = successor_begins + \
         succ_timings_1['send'] \
         + succ_timings_1['wait'] \
-        + succ_timings_1['receive']
+        + succ_timings_1['receive'] \
+        + ( succ_timings_1['connect'] if succ_timings_1['connect'] != -1 else 0 ) \
+        + ( succ_timings_1['ssl'] if succ_timings_1['ssl'] != 1 else 0) \
+        + ( succ_timings_1['dns'] if succ_timings_1['dns'] != 1 else 0)
 
     return (successor_idx, successor_begins, succ_tail)
 
