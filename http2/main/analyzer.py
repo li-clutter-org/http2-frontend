@@ -257,10 +257,11 @@ def format_json(http1_json, http2_json):
         if not isfake(entry['http1']) and not isfake(entry['http2']):
             timings_1.append(entry['http1'])
             timings_2.append(entry['http2'])
-            print("timings-1 to add: ", entry['http1'])
+            # print("timings-1 to add: ", entry['http1'])
             result.append(entry)
         else:
-            print("Discarded entry for url ", entry)
+            # print("Discarded entry for url ", entry)
+            pass
 
     # Use the timings 'http2' list to derive a dependency tree for
     # resource loads. The list below will contain pairs (predecessor_cause, triggered)
@@ -269,7 +270,7 @@ def format_json(http1_json, http2_json):
     for (i,_) in enumerate(timings_2):
         dependency_tree_as_list.append( search_gaps(i,timings_2) )
 
-    print("HORROR: ", dependency_tree_as_list)
+    # print("HORROR: ", dependency_tree_as_list)
 
     # Let's create a fold object
     fold = PropagateF(
@@ -404,7 +405,7 @@ def calc_new_begin_ends(timings_1, timings_2,
     # gap_to_predecessor_1 = succ_timings_1['starts_sending'] - pred_timings_1_ends
     gap_to_predecessor_2 = succ_timings_2['starts_sending'] - pred_timings_2_ends
     gap_to_predecessor = gap_to_predecessor_2
-    print("fsfs ", predecessor_idx, successor_idx, predecessor_tail, gap_to_predecessor )
+    # print("fsfs ", predecessor_idx, successor_idx, predecessor_tail, gap_to_predecessor )
     # This is where the simulated request will start
     successor_begins = gap_to_predecessor + predecessor_tail
 
