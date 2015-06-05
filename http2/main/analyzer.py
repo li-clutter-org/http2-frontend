@@ -105,19 +105,17 @@ def generate_hash_id(url):
     return (hashlib.md5((settings.HASH_ID_SECRET_SALT + transcoded_url).encode('ascii')).hexdigest())[:10]
 
 
-def get_har_data_as_json(result_dir):
+def get_har_data_as_json(http1_har_file_path, http2_har_file_path):
     """
     Will:
         - seek for http1 and http2 har files inside result_dir,
         - process the .har file to get just the data we need from the files,
 
-    :param result_dir: the dir where the .har files are stored.
+    :param http1_har_file_path: the dir where the http1 .har file.
+    :param http1_har_file_path: the dir where the http2 .har file.
     :return: json data of the .har files with the data we need.
     """
-    http1_har_file_path = os.path.join(result_dir, settings.HTTP1_HAR_FILENAME)
     http1_json_data = process_har_file(http1_har_file_path)
-
-    http2_har_file_path = os.path.join(result_dir, settings.HTTP2_HAR_FILENAME)
     http2_json_data = process_har_file(http2_har_file_path)
 
     return http1_json_data, http2_json_data
@@ -531,3 +529,18 @@ def normalize_headers(headers_as_in_har):
         result[header_name] = small_d['value']
 
     return result
+
+
+def get_analysis_progress(result_dir):
+    """
+
+    :param result_dir: the dir of the analysis according with the analysis_id
+    :return: a dict with the progress info
+    """
+    progress_file_path = os.path.join(
+        result_dir,
+        settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME
+    )
+    progress_info = open(progress_file_path).read()
+
+    return {'progress': progress_info}  # for now

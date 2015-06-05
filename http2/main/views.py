@@ -12,6 +12,7 @@ from rest_framework.response import Response
 
 from .analyzer import (
     get_har_data_as_json,
+    get_analysis_progress,
 )
 from .models import AnalysisInfo
 from .serializers import AnalysisInfoSerializer
@@ -138,13 +139,23 @@ class GetAnalysisState(APIView):
                             settings.ANALYSIS_RESULTS_DONE_FILE_NAME
                         )
                 ):
-                    http1_json_data, http2_json_data = get_har_data_as_json(
-                        result_dir)
+                    http1_har_file_path = os.path.join(result_dir, settings.HTTP1_HAR_FILENAME)
+                    http2_har_file_path = os.path.join(result_dir, settings.HTTP2_HAR_FILENAME)
+                    # Checking if the .har files are both on the dir.
+                    if path.exists(http1_har_file_path) and path.exists(http2_har_file_path):
+                        http1_json_data, http2_json_data = get_har_data_as_json(
+                            http1_har_file_path,
+                            http2_har_file_path
+                        )
 
-                    analysis.state = AnalysisInfo.STATE_DONE
-                    analysis.http1_json_data = http1_json_data
-                    analysis.http2_json_data = http2_json_data
-                    analysis.when_done = datetime.now()
+                        analysis.state = AnalysisInfo.STATE_DONE
+                        analysis.http1_json_data = http1_json_data
+                        analysis.http2_json_data = http2_json_data
+                        analysis.when_done = datetime.now()
+                    # The files are not still there, so let's say that there are in progress.
+                    else:
+                        progress = get_analysis_progress(result_dir)
+                        analysis.state = AnalysisInfo.STATE_PROCESSING
                 elif path.exists(
                         path.join(
                             result_dir,
@@ -158,13 +169,9 @@ class GetAnalysisState(APIView):
                             settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME
                         )
                 ):
-                    progress_file_path = path.join(
-                        result_dir,
-                        settings.ANALYSIS_RESULTS_PROCESSING_FILE_NAME
-                    )
-                    progress_info = open(progress_file_path).read()
-                    progress = {'progress': progress_info}  # for now
+                    progress = get_analysis_progress(result_dir)
                     analysis.state = AnalysisInfo.STATE_PROCESSING
+
                 else:
                     # TODO what to do in this case?
                     # Returning the analysis_info data for now, but we should check
