@@ -104,7 +104,6 @@ zunzun.timechart = function (data) {
         /*Arrays with actual grid sizes*/
         major_grid = null,
         minor_grid = null
-        ;
     ;
 
     function resizing_timechart(max_time)
