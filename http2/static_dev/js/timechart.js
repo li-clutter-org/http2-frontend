@@ -81,7 +81,7 @@ zunzun.timechart = function (data) {
             "application/octet-stream": "/static/images/icon5.png",
 
             "application/x-pointplus": "/static/images/icon6.png",
-            "text/css": "/static/images/icon6.png", },
+            "text/css": "/static/images/icon6.png" },
 
         bar_height = 120, /* Height of each line */
         serie_bar_factor = 0.2,
