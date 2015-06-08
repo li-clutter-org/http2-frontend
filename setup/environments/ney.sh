@@ -11,3 +11,6 @@ export PYTHONPATH="$HTTP2_LOAD_IMPACT__PROJECT_DIR/http2"
 
 export HTTP2_LOAD_IMPACT__REMOTE_RESULTS_PATH="/home/ubuntu/mimic/hars"
 export HTTP2_LOAD_IMPACT__SSH_KEY="/home/very/.ssh/zunzun_ec2_keypair_0.pem"
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8

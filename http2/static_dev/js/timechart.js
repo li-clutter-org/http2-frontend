@@ -13,8 +13,6 @@
 window.zunzun = window.zunzun || {};
 zunzun.timechart = function (data) {
 
-
-
     var
         img_dicc = { "image/jpg":"/static/images/icon1.png" ,
             "image/png": "/static/images/icon1.png" ,
@@ -81,15 +79,14 @@ zunzun.timechart = function (data) {
             "application/octet-stream": "/static/images/icon5.png",
 
             "application/x-pointplus": "/static/images/icon6.png",
-            "text/css": "/static/images/icon6.png", },
+            "text/css": "/static/images/icon6.png" },
 
-        bar_height = 120, /* Height of each line */
+        bar_height = 90, /* Height of each line */
         serie_bar_factor = 0.2,
         series_height = bar_height * serie_bar_factor, /* Height of each time series */
         major_series = ["http1", "http2"],
         distribute_space = (1.0-2*serie_bar_factor)/3. * bar_height,
         major_serie_y = {"http1": distribute_space, "http2": 2*distribute_space+series_height},
-        legend_height = 130, /* Height of the */
         timing_variables = ["blocked", "dns", "connect", "ssl", "send", "wait", "receive"],
         MAJOR_GRID_LINE_COLOR = "#c0c0c0",
         MINOR_GRID_LINE_COLOR = "#dfdfdf",
@@ -104,7 +101,6 @@ zunzun.timechart = function (data) {
         /*Arrays with actual grid sizes*/
         major_grid = null,
         minor_grid = null
-        ;
     ;
 
     function resizing_timechart(max_time)
@@ -144,110 +140,6 @@ zunzun.timechart = function (data) {
             c += major_separation;
         }
         major_grid.pop();
-    }
-
-    function format_tooltip_text(amount){ return amount.toFixed(2) + 'ms';}
-
-    function put_legend_in_diagram() {
-        this.append("svg").attr("class", "legend");
-        var legend = d3.select(".legend")
-            .attr("width", vertical_separator + width)
-            .attr("height", legend_height);
-        var legend_series = legend.selectAll("g")
-            .data(legend_data.series)
-            .enter().append("g")
-            .attr("transform", function (d, i) {
-                return "translate(" + d.x + ",0)";
-            }
-        );
-        legend_series.append("rect")
-            .attr("class", function (d) {
-                return d.class[0]
-            })
-            .attr("x", function (d) {
-                return d.x;
-            })
-            .attr("y", function (d) {
-                return d.y;
-            })
-            .attr("width", function (d) {
-                return d.size;
-            })
-            .attr("height", series_height);
-        legend_series.append("rect")
-            .attr("class", function (d) {
-                return d.class[1]
-            })
-            .attr("x", function (d) {
-                return d.x + d.size;
-            })
-            .attr("y", function (d) {
-                return d.y;
-            })
-            .attr("width", function (d) {
-                return d.size;
-            })
-            .attr("height", series_height);
-        legend_series.append("rect")
-            .attr("class", function (d) {
-                return d.class[2]
-            })
-            .attr("x", function (d) {
-                return d.x + d.size + d.size;
-            })
-            .attr("y", function (d) {
-                return d.y;
-            })
-            .attr("width", function (d) {
-                return d.size;
-            })
-            .attr("height", series_height);
-
-        legend_series.append("text")
-            .attr("x", function (d) {
-                return d.x + d.size + d.size + d.size + 40;
-            })
-            .attr("y", function (d) {
-                return d.y + 8;
-            })
-            .text(function (d) {
-                return d.text;
-            });
-
-        legend.selectAll("ag").data(legend_data.labels)
-            .enter().append("text")
-            .attr("x", function (d) {
-                return d.x;
-            })
-            .attr("y", 10)
-            .text(function (d) {
-                return d.label;
-            });
-
-        legend.append("text")
-            .attr("x", vertical_separator)
-            .attr("y", 25)
-            .text("Effectiveness: " + data.effectiveness);
-
-        legend.append("text")
-            .attr("x", total_width)
-            .attr("y", 70)
-            .text("Effectiveness = 1 - 2 * ( Max(R1,R2) - R1R2 ) / (R1 + R2)");
-
-        legend.append("text")
-            .attr("x", total_width)
-            .attr("y", 85)
-            .text("R1: number of HTTP/1.1 resources");
-
-        legend.append("text")
-            .attr("x", total_width)
-            .attr("y", 100)
-            .text("R2: number of HTTP/2 resources");
-
-        legend.append("text")
-            .attr("x", total_width)
-            .attr("y", 115)
-            .text("R1R2: number of common resources");
     }
 
     function put_rulers(selection){

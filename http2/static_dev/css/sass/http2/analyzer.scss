@@ -1,5 +1,12 @@
+
+// Constants
+
+$chart-timing-div-height: 90px;
+
+// Rules
+
 .top-content {
-  with: 100%;
+  width: 100%;
   //height: 620px;
   background-color: #6bad2c;
 }
@@ -175,7 +182,7 @@
 .chart-timing-div{
   // Make it a container block
   position: relative;
-  height: 120px;
+  height: $chart-timing-div-height;
 }
 
 .ruler-container {

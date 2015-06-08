@@ -49,7 +49,7 @@ def findout_instance_ips():
                 "--filter",
                 "Name=tag:Name,Values={0}".format(instance_name)
             ])
-        obj = json.loads(json_description)
+        obj = json.loads(json_description.decode('utf8'))
         network_interfaces = obj["Reservations"][0]["Instances"][0]["NetworkInterfaces"]
         for ni in network_interfaces:
             if "Association" in ni:

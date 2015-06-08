@@ -12,8 +12,8 @@ else
     source  "$HTTP2_LOAD_IMPACT__PROJECT_DIR/localenv"
 fi
 
-if [ -f "$HTTP2_LOAD_IMPACT__PROJECT_DIR/venv/bin/activate" ] ; then
-    source "$HTTP2_LOAD_IMPACT__PROJECT_DIR/venv/bin/activate"
+if [ -f "$HTTP2_LOAD_IMPACT__PROJECT_DIR/../envpython3/bin/activate" ] ; then
+    source "$HTTP2_LOAD_IMPACT__PROJECT_DIR/../envpython3/bin/activate"
 else
     >&2 echo "Ensure that we reach this point with a valid HTTP2_LOAD_IMPACT__PROJECT_DIR environment variable"
 fi
