@@ -18,6 +18,7 @@ def trim_content_type(content_type):
     else:
         return content_type
 
+
 def process_har_file(harfile_path):
     """
     Will process the .har file, and remove the unneeded info.
@@ -63,7 +64,6 @@ def process_har_file(harfile_path):
                 'queryString'
             ]
         )
-
 
         # Removing weird URLs, for now allowing just the ones that start with http
         if not str(entry['request']['url']).startswith('http'):
