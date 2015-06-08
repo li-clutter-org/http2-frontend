@@ -89,7 +89,6 @@ zunzun.timechart = function (data) {
         major_series = ["http1", "http2"],
         distribute_space = (1.0-2*serie_bar_factor)/3. * bar_height,
         major_serie_y = {"http1": distribute_space, "http2": 2*distribute_space+series_height},
-        legend_height = 130, /* Height of the */
         timing_variables = ["blocked", "dns", "connect", "ssl", "send", "wait", "receive"],
         MAJOR_GRID_LINE_COLOR = "#c0c0c0",
         MINOR_GRID_LINE_COLOR = "#dfdfdf",
