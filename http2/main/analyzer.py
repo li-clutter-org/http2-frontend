@@ -459,6 +459,9 @@ def url2showform(url):
         first_names = "/".join(splitted_pth[:-2])
         last_name = "/" + splitted_pth[-2] + "/"
 
+    if last_name == '//':
+        last_name = '/'
+
     return {
         "begin":
             parsed_form.netloc + first_names,
