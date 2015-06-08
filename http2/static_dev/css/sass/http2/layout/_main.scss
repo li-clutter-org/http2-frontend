@@ -546,7 +546,7 @@ body{
     -webkit-transition: all linear 1s;
     transition: all linear 1s;
     }
-    span.url.ng-hide {
+    input.url.ng-hide {
     opacity: 0;
     max-height: 0px !important;
     display: block !important;
