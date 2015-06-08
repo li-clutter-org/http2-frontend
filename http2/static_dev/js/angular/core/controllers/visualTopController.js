@@ -15,26 +15,29 @@ angular.module('http2')
         , '$state'
         , '$location'
         , '$stateParams'
+        , '$timeout'
         , 'analyzerService'
 
-        , function($scope, $state, $location, $stateParams, analyzerService) {
+        , function($scope, $state, $location, $stateParams, $timeout, analyzerService) {
 
             $scope.base_url = $location.protocol() + '://' + $location.host();
             $scope.analysis_id = $stateParams.analysis_id;
 
-            setTimeout(function(){
-                $scope.$apply(function(){
-                    $scope.http1_time = analyzerService.data.json.max_time;
-                    $scope.http2_time = analyzerService.data.json.max_time;
-                    $scope.url_analyzed = analyzerService.data.json.url_analyzed;
-                    $scope.effectiveness =  analyzerService.data.json.effectiveness;
-
-                });
-
-            }, 2000);
-
-            $scope.show_hide_url = function() {
-                 $scope.url_visible = !$scope.url_visible;
+            $scope.noShowText = function(){
+                $scope.blur=true;
+                $scope.focus=false;
+                $scope.url_visible = false;
             }
+
+            function noChange() {
+                if ($scope.focus==false && $scope.url_visible==true){
+                    $scope.url_visible = false;
+                }
+            }
+
+            $scope.hoverIn = function(){
+                $scope.url_visible = true;
+                $timeout(noChange, 20000);
+            };
 
         }]);

@@ -528,7 +528,7 @@ body{
 			}
 		}
 	}
-	span.url {
+	input.url {
     background: #fff none repeat scroll 0 0;
     border-radius: 5px;
     border-color: #fefefe;
@@ -541,6 +541,7 @@ body{
     box-shadow: 1px 1px 3px 3px darkgreen;
     opacity: 1;
     max-height: auto;
+    width: 375px;
     overflow: hidden;
     -webkit-transition: all linear 1s;
     transition: all linear 1s;
