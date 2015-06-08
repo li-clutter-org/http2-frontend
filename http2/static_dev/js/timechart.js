@@ -13,8 +13,6 @@
 window.zunzun = window.zunzun || {};
 zunzun.timechart = function (data) {
 
-
-
     var
         img_dicc = { "image/jpg":"/static/images/icon1.png" ,
             "image/png": "/static/images/icon1.png" ,
@@ -83,7 +81,7 @@ zunzun.timechart = function (data) {
             "application/x-pointplus": "/static/images/icon6.png",
             "text/css": "/static/images/icon6.png" },
 
-        bar_height = 120, /* Height of each line */
+        bar_height = 90, /* Height of each line */
         serie_bar_factor = 0.2,
         series_height = bar_height * serie_bar_factor, /* Height of each time series */
         major_series = ["http1", "http2"],
