@@ -22,14 +22,16 @@
         , function($scope, $stateParams, $location, $rootScope, $interval, analyzerService)
         {
 
-            var base_url = $location.protocol() + '://' + $location.host();
+            var base_url = $location.protocol() + '://' + $location.host(),
+                analysis_id = null;
 
             var stopInterval = function() {
                 $interval.cancel($scope.interval);
                 $scope.interval = null;
             };
 
-            var startInterval = function(){
+            var startInterval = function() {
+                check_scope_analysis_data();
                 var analysis_data = $scope.analysis.data;
                 stopInterval();
 
@@ -44,7 +46,7 @@
                     success(function(data, status, headers, config) {
                         // Updating the scope, and stopping the polling properly if the response is a success.
                         $scope.analysis.data = data;
-                        //$rootScope.analysis = $scope.analysis
+                        $rootScope.analysis = $scope.analysis;
                         if($scope.analysis.data.state === 'done' || $scope.analysis.data.state === 'failed' || $scope.analysis.data.state === 'queuefull'){
                             stopInterval();
                         };
@@ -67,25 +69,29 @@
 
             $scope.$on('$stateChangeSuccess', function(e) {
                 stopInterval();
-                var analysis_id = $stateParams.analysis_id;
+                analysis_id = $stateParams.analysis_id;
 
                 if (analysis_id) {
-                    if(!$scope.analysis) {
-                        $scope.analysis = {
-                            'data': {
-                                'analysis_id': analysis_id,
-                                'state': 'processing'
-                            },
-                            'base_url': base_url
-                        }
-                    }
+                    $rootScope.analysis = {};
+                    check_scope_analysis_data();
                     // We just arrived here, so let's be sure we
                     // fetch the rest of the data from somewhere.
                     getAnalysisState(analysis_id);
-
                     startInterval();
                 }
             });
+
+            var check_scope_analysis_data = function() {
+                if($scope.analysis || !$scope.analysis.data) {
+                    $scope.analysis = {
+                        'data': {
+                            'analysis_id': analysis_id,
+                            'state': 'processing'
+                        },
+                        'base_url': base_url
+                    }
+                }
+            }
             $scope.$on('$destroy', stopInterval);
 
             $scope.$watch('analysis.data.analysis_id', function(newValue, oldValue) {

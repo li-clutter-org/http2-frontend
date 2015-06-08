@@ -12,11 +12,11 @@
                 <div class="block">
                     <div class="col">
                         <div class="wrap">
-                            <div ng-hide="http1_time" class="text">
+                            <div ng-hide="analysis.data.json.max_time" class="text">
                                 <div>Loading...</div>
                             </div>
-                            <div ng-show="http1_time" class="text">
-                                <strong ng-model="http1_time" class="time">{[{  http1_time / 1000 | number:2 }]} sec</strong>
+                            <div ng-show="analysis.data.json.max_time" class="text">
+                                <strong ng-model="http1_time" class="time">{[{  analysis.data.json.max_time / 1000 | number:2 }]} sec</strong>
                                 <span class="txt">Collecting</span>
                             </div>
                             <div class="circle">
@@ -26,22 +26,22 @@
                         </div>
                     </div>
                     <div class="progress-box">
-                        <div ng-hide="effectiveness" class="text">
+                        <div ng-hide="analysis.data.json.effectiveness" class="text">
                             <div>Loading...</div>
                         </div>
-                        <div ng-show="effectiveness"><strong>{[{  effectiveness * 100 | number:0 }]} %</strong> more efficient*</div>
+                        <div ng-show="analysis.data.json.effectiveness"><strong>{[{  analysis.data.json.effectiveness * 100 | number:0 }]} %</strong> more efficient*</div>
                     </div>
                     <div class="col">
                         <div class="wrap">
-                            <div ng-hide="http2_time" class="text">
+                            <div ng-hide="analysis.data.json.max_time" class="text">
                                 <div>Loading...</div>
                             </div>
                             <div class="circle add">
                                 <span class="arrow">&nbsp;</span>
                                 <span class="medal">&nbsp;</span>
                             </div>
-                            <div ng-show="http2_time" class="text">
-                                <strong class="time">{[{  http2_time / 1000 | number:2 }]} sec</strong>
+                            <div ng-show="analysis.data.json.max_time" class="text">
+                                <strong class="time">{[{  analysis.data.json.max_time / 1000 | number:2 }]} sec</strong>
                                 <span class="txt">Done</span>
                             </div>
                         </div>
