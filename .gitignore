@@ -31,6 +31,7 @@ build
 /wingdbstub.py
 /http2/static_dev/css/sass/.sass-cache/
 /http2/media/
+/run/venv_activate
 .sass-cache/
 /localenv
 .*.swp

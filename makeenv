@@ -12,8 +12,21 @@ else
     source  "$HTTP2_LOAD_IMPACT__PROJECT_DIR/localenv"
 fi
 
-if [ -f "$HTTP2_LOAD_IMPACT__PROJECT_DIR/../envpython3/bin/activate" ] ; then
-    source "$HTTP2_LOAD_IMPACT__PROJECT_DIR/../envpython3/bin/activate"
+# Hello! It would be nice if whenever we need to change this (or any other)
+# file, we do it in such a way that it works for everybody. One option would be
+# for example to put a symlink somewhere so that each of us can have his/her
+# virtualenv wherever he/she wants. Or a file. Look to what I did below:
+if [ -f "$HTTP2_LOAD_IMPACT__PROJECT_DIR/run/venv_activate" ] ; then
+    source "$HTTP2_LOAD_IMPACT__PROJECT_DIR/run/venv_activate"
 else
     >&2 echo "Ensure that we reach this point with a valid HTTP2_LOAD_IMPACT__PROJECT_DIR environment variable"
 fi
+# For this to work, I need to do:
+#
+#   $  cp venv/bin/activate run/venv_activate
+#
+# you can do
+#
+#   $ cp ../envpython3/bin/activate run/venv_activate
+#
+# and then use this script as usual!
