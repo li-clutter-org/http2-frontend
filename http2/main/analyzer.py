@@ -200,9 +200,6 @@ def format_json(http1_json, http2_json):
     http1_global_start_time = min(http1_start_times)
     http2_global_start_time = min(http2_start_times)
 
-    general_times = []
-    start_times = []
-
     # Add http1 entries
     for entry in http1_entries:
         item = item_template.copy()
@@ -232,8 +229,6 @@ def format_json(http1_json, http2_json):
         })
         new_json['times'].append(item)
 
-        start_times.append(start_time)
-        general_times.append(entry['time'])
 
     # Add http2 entries
     for entry in new_json['times']:
@@ -248,9 +243,6 @@ def format_json(http1_json, http2_json):
                 r1r2 += 1
                 found = True
                 start_time = ( parse_started_date_time(item) - http2_global_start_time).total_seconds()*1000
-
-                start_times.append(start_time)
-                general_times.append(item['time'])
 
                 http2dict = {
                     "start_time": start_time,
@@ -302,15 +294,26 @@ def format_json(http1_json, http2_json):
         # There is not much we can do to get a precise simulation of
         # what the sll times would be, but the others we can borrow
         # from the HTTP/1.1 fetch.
+        new_total_time = 0
         if ( i > 0):
             ntm['ssl'] = -1
             ntm['dns'] = -1
             ntm['connect'] = -1
         else:
             ntm['ssl'] =  10
+            new_total_time += ntm['ssl']
             ntm['dns'] = timings_1[0]['dns']
+            new_total_time += ntm['dns']
             ntm['connect'] = timings_1[0]['connect']
+            new_total_time += ntm['connect']
         ntm['blocked'] = timings_2[i]['blocked']
+        new_total_time += ntm['blocked']
+        new_total_time += ntm['send']
+        new_total_time += ntm['wait']
+        new_total_time += ntm['receive']
+
+        ntm['time'] = new_total_time
+
         new_timings_2[i] = ntm
 
         # send, wait and recv times were already copied
@@ -324,7 +327,8 @@ def format_json(http1_json, http2_json):
 
     new_json['times'] = result
     new_json['effectiveness'] = settings.EFFECTIVENESS(r1, r2, r1r2)
-    new_json['max_time'] = max( gi + si for (gi,si) in zip(general_times,start_times) )
+
+    new_json['max_time'] = max( ( t['start_time'] + t['time'] ) for t in (timings_1+new_timings_2) )
 
     return new_json
 
@@ -369,6 +373,9 @@ def calc_absolute_points(starts, t):
     start_receiving += t['wait']
     t['starts_receiving'] = start_receiving
     t['ends'] = start_receiving + t['receive']
+    if 'start_time' not in t:
+        print("start_time not in t")
+    t['time'] = t['ends'] - t['start_time']
 
 
 def search_gaps(i, others_list):
