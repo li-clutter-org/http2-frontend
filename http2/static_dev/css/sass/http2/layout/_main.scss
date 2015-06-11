@@ -716,6 +716,13 @@ body{
 
 /* info block styles */
 
+
+.url-tested {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
 .info-block{
 	overflow: hidden;
 	text-align: center;
