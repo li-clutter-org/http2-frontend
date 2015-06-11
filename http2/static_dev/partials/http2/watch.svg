@@ -1,92 +1,20 @@
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="152"
-   height="152"
-   viewBox="0 0 152 152"
-   id="svg2"
-   version="1.1"
-   inkscape:version="0.91 r"
-   sodipodi:docname="watch.svg">
-  <defs
-     id="defs4" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="75.374891"
-     inkscape:cy="49.017846"
-     inkscape:document-units="px"
-     inkscape:current-layer="group-full-watch"
-     showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1014"
-     inkscape:window-x="0"
-     inkscape:window-y="27"
-     inkscape:window-maximized="1"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0"
-     units="px" />
-  <metadata
-     id="metadata7">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(-138.16861,-56.231264)">
-    <g
-       id="group-full-watch"
-       transform="translate(32.324881,-116.67262)">
-      <g
-         id="g4248"
-         transform="matrix(1.0009919,0,0,1.0010147,1.6645335,121.77037)">
-        <circle
-           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#518c16;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           id="path4239"
-           cx="179.99971"
-           cy="126.64803"
-           r="66.573044" />
-        <g
-           transform="matrix(1.7715646,0,0,1.7715646,-79.407456,-157.82378)"
-           id="g4235">
-          <path
-             inkscape:connector-curvature="0"
-             id="circle4203"
-             d="m 146.42829,117.72015 a 42.857143,42.857143 0 0 0 -42.85742,42.85546 42.857143,42.857143 0 0 0 42.85742,42.85743 42.857143,42.857143 0 0 0 42.85742,-42.85743 42.857143,42.857143 0 0 0 -42.85742,-42.85546 z m 0,5.71289 a 37.142857,37.142857 0 0 1 37.14258,37.14257 37.142857,37.142857 0 0 1 -37.14258,37.14454 37.142857,37.142857 0 0 1 -37.14258,-37.14454 37.142857,37.142857 0 0 1 37.14258,-37.14257 z"
-             style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#386b00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
-          <path
-             inkscape:connector-curvature="0"
-             id="circle4229"
-             d="m 146.42731,146.60394 a 13.972989,13.972989 0 0 0 -13.97266,13.97266 13.972989,13.972989 0 0 0 13.97266,13.97265 13.972989,13.972989 0 0 0 13.97461,-13.97265 13.972989,13.972989 0 0 0 -13.97461,-13.97266 z m 0,5.17578 a 8.7959576,8.7959576 0 0 1 8.79687,8.79688 8.7959576,8.7959576 0 0 1 -8.79687,8.79492 8.7959576,8.7959576 0 0 1 -8.79493,-8.79492 8.7959576,8.7959576 0 0 1 8.79493,-8.79688 z"
-             style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#386b00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="152" height="152" viewBox="-76 -76 152 152" id="svg2" version="1.1">
+  <defs id="defs4"/>
+  <metadata id="metadata7"/>
+  <g id="layer1" transform="translate(-138.16861,-56.231264)">
+    <g id="group-full-watch" transform="translate(32.324881,-116.67262)">
+      <g id="g4248" transform="matrix(1.0009919,0,0,1.0010147,-74.334534,46.127343)">
+        <circle id="path4239" cx="180" cy="126.648" r="66.573" style="color-interpolation-filters:linearRGB;color-interpolation:sRGB;color-rendering:auto;fill:#518c16;image-rendering:auto;isolation:auto;mix-blend-mode:normal;shape-rendering:auto;solid-color:#000000;solid-opacity:1;text-rendering:auto"/>
+        <g transform="matrix(1.7715646,0,0,1.7715646,-79.407456,-157.82378)" id="g4235">
+          <path id="circle4203" d="m146.428 117.72a42.857 42.857 0 0 0-42.857 42.855 42.857 42.857 0 0 0 42.857 42.857 42.857 42.857 0 0 0 42.857-42.857 42.857 42.857 0 0 0-42.857-42.855zm0 5.713a37.143 37.143 0 0 1 37.143 37.143 37.143 37.143 0 0 1-37.143 37.145 37.143 37.143 0 0 1-37.143-37.145 37.143 37.143 0 0 1 37.143-37.143z" style="color-interpolation-filters:linearRGB;color-interpolation:sRGB;color-rendering:auto;fill:#386b00;image-rendering:auto;isolation:auto;mix-blend-mode:normal;shape-rendering:auto;solid-color:#000000;solid-opacity:1;text-rendering:auto"/>
+          <path id="circle4229" d="m146.427 146.604a13.973 13.973 0 0 0-13.973 13.973 13.973 13.973 0 0 0 13.973 13.973 13.973 13.973 0 0 0 13.975-13.973 13.973 13.973 0 0 0-13.975-13.973zm0 5.176a8.796 8.796 0 0 1 8.797 8.797 8.796 8.796 0 0 1-8.797 8.795 8.796 8.796 0 0 1-8.795-8.795 8.796 8.796 0 0 1 8.795-8.797z" style="color-interpolation-filters:linearRGB;color-interpolation:sRGB;color-rendering:auto;fill:#386b00;image-rendering:auto;isolation:auto;mix-blend-mode:normal;shape-rendering:auto;solid-color:#000000;solid-opacity:1;text-rendering:auto"/>
         </g>
-        <path
-           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m 180.19427,70.735173 -6.61755,41.704607 a 15.768442,15.768442 0 0 0 -9.15254,14.29602 15.768442,15.768442 0 0 0 15.77009,15.76658 15.768442,15.768442 0 0 0 15.76657,-15.76658 15.768442,15.768442 0 0 0 -9.10001,-14.2715 l -6.66656,-41.729127 z"
-           id="watch-pointer"
-           inkscape:connector-curvature="0" />
+        <g id="g-needle" transform="translate(179.97864,126.7571)" data-ng-class="needle_class">
+          <path d="M0.002-56.105-6.616-14.4A15.768 15.768 0 0 0-15.768-0.104 15.768 15.768 0 0 0 0.002 15.663 15.768 15.768 0 0 0 15.768-0.104 15.768 15.768 0 0 0 6.668-14.376L0.002-56.105Z" id="watch-pointer" style="color-interpolation-filters:linearRGB;color-interpolation:sRGB;color-rendering:auto;fill:#fff;image-rendering:auto;isolation:auto;mix-blend-mode:normal;shape-rendering:auto;solid-color:#000000;solid-opacity:1;text-rendering:auto"/>
+          <circle id="circle4205" cx="0" cy="0" r="1" fill="#efefef"/>
+        </g>
       </g>
     </g>
   </g>
 </svg>
+

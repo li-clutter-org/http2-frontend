@@ -40,6 +40,7 @@
         "js/angular/core/controllers/analyzerController.js",
         "js/angular/core/controllers/entryController.js",
         "js/angular/core/controllers/visualTopController.js",
+        "js/angular/core/controllers/visualTopControllerIdle.js",
 
         "js/angular/core/directives/monkey-patches/growlAddons.js",
         "js/angular/core/directives/fallbacks/svgFallback.js",

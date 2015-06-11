@@ -25,11 +25,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="11.313709"
-     inkscape:cx="48.45792"
-     inkscape:cy="121.645"
+     inkscape:zoom="4.0000002"
+     inkscape:cx="59.328037"
+     inkscape:cy="60.907526"
      inkscape:document-units="px"
-     inkscape:current-layer="g4248"
+     inkscape:current-layer="g4202"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1014"
@@ -49,6 +49,10 @@
        id="guide4286"
        inkscape:label=""
        inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="-142.49999,202.74999"
+       orientation="0,1"
+       id="guide4207" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -58,7 +62,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -93,13 +97,23 @@
              d="m 146.42731,146.60394 a 13.972989,13.972989 0 0 0 -13.97266,13.97266 13.972989,13.972989 0 0 0 13.97266,13.97265 13.972989,13.972989 0 0 0 13.97461,-13.97265 13.972989,13.972989 0 0 0 -13.97461,-13.97266 z m 0,5.17578 a 8.7959576,8.7959576 0 0 1 8.79687,8.79688 8.7959576,8.7959576 0 0 1 -8.79687,8.79492 8.7959576,8.7959576 0 0 1 -8.79493,-8.79492 8.7959576,8.7959576 0 0 1 8.79493,-8.79688 z"
              style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#386b00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
         </g>
-        <path
-           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m 180.00148,70.735173 -6.61755,41.704607 a 15.768442,15.768442 0 0 0 -9.15254,14.29602 15.768442,15.768442 0 0 0 15.77009,15.76658 15.768442,15.768442 0 0 0 15.76657,-15.76658 15.768442,15.768442 0 0 0 -9.10001,-14.2715 l -6.66656,-41.729127 z"
-           id="watch-pointer"
-           inkscape:connector-curvature="0"
-           inkscape:transform-center-x="0.088388347"
-           inkscape:transform-center-y="-20.152543" />
+        <g
+           id="g4202"
+           transform="translate(179.97864,126.7571)">
+          <path
+             style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+             d="M 0.00175997,-56.104678 -6.61579,-14.400071 A 15.768442,15.768442 0 0 0 -15.76833,-0.1040503 15.768442,15.768442 0 0 0 0.00175997,15.662529 15.768442,15.768442 0 0 0 15.76833,-0.1040503 15.768442,15.768442 0 0 0 6.6683202,-14.375551 L 0.00175997,-56.104678 Z"
+             id="watch-pointer"
+             inkscape:connector-curvature="0"
+             inkscape:transform-center-x="0.088388347"
+             inkscape:transform-center-y="-20.152543" />
+          <circle
+             id="circle4205"
+             cx="0"
+             cy="0"
+             r="1"
+             style="fill:#efefef;fill-opacity:1" />
+        </g>
       </g>
     </g>
   </g>

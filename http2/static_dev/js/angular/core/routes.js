@@ -20,7 +20,7 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
             views: {
                 'visualTop': {
                     templateUrl: 'partials/http2/visual_top_standing_by.html',
-                    controller: 'visualTopController'
+                    controller: 'visualTopControllerIdle'
                 },
                 'mainView': {
                     templateUrl: 'partials/http2/entry.html',

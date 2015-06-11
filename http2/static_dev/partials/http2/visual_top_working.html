@@ -20,8 +20,7 @@
                                 <span class="txt">Collecting</span>
                             </div>
                             <div class="circle">
-                                <span class="arrow">&nbsp;</span>
-                                <span class="bar">&nbsp;</span>
+                                <ng-include src="'partials/http2/watch.svg'"></ng-include>
                             </div>
                         </div>
                     </div>
@@ -37,8 +36,7 @@
                                 <div>Loading...</div>
                             </div>
                             <div class="circle add">
-                                <span class="arrow">&nbsp;</span>
-                                <span class="medal">&nbsp;</span>
+                                <ng-include src="'partials/http2/watch.svg'"></ng-include>
                             </div>
                             <div ng-show="analysis.data.json.max_time" class="text">
                                 <strong class="time">{[{  analysis.data.json.max_time / 1000 | number:2 }]} sec</strong>

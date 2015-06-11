@@ -16,7 +16,6 @@ angular.module('http2')
         , '$location'
         , '$stateParams'
         , '$timeout'
-
         , function($scope, $state, $location, $stateParams, $timeout) {
 
             $scope.base_url = $location.protocol() + '://' + $location.host();
@@ -26,16 +25,17 @@ angular.module('http2')
                 $scope.blur=true;
                 $scope.focus=false;
                 $scope.url_visible = false;
-            }
+            };
 
             function noChange() {
                 if ($scope.focus==false && $scope.url_visible==true){
                     $scope.url_visible = false;
                 }
             }
+
             $scope.show_hide_url = function() {
                  $scope.url_visible = !$scope.url_visible;
-            }
+            };
 
             $scope.hoverIn = function(){
                 $scope.url_visible = true;

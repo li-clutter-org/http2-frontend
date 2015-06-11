@@ -35,7 +35,7 @@ module.exports = function(grunt) {
                 debounceDelay: 250
             },
             css: {
-                files: ['static_dev/css/sass/**/*.scss', 'static_dev/css/lib/**/*.scss',],
+                files: ['static_dev/css/sass/**/*.scss', 'static_dev/css/lib/**/*.scss'],
                 tasks: ['sass:dev', 'autoprefixer:dev']
             },
             js:{
