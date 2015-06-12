@@ -530,16 +530,12 @@ body{
 	}
 	input.url {
     background: #fff none repeat scroll 0 0;
-    border-radius: 5px;
-    border-color: #fefefe;
     color: #000;
-    margin: -43px 0 0 56%;
+    margin: -45px 0 0 56%;
     padding: 5px 10px;
     position: absolute;;
-    -moz-box-shadow: 1px 1px 3px 3px darkgreen;
-    -webkit-box-shadow: 1px 1px 3px 3px darkgreen;
-    box-shadow: 1px 1px 3px 3px darkgreen;
     opacity: 1;
+    height: 33px;
     max-height: auto;
     width: 375px;
     overflow: hidden;
