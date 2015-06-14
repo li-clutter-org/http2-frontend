@@ -57,3 +57,43 @@
     transform: rotate(0.0deg);
   }
 }
+
+@mixin full-rotation-mx($time) {
+  -webkit-animation-duration: $time;
+  -moz-animation-duration: $time;
+  -o-animation-duration: $time;
+  animation-duration: $time;
+
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -o-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+
+
+  -webkit-animation-name: full-rotation;
+  -moz-animation-name: full-rotation;
+  -o-animation-name: full-rotation;
+  animation-name: full-rotation;
+
+  -webkit-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+  -o-animation-timing-function: linear;
+  animation-timing-function: linear;
+
+}
+
+.full-rotation>path {
+  @include full-rotation-mx(2.0s);
+}
+
+
+
+@keyframes full-rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360.0deg);
+  }
+}

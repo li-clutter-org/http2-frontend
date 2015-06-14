@@ -20,6 +20,10 @@ angular.module('http2')
 
             $scope.base_url = $location.protocol() + '://' + $location.host();
             $scope.analysis_id = $stateParams.analysis_id;
+            $scope.needle_class="full-rotation";
+            $scope.needle_style = {
+                "animation-duration": "4s"
+            };
 
             $scope.noShowText = function(){
                 $scope.blur=true;
