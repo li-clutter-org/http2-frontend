@@ -42,29 +42,33 @@
             };
 
             var getAnalysisState = function(analysis_id) {
-                analyzerService.getAnalysisState(analysis_id).
-                    success(function(data, status, headers, config) {
-                        // Updating the scope, and stopping the polling properly if the response is a success.
-                        $scope.analysis.data = data;
-                        $rootScope.analysis = $scope.analysis;
-                        if($scope.analysis.data.state === 'done' || $scope.analysis.data.state === 'failed' || $scope.analysis.data.state === 'queuefull'){
-                            stopInterval();
-                        }
-                    }).
-                    error(function(data, status, headers, config) {
-                        // Stopping the polling if the response was an error and setting the state as failed.
-                        if(!$scope.analysis) {
-                            $scope.analysis = {
+                analyzerService.getAnalysisState(analysis_id)
+                    .then(
+                        // Then part
+                        function(data, status, headers, config) {
+                            // Updating the scope, and stopping the polling properly if the response is a success.
+                            $scope.analysis.data = data;
+                            $rootScope.analysis = $scope.analysis;
+                            if($scope.analysis.data.state === 'done' || $scope.analysis.data.state === 'failed' || $scope.analysis.data.state === 'queuefull'){
+                                stopInterval();
+                            }
+                        },
+                        // Failure part...
+                        function(data, status, headers, config) {
+                            // Stopping the polling if the response was an error and setting the state as failed.
+                            if(!$scope.analysis) {
+                                $scope.analysis = {
                                 'data': {
                                     'state': 'failed'
+                                    }
                                 }
                             }
+                            else {
+                                $scope.analysis.data.state = 'failed'
+                            }
+                            stopInterval();
                         }
-                        else {
-                            $scope.analysis.data.state = 'failed'
-                        }
-                        stopInterval();
-                    });
+                    );
             };
 
             $scope.$on('$stateChangeSuccess', function(e) {
