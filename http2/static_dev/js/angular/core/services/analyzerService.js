@@ -100,6 +100,10 @@ angular.module('http2')
 
                 // This function takes the times and computes the medians ....
 
+                // Of course if there is no data, I can't calculate anything.
+                if (times == null)
+                    return ;
+
                 var view_timing_1 = function(x) {
                     var t = x["http1"];
                     return ( t["start_time"] + t["ends"] ) / 2.0 ;
