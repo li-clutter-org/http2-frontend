@@ -47,8 +47,6 @@
 /* footer nav */
 
 .footer-nav{
-	float: left;
-	width: 180px;
 	margin: 0 0 69px 35px;
 
 	@include mq($until: mobile) {
@@ -61,50 +59,53 @@
 	@include mq($until: sm-mobile) {
 		width: 100%;
 	}
+    .footer-group {
 
-	h3{
-		margin: 0 0 18px;
-		padding: 0 0 9px;
-		color: $white;
-		@include font-size(20px, 25px);
-		border-bottom: 1px solid $dk-green3;
-		font-weight: 700;
-	}
-	ul{
-		margin: 0;
-		li{
-			position: relative;
-			color: $white;
-			padding: 0 0 0 12px;
-			margin: 0 0 4px;
-			&:before{
-				content: '›';
-				position: absolute;
-				left: 0;
-				top: 0;
-				@include font-size(20px, 25px);
+        h3{
+            margin: 0 0 18px;
+            padding: 0 0 9px;
+            color: $white;
+            @include font-size(20px, 25px);
+            border-bottom: 1px solid $dk-green3;
+            font-weight: 700;
+        }
+        ul{
+            margin: 0;
+            li{
+                position: relative;
+                color: $white;
+                padding: 0 0 0 12px;
+                margin: 0 0 4px;
+                &:before{
+                    content: '›';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    @include font-size(20px, 25px);
 
-				@include mq($until: mobile) {
-					@include font-size(15px, 18px);
-					top: 4px;
-				}
+                    @include mq($until: mobile) {
+                        @include font-size(15px, 18px);
+                        top: 4px;
+                    }
 
-			}
-			a{
-				color: $white;
-				@include font-size(20px, 25px);
+                }
+                a{
+                    color: $white;
+                    @include font-size(20px, 25px);
 
-				@include mq($until: mobile) {
-					@include font-size(14px, 18px);
-				}
+                    @include mq($until: mobile) {
+                        @include font-size(14px, 18px);
+                    }
 
-				&:hover{
-					text-decoration: none;
-					opacity: 0.8;
-				}
-			}
-		}
-	}
+                    &:hover{
+                        text-decoration: none;
+                        opacity: 0.8;
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 /* socialnetworks */
