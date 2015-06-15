@@ -28,7 +28,9 @@
                         <div ng-hide="analysis.data.json.effectiveness" class="text">
                             <div>Loading...</div>
                         </div>
-                        <div ng-show="analysis.data.json.effectiveness"><strong>{[{  analysis.data.json.summary.medians.http2.http2.starts/1000 | number:2 }]} %</strong> more efficient*</div>
+                        <div ><strong>{[{
+                                analysis.data.json.summary.medians.http1.http1.start_time / analysis.data.json.summary.medians.http2.http2.start_time | number:2
+                            }]} x</strong> more efficient*</div>
                     </div>
                     <div class="col">
                         <div class="wrap">
