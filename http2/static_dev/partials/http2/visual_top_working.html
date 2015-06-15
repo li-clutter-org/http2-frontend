@@ -13,7 +13,7 @@
                     <div class="col">
                         <div class="wrap">
                             <div ng-hide="analysis.data.json.max_time" class="text">
-                                <div>Loading...</div>
+                                <div>Working...</div>
                             </div>
                             <div ng-show="analysis.data.json.max_time" class="text">
                                 <strong ng-model="http1_time" class="time">{[{  analysis.data.json.summary.medians.http1.http1.start_time/1000 | number:2 }]} sec</strong>
@@ -24,9 +24,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="progress-box">
+                    <div
+                        class="progress-box"
+                        ng-show="analysis.data.json.summary.medians.http1.http1.start_time"
+                    >
                         <div ng-hide="analysis.data.json.effectiveness" class="text">
-                            <div>Loading...</div>
+                            <div>Working...</div>
                         </div>
                         <div ><strong>{[{
                                 analysis.data.json.summary.medians.http1.http1.start_time / analysis.data.json.summary.medians.http2.http2.start_time | number:2
@@ -34,12 +37,14 @@
                     </div>
                     <div class="col">
                         <div class="wrap">
-                            <div ng-hide="analysis.data.json.max_time" class="text">
-                                <div>Loading...</div>
-                            </div>
                             <div class="circle add">
                                 <ng-include src="'partials/http2/watch2.svg'"></ng-include>
                             </div>
+
+                            <div ng-hide="analysis.data.json.max_time" class="text">
+                                <div>Working...</div>
+                            </div>
+
                             <div ng-show="analysis.data.json.max_time" class="text">
                                 <strong class="time">{[{  analysis.data.json.summary.medians.http2.http2.start_time/1000 | number:2  }]} sec</strong>
                                 <span class="txt">Done</span>
