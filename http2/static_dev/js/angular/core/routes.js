@@ -16,7 +16,7 @@ angular.module('http2').config(['$stateProvider', '$locationProvider', '$urlRout
     $stateProvider
         .state('entry', {
             url: '/entry/',
-            title: "HTTP/2 Goody!",
+            title: "HTTP/1 vs HTTP/2 by LoadImpact",
             views: {
                 'visualTop': {
                     templateUrl: 'partials/http2/visual_top_standing_by.html',
