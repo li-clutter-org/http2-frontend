@@ -16,8 +16,6 @@
 </head>
 
 <body data-ng-class="[bodyClass]">
-
-
     <div id="wrapper">
 		<div class="w1">
 			<header id="header">
@@ -119,7 +117,9 @@
                 )
                 document.querySelector('head').appendChild(msViewportStyle)
             }
-</script>
+        </script>
+{% include 'main/analytics_code.html' %}
+
 </body>
 
 </html>
