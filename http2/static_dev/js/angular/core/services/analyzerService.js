@@ -80,7 +80,10 @@ angular.module('http2')
                     );
                 }
                 result_array.sort(function(a,b){ return a[0]<b[0];});
-                return result_array[element_count%2][1];
+                if ( result_array.length > 1)
+                    return result_array[element_count%2][1];
+                else
+                    return result_array[0][1];
             }
 
             service.computeSummaries = function(json)
