@@ -1,3 +1,20 @@
+/**
+ * Grunt: I could spent hours and hours in a rant about this tool. 
+ * But it sort of solves a problem. 
+ *
+ * Installation of tools and setup
+ *
+ *   - Sass:
+ *
+ *   (Once you have some sort of Ruby running in the computer)
+ *   sudo su -c "gem install sass"
+ *
+ *
+ *
+ * Usage:
+ *
+ *
+ */
 module.exports = function(grunt) {
     var base = './http2/';
     var generalJS = prepare(grunt.file.readJSON(base + 'static_dev/js/general.json'));
