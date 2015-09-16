@@ -1,0 +1,151 @@
+{% load static basic_tags %}
+{% load url from future %}
+
+<!DOCTYPE html>
+<html data-ng-app="http2">
+<head>
+    <meta charset="utf-8">
+    <title data-ng-bind="$root.title ? $root.title + ' - LoadImpact.org' : 'LoadImpact.org'">LoadImpact.org</title>
+{#    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />#}
+    <!--<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no" />-->
+    <!--<meta name="theme-color" content="#c32220">-->
+    <link rel="shortcut icon" href='/images/favicon.ico?v=1' />
+    <base href="/">
+    <link href='/css/style.css' rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Permanent+Marker' rel='stylesheet' type='text/css'>
+</head>
+
+<body data-ng-class="[bodyClass]">
+    <div id="wrapper">
+		<div class="w1">
+			<header id="header">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-6">
+							<strong class="logo">
+								<a data-ui-sref="entry">
+									<img src="/images/logo.svg" alt="LoadImpact">
+								</a>
+							</strong>
+						</div>
+						<div ng-if="showDoAnotherTest" class="col-xs-6">
+							<a data-ui-sref="entry" class="link">Do another test </a>
+						</div>
+					</div>
+				</div>
+			</header>
+			<section data-ui-view="visualTop" class="visual"></section>
+			<div data-ui-view="mainView" class="main-view"></div>
+		</div>
+		<footer id="footer">
+		<div class="footer-holder">
+			<div class="footer-frame">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-8">
+							<nav class="footer-nav">
+                                <nav class="box col-md-4 col-sm-4 footer-group">
+                                    <h3>Home</h3>
+                                    <ul class="list-unstyled">
+                                        <li><a href="https://loadimpact.com/why-us" target="_blank">Why us</a></li>
+                                        <li><a href="https://loadimpact.com/terms" target="_blank">Terms of Service</a></li>
+                                        <li><a href="https://loadimpact.com/privacy-policy" target="_blank">Privacy policy</a></li>
+                                    </ul>
+                                </nav>
+                                <nav class="box col-md-4 col-sm-4 footer-group">
+                                    <h3>About us</h3>
+                                    <ul class="list-unstyled">
+                                        <li><a href="https://loadimpact.com/about" target="_blank">The Team</a></li>
+                                        <li><a href="http://loadtesting.theresumator.com/" target="_blank">Careers</a></li>
+                                        <li><a href="https://loadimpact.com/press" target="_blank">Press</a></li>
+                                    </ul>
+                                </nav>
+                                <nav class="box col-md-4 col-sm-4 footer-group">
+                                    <h3>Knowledge Base</h3>
+                                    <ul class="list-unstyled">
+                                        <li><a href="http://support.loadimpact.com/" target="_blank">Support</a></li>
+                                        <li><a href="http://blog.loadimpact.com/" target="_blank">Blog</a></li>
+                                        <li><a href="http://developers.loadimpact.com/" target="_blank">Developers</a></li>
+                                        <li><a href="http://status.loadimpact.com/" target="_blank">Service status</a></li>
+                                    </ul>
+                                </nav>
+							</nav>
+						</div>
+						<div class="col-xs-4">
+							<div class="social-networks">
+								<h3><span>Follow us</span></h3>
+								<ul class="list-inline">
+									<li><a href="https://twitter.com/loadimpact" target="_blank"><img src="/images/ico1.png" alt="Img Description"></a></li>
+									<li><a href="https://www.linkedin.com/company/load-impact" target="_blank"><img src="/images/ico2.png" alt="Img Description"></a></li>
+									<li><a href="https://www.facebook.com/pages/Load-Impact/182684718451098" target="_blank"><img src="/images/ico3.png" alt="Img Description"></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+                    <p class="green">Will HTTP/2 make your website, app or API faster? <a href="#">Read more</a></p>
+					<div class="row">
+						<div class="col-xs-12">
+							<p>© 2015 <a href="https://loadimpact.com/" target="_blank">Load Impact AB</a>. <a class="link" href="https://loadimpact.com/terms" target="_blank">Terms.</a> </p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	</div>
+
+    <div data-growl></div>
+
+    
+    <script src='/js/lib/d3.js'></script>
+    <script src='/js/lib/modernizr.js'></script>
+    <script src='/js/lib/underscore-min.js'></script>
+    <script src='/js/lib/Promise.js'></script>
+    <script src='/js/lib/sprintf.js'></script>
+    <script src='/js/lib/jquery-1.11.3.js'></script>
+    <script src='/js/lib/jquery.main.js'></script>
+    <script src='/js/lib/bootstrap.js'></script>
+    <script src='/js/lib/angular.js'></script>
+    <script src='/js/lib/angular-ui-router.js'></script>
+    <script src='/js/lib/angular-animate.js'></script>
+    <script src='/js/lib/angular-cookies.js'></script>
+    <script src='/js/lib/angular-sanitize.js'></script>
+    <script src='/js/lib/angular-growl.js'></script>
+    <script src='/js/lib/angular-route.js'></script>
+    <script src='/js/lib/angular-touch.js'></script>
+    <script src='/js/lib/angular-messages.js'></script>
+    <script src='/js/lib/angular-social-links.js'></script>
+    <script src='/js/angular/core/app.js'></script>
+    <script src='/js/angular/core/config.js'></script>
+    <script src='/js/angular/core/routes.js'></script>
+    <script src='/js/angular/core/filters/capitalize.js'></script>
+    <script src='/js/angular/core/services/modernizr.js'></script>
+    <script src='/js/angular/core/services/analyzerService.js'></script>
+    <script src='/js/angular/core/controllers/404controller.js'></script>
+    <script src='/js/angular/core/controllers/analyzerController.js'></script>
+    <script src='/js/angular/core/controllers/entryController.js'></script>
+    <script src='/js/angular/core/controllers/visualTopController.js'></script>
+    <script src='/js/angular/core/controllers/visualTopControllerIdle.js'></script>
+    <script src='/js/angular/core/directives/monkey-patches/growlAddons.js'></script>
+    <script src='/js/angular/core/directives/fallbacks/svgFallback.js'></script>
+    <script src='/js/angular/core/directives/d3_chars.js'></script>
+    <script src='/js/timechart.js'></script>
+
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript">window.jQuery || document.write('<script src="/js/jquery-1.11.2.min.js"><\/script>')</script>
+    <script type="text/javascript">
+        if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+            var msViewportStyle = document.createElement('style')
+            msViewportStyle.appendChild(
+            document.createTextNode(<
+              '@-ms-viewport{width:auto!important}'
+            )
+            )
+            document.querySelector('head').appendChild(msViewportStyle)
+        }
+    </script>
+
+</body>
+
+</html>

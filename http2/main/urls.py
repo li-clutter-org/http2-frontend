@@ -8,8 +8,8 @@ from .views import (
 )
 
 urlpatterns = patterns('main.views',
-                       url(r'^$', TemplateView.as_view(
-                           template_name='base.html'), name="index"),
+                       # url(r'^$', TemplateView.as_view(
+                       #     template_name='base.html'), name="index"),
 
                        # API urls
                        url(r'^api/send/analysis$',
