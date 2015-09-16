@@ -79,3 +79,8 @@ done
 separator "IMAGES"
 mkdir -p http2/static_dev/build/images/
 rsync -avz http2/static_dev/images/* http2/static_dev/build/images/
+
+#------------------------------------------------------------------------------------
+# We keep our javascript dependencies in a list
+cp "http2/static_dev/js/d3.json"      "http2/static_dev/build/js/d3.json"
+cp "http2/static_dev/js/general.json" "http2/static_dev/build/js/general.json"
