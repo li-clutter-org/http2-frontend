@@ -125,13 +125,16 @@ class GetAnalysisState(APIView):
 
         try:
             result = AnalysisInfoSerializer(analysis).data
+            result_dir = path.join(settings.ANALYSIS_RESULT_PATH, analysis.analysis_id)
+            analysis_order_in_queue_file_path = path.join(result_dir, settings.ANALYSIS_ORDER_IN_QUEUE_FILENAME)
+            analysis_order_in_queue = 0
+            if path.exists(analysis_order_in_queue_file_path):
+                analysis_order_in_queue = open(analysis_order_in_queue_file_path, 'r').read()
+            result.update({'analysis_order_in_queue': analysis_order_in_queue})
             # otherwise check status via the files
             if (analysis.state == AnalysisInfo.STATE_SENT or
                     analysis.state == AnalysisInfo.STATE_PROCESSING):
                 progress = {}
-                result_dir = path.join(
-                    settings.ANALYSIS_RESULT_PATH, analysis.analysis_id
-                )
                 # if the done file exists
                 if path.exists(
                         path.join(
@@ -190,21 +193,3 @@ class GetAnalysisState(APIView):
 
         # and return data
         return Response(result)
-
-
-class AmountOfSitesToAnalyzeInQueue(APIView):
-
-    """
-    This view returns the amount of sites that are in queue to be analyzed.
-    """
-
-    def get(self, request):
-
-        if path.exists(settings.AMOUNT_OF_SITES_TO_ANALYZE_IN_QUEUE_LOCATION):
-            amount_of_sites_in_queue = open(settings.AMOUNT_OF_SITES_TO_ANALYZE_IN_QUEUE_LOCATION, 'r').read()
-            return Response({'amount_of_sites_in_queue': amount_of_sites_in_queue})
-        else:
-            return Response(
-                {"error": settings.AMOUNT_OF_SITES_TO_ANALYZE_IN_QUEUE_LOCATION},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
