@@ -64,6 +64,23 @@ angular.module('http2')
                 return q;
             };
 
+            service.getAmountOfSitesInQueue = function() {
+                /**
+                 * Returns a promise
+                 */
+                var url = '/api/sites_in_queue';
+                var p = $http.get(url);
+                var q = $q(function (resolve, reject) {
+                    p.success(function(data, status, headers, config){
+                        resolve(data, status, headers);
+                    });
+                    p.error(function(data, status, headers, config){
+                        reject(data, status, headers, config);
+                    });
+                });
+                return q;
+            };
+
             function compute_median_on_view(view_function, d)
             {
                 // Let's hope there is at least a length in d

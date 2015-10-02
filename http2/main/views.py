@@ -190,3 +190,21 @@ class GetAnalysisState(APIView):
 
         # and return data
         return Response(result)
+
+
+class AmountOfSitesToAnalyzeInQueue(APIView):
+
+    """
+    This view returns the amount of sites that are in queue to be analyzed.
+    """
+
+    def get(self, request):
+
+        if path.exists(settings.AMOUNT_OF_SITES_TO_ANALYZE_IN_QUEUE_LOCATION):
+            amount_of_sites_in_queue = open(settings.AMOUNT_OF_SITES_TO_ANALYZE_IN_QUEUE_LOCATION, 'r').read()
+            return Response({'amount_of_sites_in_queue': amount_of_sites_in_queue})
+        else:
+            return Response(
+                {"error": settings.AMOUNT_OF_SITES_TO_ANALYZE_IN_QUEUE_LOCATION},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

@@ -71,6 +71,20 @@
                     );
             };
 
+            var getAmountOfSitesInQueue = function() {
+                analyzerService.getAmountOfSitesInQueue()
+                    .then(
+                        // Then part
+                        function(data, status, headers, config) {
+                            $scope.analysis_in_queue = data;
+                        },
+                        // Failure part...
+                        function(data, status, headers, config) {
+                            $scope.analysis_in_queue = 0;
+                        }
+                    );
+            };
+
             $scope.$on('$stateChangeSuccess', function(e) {
                 stopInterval();
                 analysis_id = $stateParams.analysis_id;
@@ -108,4 +122,5 @@
 
             }, true);
 
+            getAmountOfSitesInQueue();
 }]);
