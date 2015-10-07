@@ -27,6 +27,7 @@ def process_har_file(harfile_path):
     :param harfile_path: absolute path to the .har file
     :return: .har file info in json after the processing.
     """
+    import wingdbstub
     file_bytes = open(harfile_path, 'rb').read()
     json_data = json.loads(file_bytes.decode("utf-8"))
     # Cleaning the .har data a bit.

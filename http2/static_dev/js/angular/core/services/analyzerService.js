@@ -71,9 +71,6 @@ angular.module('http2')
                 var result_array = [];
                 for( var i=0; i < element_count ; i++)
                 {
-                    // Oh jesus this is primitive.... loops!
-                    // what age is this !??!? .... I want to go
-                    // back to the future!!
                     var point = d[i];
                     result_array.push(
                         [view_function(point),point]

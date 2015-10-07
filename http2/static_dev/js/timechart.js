@@ -196,8 +196,6 @@ zunzun.timechart = function (data) {
         return draw_grid_using_canvas(parent_width);
     }
 
-
-
     function draw_grid_using_canvas(parent_width)
     {
         var vertical_grid = d3.select(".vertical-grid");
@@ -344,8 +342,6 @@ zunzun.timechart = function (data) {
             .attr("height", function(datum, i) {
                 var t_start = datum[major]["start_time"];
                 var t_end = datum[major]["end_time"];
-                var middle_point =
-                    (t_start + t_end)/2. ;
                 var span =
                     t_end - t_start;
                 if (span < 35)
