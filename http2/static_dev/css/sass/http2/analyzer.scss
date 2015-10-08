@@ -76,6 +76,11 @@ $chart-timing-div-height: 90px;
 
 }
 
+.analyzer-http.share {
+  overflow: auto;
+  margin-top: 20px;
+}
+
 .analyzer {
   border: 3px solid $analyzer_border;
   clear: both;
