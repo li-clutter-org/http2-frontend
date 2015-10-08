@@ -37,11 +37,40 @@
                                         </div>
                                     </div>
                                     <div class="analyzer-http share">
-                                        <div class="pull-left">
-                                            <a href="http://http2.loadimpact.com/afb42" target="_blank"
-                                               class="nav-btn ng-cloak">
-                                                *Disclaimers:...
-                                            </a>
+                                        <div class="pull-left disclaimers">
+                                            <h3>Disclaimers</h3>
+                                            <p>
+                                                The current version of this site shows an approximation of how a pure
+                                                HTTP/2 fetch would look of your current site.
+                                                To build such an approximation, we fetch your site from our servers
+                                                using a regular browser, and then serve your site in an internal
+                                                network using <a href="http://hackage.haskell.org/package/second-transfer">an
+                                                open source HTTP/2 library</a> to the same browser.
+
+                                            </p>
+                                            <p>
+                                                Among other things, our simulation does the following:
+                                            </p>
+                                            <ul>
+                                                <li>
+                                                    The connection limit typical of HTTP/1.1 is of course lifted entirely
+                                                    when fetching via HTTP/2.
+                                                </li>
+                                            </ul>
+                                            <p>
+                                                The following limitations apply:
+                                            </p>
+                                            <ol>
+                                                <li>
+                                                    We don't simulate (yet) network latency and bandwidth during the HTTP/2 fetch. For the
+                                                    time being, we use some of the network timings from your live site to interpolate
+                                                    HTTP/2 timing data.
+                                                </li>
+                                                <li>
+                                                    We can't simulate very well your application-specific logic, therefore some resources
+                                                    are not fetched during our simulated HTTP/2 fetch.
+                                                </li>
+                                            </ol>
                                         </div>
                                         <div class="pull-right">
                                             <a href="{[{ analysis.base_url }]}/analysis/status/{[{analysis.data.analysis_id}]}"
