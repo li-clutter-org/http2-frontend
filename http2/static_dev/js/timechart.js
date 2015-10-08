@@ -644,6 +644,10 @@ zunzun.timechart = function (data) {
     function scaling_for_major(datum, major) {
         var t0 = x_scale(datum[major]["start_time"]);
         var t1 = x_scale(datum[major]["end_time"]);
+        if ( t1 == t0)
+        {
+            t1 = t0 + 1.0;
+        }
         var time_span = t1 - t0;
         var percent_span = 80; // <-- So let the scaled-up version
                                //     to use 80 percent of the horizontal space
@@ -692,7 +696,8 @@ zunzun.timechart = function (data) {
                         .style("opacity", 1.0 - (t/op_threshold) );
                 }
 
-                target.attr("transform", "matrix(" + (1.0+f*(scale_a-1)) + ", 0, 0, 1, " + (f*scale_b) + ", 0)");
+                var matrix_repr = "matrix(" + (1.0+f*(scale_a-1)) + ", 0, 0, 1, " + (f*scale_b) + ", 0)";
+                target.attr("transform", matrix_repr);
                 cotarget.attr("opacity", String(1.0-f));
                 backdrop.style("background-color",
                     "rgba(250,250,255," + f +")"
