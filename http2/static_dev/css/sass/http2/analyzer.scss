@@ -279,7 +279,7 @@ $data-backgrop-border: #0e1327 3px solid;
 
 $padding-for-backdrop: 4px;
 
-$tip-elements-font-size: 12px;
+$tip-elements-font-size: 14px;
 
 $bg-timing-color: #351818;
 
@@ -433,20 +433,14 @@ $aligning-padding: 10px;
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.disclaimers {
+  font-size: 13px;
+  line-height: 17px;
+  color: #868686;
+  margin: 0 17px 15px;
+  position: relative;
+  padding: 0 0 0 10px;
+}
 
 .btn-success {
 
