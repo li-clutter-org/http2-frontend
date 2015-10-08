@@ -7,6 +7,7 @@ import datetime as dt
 from datetime import datetime as datetime
 from functools import partial
 
+
 from django.conf import settings
 
 
@@ -17,6 +18,17 @@ def trim_content_type(content_type):
         return content_type[:extra.start(0)]
     else:
         return content_type
+
+
+def is_data_url(entry):
+    try:
+        url = entry['request']['url']
+    except ValueError:
+        # Well, there is nothing good here, remove anyway
+        return True
+    else:
+        assert isinstance(url,  str)
+        return url.startswith("data:")
 
 
 def process_har_file(harfile_path):
@@ -66,13 +78,10 @@ def process_har_file(harfile_path):
             ]
         )
 
-        # Removing weird URLs, for now allowing just the ones that start with http
-        if not str(entry['request']['url']).startswith('http'):
-            del entry['request']['url']
-
         entry['content_type'] = content_type
 
-        clean_entries.append(entry)
+        if not is_data_url(entry):
+            clean_entries.append(entry)
 
     json_data['har']['entries'] = clean_entries
 
