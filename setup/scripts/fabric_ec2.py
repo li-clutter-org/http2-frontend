@@ -43,8 +43,10 @@ else:
 hosts_list = [ "ubuntu@" + findout_instance_ips()["serversInstance"] ]
 env["hosts"] = hosts_list
 
+
 # TODO: Put a proper deployment mechanism here.
 env.key_filename = '/home/alcides/.ssh/zunzun_ec2_keypair_0.pem'
+
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -117,6 +119,7 @@ def install_newrelic_agent():
 
 def install_nginx():
     sudo("apt-get install -y nginx")
+
 
 def install_inotify_wait():
     sudo("apt-get install -y inotify-tools")
