@@ -4,7 +4,7 @@ from logging.handlers import SysLogHandler
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-ALLOWED_HOSTS = ["http2.httptwo.com"]
+ALLOWED_HOSTS = ["http2.httptwo.com", "http2.loadimpact.com"]
 
 ANALYZER_URL = "https://192.168.112.131:1070/setnexturl/"
 
