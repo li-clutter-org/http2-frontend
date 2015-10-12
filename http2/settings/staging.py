@@ -2,7 +2,7 @@ from .base import *
 
 from logging.handlers import SysLogHandler
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = ["http2.httptwo.com", "http2.loadimpact.com"]
 
