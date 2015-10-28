@@ -67,7 +67,7 @@
           status: '@status'
         }, sharedScopeDefinition),
         link: linker(function(scope, url) {
-          scope.status || (scope.status = "Check this out! - " + url);
+          scope.status || (scope.status = "#http2 vs Http/1.1 checkout out my results " + url + " @loadimpact");
           return "https://twitter.com/intent/tweet?text=" + (encodeURIComponent(scope.status));
         })
       };
