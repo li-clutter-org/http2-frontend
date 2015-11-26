@@ -1,0 +1,26 @@
+# This is for postgresql monitoring....
+#
+#
+newrelic:
+  #
+  # Update with your New Relic account license key:
+  #
+  #license_key: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+  #
+  # Set to '1' for verbose output, remove for normal output.
+  # All output goes to stdout/stderr.
+  #
+  # verbose: 1
+#
+# Agent Configuration:
+#
+agents:
+  # this is where configuration for agents belongs
+  postgres:
+    host: '127.0.0.1'
+    port: 5432
+    user: 'http2django'
+    password: '233feeA4af'
+    dbname: 'http2django'
+    sslmode: 'require' # (disable|allow|prefer|require)
+    label: 'Http2 study database' # This label is optional and will default to the server hostname - it shows up in the
